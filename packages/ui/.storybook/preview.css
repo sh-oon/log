@@ -1,0 +1,5 @@
+@import "pretendard/dist/web/variable/pretendardvariable.css";
+@import "tailwindcss";
+@import "@mono/lib/tokens.css";
+@import "@mono/lib/semantic.css";
+@import "@mono/lib/typography.css";

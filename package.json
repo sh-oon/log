@@ -1,0 +1,59 @@
+{
+  "name": "sunghoon-log",
+  "version": "1.1.0",
+  "description": "Yarn Berry workspace based monorepo boilerplate with TypeScript, Biome, and Turbo",
+  "keywords": [
+    "monorepo",
+    "yarn-workspace",
+    "yarn-berry",
+    "typescript",
+    "biome",
+    "turbo",
+    "nextjs",
+    "boilerplate"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sh-oon/next-ts-boilerplate.git"
+  },
+  "license": "MIT",
+  "author": "sh-oon",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "changeset publish",
+    "setup": "node scripts/setup.mjs",
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "lint": "biome check .",
+    "lint:fix": "biome check --write --unsafe .",
+    "format": "biome format --write .",
+    "prepare": "husky",
+    "type-check": "turbo run type-check",
+    "test": "turbo run test",
+    "storybook": "turbo run storybook",
+    "storybook:ui": "yarn workspace @sunghoon-log/ui storybook",
+    "storybook:native": "yarn workspace @sunghoon-log/storybook-native storybook",
+    "dev:mobile": "yarn workspace @sunghoon-log/mobile start"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.3.15",
+    "@changesets/cli": "^2.29.4",
+    "@sunghoon-log/tsconfig": "*",
+    "glob": "^11.0.0",
+    "husky": "^9",
+    "lint-staged": "^16",
+    "turbo": "^2.8.7",
+    "typescript": "^5"
+  },
+  "packageManager": "yarn@4.12.0",
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx,json}": [
+      "biome check --write --no-errors-on-unmatched"
+    ]
+  }
+}

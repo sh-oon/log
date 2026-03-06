@@ -1,0 +1,123 @@
+@theme {
+  /* ── Colors (oklch) ── */
+
+  /* Gray */
+  --color-gray-50: oklch(0.985 0 0);
+  --color-gray-100: oklch(0.97 0.001 286.38);
+  --color-gray-200: oklch(0.92 0.004 286.32);
+  --color-gray-300: oklch(0.87 0.007 286.28);
+  --color-gray-400: oklch(0.71 0.01 286.07);
+  --color-gray-500: oklch(0.55 0.014 285.82);
+  --color-gray-600: oklch(0.45 0.012 285.82);
+  --color-gray-700: oklch(0.37 0.013 285.81);
+  --color-gray-800: oklch(0.27 0.006 286.03);
+  --color-gray-900: oklch(0.21 0.006 285.88);
+  --color-gray-950: oklch(0.13 0.004 285.82);
+
+  /* Blue (Toss) */
+  --color-blue-50: oklch(0.97 0.014 254.6);
+  --color-blue-100: oklch(0.93 0.034 255.6);
+  --color-blue-200: oklch(0.87 0.065 256.1);
+  --color-blue-300: oklch(0.77 0.105 256.8);
+  --color-blue-400: oklch(0.67 0.15 257.3);
+  --color-blue-500: oklch(0.59 0.19 258.1);
+  --color-blue-600: oklch(0.52 0.19 258.1);
+  --color-blue-700: oklch(0.45 0.17 258.1);
+  --color-blue-800: oklch(0.38 0.14 258.1);
+  --color-blue-900: oklch(0.32 0.1 258.1);
+  --color-blue-950: oklch(0.24 0.07 258.1);
+
+  /* Destructive */
+  --color-destructive-50: oklch(0.97 0.014 17.4);
+  --color-destructive-100: oklch(0.94 0.035 21.5);
+  --color-destructive-200: oklch(0.88 0.07 22.1);
+  --color-destructive-300: oklch(0.81 0.117 22.7);
+  --color-destructive-400: oklch(0.72 0.168 24.6);
+  --color-destructive-500: oklch(0.64 0.2 25.3);
+  --color-destructive-600: oklch(0.58 0.22 27.3);
+  --color-destructive-700: oklch(0.5 0.19 27.3);
+  --color-destructive-800: oklch(0.43 0.16 27.3);
+  --color-destructive-900: oklch(0.37 0.12 27.3);
+  --color-destructive-950: oklch(0.26 0.08 27.3);
+
+  /* Success */
+  --color-success-50: oklch(0.97 0.018 155.8);
+  --color-success-100: oklch(0.94 0.04 156.6);
+  --color-success-200: oklch(0.87 0.08 157.2);
+  --color-success-300: oklch(0.79 0.13 157.7);
+  --color-success-400: oklch(0.7 0.17 158.2);
+  --color-success-500: oklch(0.6 0.17 157.6);
+  --color-success-600: oklch(0.52 0.15 157.5);
+  --color-success-700: oklch(0.44 0.13 157.5);
+  --color-success-800: oklch(0.37 0.1 157.5);
+  --color-success-900: oklch(0.32 0.08 157.5);
+  --color-success-950: oklch(0.22 0.06 157.5);
+
+  /* Warning */
+  --color-warning-50: oklch(0.98 0.016 84.4);
+  --color-warning-100: oklch(0.96 0.04 84.4);
+  --color-warning-200: oklch(0.92 0.09 89.3);
+  --color-warning-300: oklch(0.87 0.14 84.4);
+  --color-warning-400: oklch(0.81 0.17 78.9);
+  --color-warning-500: oklch(0.75 0.18 74.6);
+  --color-warning-600: oklch(0.67 0.18 62.8);
+  --color-warning-700: oklch(0.56 0.16 50.5);
+  --color-warning-800: oklch(0.47 0.13 46.2);
+  --color-warning-900: oklch(0.41 0.1 45.9);
+  --color-warning-950: oklch(0.27 0.07 45.9);
+
+  /* ── Typography ── */
+  --font-sans: 'Pretendard Variable', Pretendard, ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* ── Spacing ── */
+  --spacing-0: 0;
+  --spacing-0\.5: 0.125rem;
+  --spacing-1: 0.25rem;
+  --spacing-1\.5: 0.375rem;
+  --spacing-2: 0.5rem;
+  --spacing-2\.5: 0.625rem;
+  --spacing-3: 0.75rem;
+  --spacing-4: 1rem;
+  --spacing-5: 1.25rem;
+  --spacing-6: 1.5rem;
+  --spacing-8: 2rem;
+  --spacing-10: 2.5rem;
+  --spacing-12: 3rem;
+  --spacing-16: 4rem;
+
+  /* ── Radius ── */
+  --radius-none: 0;
+  --radius-sm: 0.25rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
+  --radius-full: 9999px;
+
+  /* ── Shadows ── */
+  --shadow-xs: 0 1px 2px 0 oklch(0 0 0 / 0.05);
+  --shadow-sm: 0 1px 3px 0 oklch(0 0 0 / 0.1), 0 1px 2px -1px oklch(0 0 0 / 0.1);
+  --shadow-md: 0 4px 6px -1px oklch(0 0 0 / 0.1), 0 2px 4px -2px oklch(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px oklch(0 0 0 / 0.1), 0 4px 6px -4px oklch(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px oklch(0 0 0 / 0.1), 0 8px 10px -6px oklch(0 0 0 / 0.1);
+
+  /* Soft Shadows (Toss) */
+  --shadow-soft-sm: 0 2px 8px 0 oklch(0 0 0 / 0.06);
+  --shadow-soft-md: 0 4px 16px 0 oklch(0 0 0 / 0.08);
+  --shadow-soft-lg: 0 8px 32px 0 oklch(0 0 0 / 0.1);
+}

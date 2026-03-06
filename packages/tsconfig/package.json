@@ -1,0 +1,15 @@
+{
+  "name": "@sunghoon-log/tsconfig",
+  "version": "1.0.1",
+  "private": true,
+  "exports": {
+    "./base.json": "./base.json",
+    "./nextjs.json": "./nextjs.json",
+    "./react-library.json": "./react-library.json"
+  },
+  "files": [
+    "base.json",
+    "nextjs.json",
+    "react-library.json"
+  ]
+}

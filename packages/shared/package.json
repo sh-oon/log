@@ -1,0 +1,35 @@
+{
+  "name": "@sunghoon-log/shared",
+  "version": "1.1.0",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "dev": "tsup src/index.ts --format cjs,esm --dts --watch",
+    "lint": "biome check src",
+    "lint:fix": "biome check --write --unsafe src",
+    "type-check": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^3.3.0"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.3.15",
+    "@sunghoon-log/tsconfig": "*",
+    "tsup": "^8",
+    "typescript": "^5",
+    "vitest": "^4"
+  }
+}
