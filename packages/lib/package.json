@@ -7,7 +7,7 @@
     "./typography.css": "./src/typography.css"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.3.15",
+    "@biomejs/biome": "^2.4.6",
     "@sunghoon-log/tsconfig": "*",
     "typescript": "^5"
   }
