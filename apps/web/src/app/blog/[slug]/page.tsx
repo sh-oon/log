@@ -41,7 +41,7 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
 
         <h1 className="text-4xl font-black mb-6 tracking-tight leading-tight">{post.title}</h1>
 
-        <p className="text-lg text-gray-500 dark:text-gray-400 mb-12 font-light">{post.excerpt}</p>
+        <p className="text-lg text-gray-500 dark:text-gray-300 mb-12 font-light">{post.excerpt}</p>
 
         <div className="prose dark:prose-invert max-w-none space-y-4">
           {paragraphs.map((line) => {
@@ -69,7 +69,7 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
               return (
                 <li
                   key={line}
-                  className="text-gray-600 dark:text-gray-400 ml-4"
+                  className="text-gray-600 dark:text-gray-300 ml-4"
                 >
                   {line.slice(2)}
                 </li>
@@ -78,7 +78,7 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
             return (
               <p
                 key={line}
-                className="text-[15px] text-gray-600 dark:text-gray-400 leading-relaxed"
+                className="text-[15px] text-gray-600 dark:text-gray-300 leading-relaxed"
               >
                 {line}
               </p>

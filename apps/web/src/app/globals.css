@@ -3,6 +3,9 @@
 @import '@sunghoon-log/lib/semantic.css';
 @import '@sunghoon-log/lib/typography.css';
 
+/* .dark 클래스 기반 다크모드 — Tailwind v4 필수 설정 */
+@variant dark (&:where(.dark, .dark *));
+
 /* UI 패키지 클래스 스캔 - Tailwind v4 모노레포에서 필수 */
 @source '../../../../packages/ui/src';
 

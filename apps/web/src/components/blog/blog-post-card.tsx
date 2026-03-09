@@ -19,7 +19,7 @@ export const BlogPostCard = ({ post }: BlogPostCardProps) => (
     <h3 className="text-2xl font-bold mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors leading-tight">
       {post.title}
     </h3>
-    <p className="text-[15px] text-gray-600 dark:text-gray-400 leading-relaxed font-light">
+    <p className="text-[15px] text-gray-600 dark:text-gray-300 leading-relaxed font-light">
       {post.excerpt}
     </p>
   </Link>
