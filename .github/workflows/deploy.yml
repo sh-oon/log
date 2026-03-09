@@ -1,0 +1,35 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  notify:
+    name: Deploy Notification
+    runs-on: ubuntu-latest
+    steps:
+      - name: Notify Slack on deploy start
+        uses: slackapi/slack-github-action@v2.1.1
+        with:
+          webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
+          webhook-type: incoming-webhook
+          payload: |
+            text: "배포를 시작했어요"
+            attachments:
+              - color: "#6F42C1"
+                blocks:
+                  - type: "section"
+                    text:
+                      type: "mrkdwn"
+                      text: "*:rocket: 배포를 시작했어요*"
+                  - type: "section"
+                    fields:
+                      - type: "mrkdwn"
+                        text: "*커밋*\n<${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }}|${{ github.event.head_commit.message }}>"
+                      - type: "mrkdwn"
+                        text: "*작성자*\n${{ github.actor }}"
