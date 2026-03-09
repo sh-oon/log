@@ -1,11 +1,24 @@
+import { Flex, Text } from '@sunghoon-log/ui';
+
 export const Footer = () => (
-  <footer className="border-t border-gray-200 dark:border-white/10 py-12">
-    <div className="max-w-3xl mx-auto px-6 flex justify-between items-center text-gray-500 dark:text-gray-400 text-sm font-mono">
-      <div>&copy; 2025 Jeong Seong Hun</div>
-      <div className="flex space-x-6">
+  <footer className="border-t border-border py-12">
+    <Flex
+      justify="between"
+      align="center"
+      className="max-w-3xl mx-auto px-6"
+    >
+      <Text
+        as="span"
+        typography="text-sm-regular"
+        color="muted"
+        className="font-mono"
+      >
+        &copy; 2025 Jeong Seong Hun
+      </Text>
+      <Flex gap={6}>
         <a
           href="https://github.com/sh-oon"
-          className="hover:text-black dark:hover:text-white transition-colors"
+          className="text-sm font-mono text-muted-foreground hover:text-foreground transition-colors"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -13,11 +26,11 @@ export const Footer = () => (
         </a>
         <a
           href="mailto:ajcjcjc@gmail.com"
-          className="hover:text-black dark:hover:text-white transition-colors"
+          className="text-sm font-mono text-muted-foreground hover:text-foreground transition-colors"
         >
           Mail
         </a>
-      </div>
-    </div>
+      </Flex>
+    </Flex>
   </footer>
 );

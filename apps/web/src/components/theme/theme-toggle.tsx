@@ -1,13 +1,14 @@
 'use client';
 
-import { Monitor, Moon, Sun } from 'lucide-react';
+import type { IconName } from '@sunghoon-log/ui';
+import { Icon } from '@sunghoon-log/ui';
 import { useTheme } from './theme-provider';
 
-const icons = {
-  light: Sun,
-  dark: Moon,
-  system: Monitor,
-} as const;
+const icons: Record<string, IconName> = {
+  light: 'sun',
+  dark: 'moon',
+  system: 'monitor',
+};
 
 const nextTheme = {
   light: 'dark',
@@ -23,17 +24,19 @@ const labels = {
 
 export const ThemeToggle = () => {
   const { theme, setTheme } = useTheme();
-  const Icon = icons[theme];
 
   return (
     <button
       type="button"
       onClick={() => setTheme(nextTheme[theme])}
-      className="p-2 rounded-lg text-gray-500 hover:text-black dark:hover:text-white hover:bg-gray-100 dark:hover:bg-white/5 transition-colors"
+      className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
       aria-label={labels[theme]}
       title={labels[theme]}
     >
-      <Icon size={18} />
+      <Icon
+        name={icons[theme]}
+        size={18}
+      />
     </button>
   );
 };
