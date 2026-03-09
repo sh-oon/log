@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Icon, Text } from '@sunghoon-log/ui';
+import { MarkdownRenderer } from '@/components/markdown-renderer';
 import { getPostBySlug } from '@/lib/posts';
 
 export const dynamic = 'force-dynamic';
@@ -16,8 +17,6 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
   if (!post || !post.published) {
     notFound();
   }
-
-  const paragraphs = post.content.split('\n').filter((line) => line.trim() !== '');
 
   return (
     <main className="max-w-3xl mx-auto px-6 py-16">
@@ -56,48 +55,7 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
           {post.excerpt}
         </Text>
 
-        <div className="prose dark:prose-invert max-w-none space-y-4">
-          {paragraphs.map((line) => {
-            if (line.startsWith('# ')) {
-              return (
-                <h1
-                  key={line}
-                  className="text-3xl font-bold mt-8 mb-4"
-                >
-                  {line.slice(2)}
-                </h1>
-              );
-            }
-            if (line.startsWith('## ')) {
-              return (
-                <h2
-                  key={line}
-                  className="text-2xl font-bold mt-8 mb-3"
-                >
-                  {line.slice(3)}
-                </h2>
-              );
-            }
-            if (line.startsWith('- ')) {
-              return (
-                <li
-                  key={line}
-                  className="text-muted-foreground ml-4"
-                >
-                  {line.slice(2)}
-                </li>
-              );
-            }
-            return (
-              <p
-                key={line}
-                className="text-[15px] text-muted-foreground leading-relaxed"
-              >
-                {line}
-              </p>
-            );
-          })}
-        </div>
+        <MarkdownRenderer content={post.content} />
       </article>
     </main>
   );
