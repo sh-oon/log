@@ -44,16 +44,28 @@ jobs:
           webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
           webhook-type: incoming-webhook
           payload: |
-            text: "CI Failed"
-            blocks:
-              - type: "section"
-                text:
-                  type: "mrkdwn"
-                  text: "*:x: CI Failed*\n*PR:* <${{ github.event.pull_request.html_url }}|${{ github.event.pull_request.title }}>\n*Branch:* `${{ github.head_ref }}`\n*Author:* ${{ github.actor }}"
-              - type: "actions"
-                elements:
-                  - type: "button"
+            text: "CI 검사를 통과하지 못했어요"
+            attachments:
+              - color: "#DC3545"
+                blocks:
+                  - type: "section"
                     text:
-                      type: "plain_text"
-                      text: "View Run"
-                    url: "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+                      type: "mrkdwn"
+                      text: "*:x: CI 검사를 통과하지 못했어요*"
+                  - type: "section"
+                    fields:
+                      - type: "mrkdwn"
+                        text: "*풀 리퀘스트*\n<${{ github.event.pull_request.html_url }}|${{ github.event.pull_request.title }}>"
+                      - type: "mrkdwn"
+                        text: "*브랜치*\n`${{ github.head_ref }}`"
+                  - type: "section"
+                    fields:
+                      - type: "mrkdwn"
+                        text: "*작성자*\n${{ github.actor }}"
+                  - type: "actions"
+                    elements:
+                      - type: "button"
+                        text:
+                          type: "plain_text"
+                          text: "실행 로그 확인하기"
+                        url: "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
