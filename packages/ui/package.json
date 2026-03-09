@@ -24,6 +24,7 @@
     "@sunghoon-log/lib": "workspace:*",
     "@sunghoon-log/shared": "workspace:*",
     "gsap": "^3.14.2",
+    "lucide-react": "^0.577.0",
     "overlay-kit": "^1.8.6",
     "sonner": "^2.0.7"
   },

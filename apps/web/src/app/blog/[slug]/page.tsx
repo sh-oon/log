@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { ArrowLeft } from 'lucide-react';
+import { Icon, Text } from '@sunghoon-log/ui';
 import { getPostBySlug } from '@/lib/posts';
 
 export const dynamic = 'force-dynamic';
@@ -23,9 +23,10 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
     <main className="max-w-3xl mx-auto px-6 py-16">
       <Link
         href="/blog"
-        className="inline-flex items-center text-sm text-gray-500 hover:text-black dark:hover:text-white transition-colors mb-8"
+        className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground transition-colors mb-8"
       >
-        <ArrowLeft
+        <Icon
+          name="arrow-left"
           size={16}
           className="mr-1"
         />
@@ -33,15 +34,27 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
       </Link>
 
       <article>
-        <div className="flex items-center space-x-3 text-xs font-mono text-gray-400 mb-4">
+        <div className="flex items-center space-x-3 text-xs font-mono text-muted-foreground mb-4">
           <span>{post.date}</span>
-          <span className="w-1 h-1 bg-gray-300 rounded-full" />
-          <span className="text-blue-500 font-bold uppercase tracking-widest">{post.category}</span>
+          <span className="w-1 h-1 bg-muted-foreground rounded-full" />
+          <span className="text-primary font-bold uppercase tracking-widest">{post.category}</span>
         </div>
 
-        <h1 className="text-4xl font-black mb-6 tracking-tight leading-tight">{post.title}</h1>
+        <Text
+          as="h1"
+          typography="title-2xl-bold"
+          className="mb-6 tracking-tight leading-tight"
+        >
+          {post.title}
+        </Text>
 
-        <p className="text-lg text-gray-500 dark:text-gray-400 mb-12 font-light">{post.excerpt}</p>
+        <Text
+          typography="text-lg-regular"
+          color="muted"
+          className="mb-12"
+        >
+          {post.excerpt}
+        </Text>
 
         <div className="prose dark:prose-invert max-w-none space-y-4">
           {paragraphs.map((line) => {
@@ -69,7 +82,7 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
               return (
                 <li
                   key={line}
-                  className="text-gray-600 dark:text-gray-400 ml-4"
+                  className="text-muted-foreground ml-4"
                 >
                   {line.slice(2)}
                 </li>
@@ -78,7 +91,7 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
             return (
               <p
                 key={line}
-                className="text-[15px] text-gray-600 dark:text-gray-400 leading-relaxed"
+                className="text-[15px] text-muted-foreground leading-relaxed"
               >
                 {line}
               </p>

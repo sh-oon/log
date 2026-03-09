@@ -1,21 +1,54 @@
-import { ArrowRight } from 'lucide-react';
+'use client';
+
+import { Flex, Icon, Text } from '@sunghoon-log/ui';
+import { overlay } from 'overlay-kit';
+import { ProjectDetailOverlay } from '@/components/project/project-detail-overlay';
+import type { Project } from '@/data/projects';
 
 interface ProjectRowProps {
-  title: string;
-  desc: string;
+  project: Project;
 }
 
-export const ProjectRow = ({ title, desc }: ProjectRowProps) => (
-  <div className="p-6 rounded-xl border border-gray-200 dark:border-white/10 hover:border-black dark:hover:border-white transition-all cursor-pointer group">
-    <div className="flex justify-between items-center mb-2">
-      <h4 className="font-bold group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-        {title}
-      </h4>
-      <ArrowRight
-        size={16}
-        className="text-gray-300 group-hover:text-black dark:group-hover:text-white transform transition-all group-hover:translate-x-1"
-      />
-    </div>
-    <p className="text-sm text-gray-500 dark:text-gray-400 font-light">{desc}</p>
-  </div>
+export const ProjectRow = ({ project }: ProjectRowProps) => (
+  <button
+    type="button"
+    className="w-full text-left p-6 rounded-2xl border border-border hover:border-primary transition-all cursor-pointer group bg-background"
+    onClick={() =>
+      overlay.open(({ isOpen, close, unmount }) => (
+        <ProjectDetailOverlay
+          project={project}
+          isOpen={isOpen}
+          onClose={close}
+          onExit={unmount}
+        />
+      ))
+    }
+  >
+    <Flex
+      justify="between"
+      align="center"
+      className="mb-2"
+    >
+      <Text
+        as="h4"
+        typography="text-lg-bold"
+        className="group-hover:text-primary transition-colors"
+      >
+        {project.title}
+      </Text>
+      <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center group-hover:bg-primary group-hover:text-primary-foreground transition-all">
+        <Icon
+          name="arrow-right"
+          size={16}
+        />
+      </div>
+    </Flex>
+    <Text
+      typography="text-sm-regular"
+      color="muted"
+      className="leading-relaxed"
+    >
+      {project.summary}
+    </Text>
+  </button>
 );

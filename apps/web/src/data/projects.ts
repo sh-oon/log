@@ -1,0 +1,59 @@
+export interface Project {
+  id: string;
+  title: string;
+  period: string;
+  company: string;
+  contribution: string;
+  summary: string;
+  tech: string[];
+  problem: string;
+  action: string;
+  result: string;
+}
+
+export const projectsData: Project[] = [
+  {
+    id: 'rag-search',
+    title: 'AI 기반 문서 검색 챗봇 플랫폼',
+    period: '2024.12 - 진행 중',
+    company: '주식회사 써로마인드',
+    contribution: '30% (FE 아키텍처 기획 핵심 플로우 주도)',
+    summary: '문서 업로드부터 벡터화까지의 과정을 SSE 스트리밍 UI로 시각화한 지능형 검색 플랫폼.',
+    tech: ['Next.js', 'TypeScript', 'SSE', 'Tailwind CSS'],
+    problem:
+      '기존 검색 시스템이 키워드 중심이라 문맥 이해가 부족하고, 여러 저장소에 분산된 정보 탐색에 시간이 많이 소요됨.',
+    action:
+      '문서 업로드 -> 벡터화 인덱싱 진행 상태를 SSE 스트리밍 UI로 실시간 표시. 출처/근거 스니펫을 포함한 Explainable UI 설계.',
+    result:
+      '대량 문서 처리 환경에서도 안정적인 UX 제공 기반 마련. 엔터프라이즈 환경에 적합한 신뢰성 확보.',
+  },
+  {
+    id: 'plant-pid',
+    title: '플랜트 P&ID AI 시각화 편집 솔루션',
+    period: '2024.06 - 진행 중',
+    company: '주식회사 써로마인드 (삼성 E&A)',
+    contribution: '40% (FE 아키텍처, 인터랙션 구현, 폐쇄망 대응)',
+    summary:
+      '대용량 도면 데이터를 Konva 기반 캔버스로 가상화하여 폐쇄망 환경에서 동작하는 편집 엔진.',
+    tech: ['Konva.js', 'React', 'Vite', 'Zod'],
+    problem:
+      '수만 개의 심볼을 가진 대용량 도면 처리 시 성능 저하 및 폐쇄망 환경에서의 외부 라이브러리 사용 제한.',
+    action:
+      'Konva 기반 시각화/편집 아키텍처 설계. 대용량 도면 가상화 전략 적용. 리소스 로컬라이징 및 번들 최적화.',
+    result: '사내망 환경에서 AI 분석 -> 시각화 편집 -> 저장까지 전 과정 안정적 수행 성공.',
+  },
+  {
+    id: 'build-simple',
+    title: '3D 시각화 기반 빌드 심플리',
+    period: '2023.05 - 2023.10',
+    company: '(주)케이씨산업',
+    contribution: '40% (FE 전환, 3D 시각화, 배포 파이프라인)',
+    summary: 'Three.js를 활용한 주택 타입별 실시간 3D 프리뷰 및 견적 데이터 동기화 시스템.',
+    tech: ['Three.js', 'Express.js', 'React', 'Puppeteer'],
+    problem: 'CSR 기반의 낮은 SEO 점수 및 브라우저별 PDF 레이아웃 깨짐 현상 빈번 발생.',
+    action:
+      'Express 기반 SSG 전환으로 SEO 개선. Headless Chromium(Puppeteer) 도입으로 안정적 PDF 생성.',
+    result:
+      'SEO Lighthouse 점수 91점 개선. 유입 트래픽 1.8배 증가. PDF 오류 접수 월 15건 -> 2건으로 감소.',
+  },
+];

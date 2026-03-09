@@ -80,6 +80,7 @@ export { EmptyState, type EmptyStateProps } from './empty-state';
 export { Field, type FieldProps } from './field';
 export { Flex, type FlexProps } from './flex';
 export { Grid, type GridProps } from './grid';
+export { Icon, type IconComponentProps, type IconName } from './icon';
 export { EyeIcon, EyeOffIcon, type IconProps, SearchIcon, XIcon } from './icons';
 export { Input, type InputProps } from './input';
 export { Pagination, type PaginationProps } from './pagination';

@@ -1734,6 +1734,7 @@ __metadata:
     "@types/react": "npm:^19.2.14"
     "@types/react-dom": "npm:^19"
     gsap: "npm:^3.14.2"
+    lucide-react: "npm:^0.577.0"
     overlay-kit: "npm:^1.8.6"
     pretendard: "npm:^1.3.9"
     react: "npm:^19.2.4"
@@ -1761,8 +1762,10 @@ __metadata:
     "@types/node": "npm:^25"
     "@types/react": "npm:^19"
     "@types/react-dom": "npm:^19"
+    framer-motion: "npm:^12.35.1"
     lucide-react: "npm:^0.577.0"
     next: "npm:15.5.4"
+    overlay-kit: "npm:^1.9.0"
     react: "npm:19.2.4"
     react-dom: "npm:19.2.4"
     tailwindcss: "npm:^4"
@@ -3092,6 +3095,28 @@ __metadata:
   languageName: node
   linkType: hard
 
+"framer-motion@npm:^12.35.1":
+  version: 12.35.1
+  resolution: "framer-motion@npm:12.35.1"
+  dependencies:
+    motion-dom: "npm:^12.35.1"
+    motion-utils: "npm:^12.29.2"
+    tslib: "npm:^2.4.0"
+  peerDependencies:
+    "@emotion/is-prop-valid": "*"
+    react: ^18.0.0 || ^19.0.0
+    react-dom: ^18.0.0 || ^19.0.0
+  peerDependenciesMeta:
+    "@emotion/is-prop-valid":
+      optional: true
+    react:
+      optional: true
+    react-dom:
+      optional: true
+  checksum: 10c0/81186f06f01c674b6b544a8d29b3fcde61f9aa7d02181b55a0af478611c0996e3c4aaf7bd0f6a7d80ba9c2d5cb4756ee9634198771416fd160208dfdf7ca5941
+  languageName: node
+  linkType: hard
+
 "fs-extra@npm:^7.0.1":
   version: 7.0.1
   resolution: "fs-extra@npm:7.0.1"
@@ -3994,6 +4019,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"motion-dom@npm:^12.35.1":
+  version: 12.35.1
+  resolution: "motion-dom@npm:12.35.1"
+  dependencies:
+    motion-utils: "npm:^12.29.2"
+  checksum: 10c0/086ff5ea3b566e8838fc4210270714e1b6bb45e6595c3472e74e1dbf5a669c7d2101061c95dec63919d623554617ede74d62ec428f8b1121806d159beb0feae6
+  languageName: node
+  linkType: hard
+
+"motion-utils@npm:^12.29.2":
+  version: 12.29.2
+  resolution: "motion-utils@npm:12.29.2"
+  checksum: 10c0/8058fbb3467602e8263a8a6df0e5d318d00d30d7148415d2ebc13c78a3c7a1b0cbec0808bb62e82c34714979ecbed15b9fffb91bde654dbf3602c84b7d66a5b6
+  languageName: node
+  linkType: hard
+
 "mri@npm:^1.2.0":
   version: 1.2.0
   resolution: "mri@npm:1.2.0"
@@ -4188,6 +4229,15 @@ __metadata:
     react: ^16.8 || ^17 || ^18 || ^19
     react-dom: ^16.8 || ^17 || ^18 || ^19
   checksum: 10c0/025d61133475500ccd7f07d07e346f65880feec7898ab2ad535a4f290c885dfb68d749518873ac5dd85b38b4caa4ef2b6464e249aef03707a26e0f1768fb2ef9
+  languageName: node
+  linkType: hard
+
+"overlay-kit@npm:^1.9.0":
+  version: 1.9.0
+  resolution: "overlay-kit@npm:1.9.0"
+  peerDependencies:
+    react: ^16.8 || ^17 || ^18 || ^19
+  checksum: 10c0/b32a6f8648a075598ee215775b541d3e144c075a233ecc6b1630bee33d72fa39e12d1204919a7f1ea575daf5c1e467d41cfbd8eb3369a5734d141d0f07d5ca2b
   languageName: node
   linkType: hard
 

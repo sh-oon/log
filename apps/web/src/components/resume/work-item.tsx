@@ -1,3 +1,5 @@
+import { Flex, Text } from '@sunghoon-log/ui';
+
 interface WorkItemProps {
   company: string;
   role: string;
@@ -7,18 +9,40 @@ interface WorkItemProps {
 
 export const WorkItem = ({ company, role, period, points }: WorkItemProps) => (
   <div className="group">
-    <div className="flex justify-between items-baseline mb-4">
-      <h3 className="text-xl font-bold">{company}</h3>
-      <span className="text-xs font-mono text-gray-400">{period}</span>
-    </div>
-    <div className="text-sm font-medium text-blue-600 dark:text-blue-400 mb-4">{role}</div>
+    <Flex
+      justify="between"
+      align="baseline"
+      className="mb-4"
+    >
+      <Text
+        as="h3"
+        typography="text-lg-bold"
+      >
+        {company}
+      </Text>
+      <Text
+        as="span"
+        typography="text-xs-regular"
+        color="muted"
+        className="font-mono"
+      >
+        {period}
+      </Text>
+    </Flex>
+    <Text
+      typography="text-sm-medium"
+      color="muted"
+      className="mb-4"
+    >
+      {role}
+    </Text>
     <ul className="space-y-2">
       {points.map((point) => (
         <li
           key={point}
-          className="text-[15px] text-gray-600 dark:text-gray-400 flex items-start"
+          className="text-[15px] text-muted-foreground flex items-start"
         >
-          <span className="mr-3 text-gray-300">&mdash;</span>
+          <span className="mr-3 text-border">&mdash;</span>
           {point}
         </li>
       ))}
