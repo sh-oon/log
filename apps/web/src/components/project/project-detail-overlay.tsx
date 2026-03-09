@@ -51,7 +51,12 @@ const sections = [
   { key: 'result', icon: 'trophy' as IconName, color: 'text-warning-500', title: 'The Result' },
 ] as const;
 
-export const ProjectDetailOverlay = ({ project, isOpen, onClose, onExit }: ProjectDetailOverlayProps) => {
+export const ProjectDetailOverlay = ({
+  project,
+  isOpen,
+  onClose,
+  onExit,
+}: ProjectDetailOverlayProps) => {
   useEffect(() => {
     if (!isOpen) return;
     const original = document.body.style.overflow;
@@ -64,163 +69,166 @@ export const ProjectDetailOverlay = ({ project, isOpen, onClose, onExit }: Proje
   return (
     <AnimatePresence onExitComplete={onExit}>
       {isOpen && (
-      <motion.div key="project-overlay" className="fixed inset-0 z-[100] flex justify-end">
-        {/* Backdrop */}
         <motion.div
-          className="absolute inset-0 bg-black/40 backdrop-blur-sm"
-          variants={backdropVariants}
-          initial="hidden"
-          animate="visible"
-          exit="exit"
-          onClick={onClose}
-        />
-
-        {/* Side Panel */}
-        <motion.div
-          className="relative w-full max-w-2xl bg-background h-full shadow-2xl overflow-y-auto"
-          variants={panelVariants}
-          initial="hidden"
-          animate="visible"
-          exit="exit"
+          key="project-overlay"
+          className="fixed inset-0 z-[100] flex justify-end"
         >
-          {/* Sticky Header */}
-          <Flex
-            justify="between"
-            align="center"
-            className="sticky top-0 bg-background/80 backdrop-blur-md p-6 border-b border-border z-10"
-          >
-            <Flex
-              align="center"
-              gap={2}
-            >
-              <motion.div
-                className="w-2 h-2 bg-primary rounded-full"
-                animate={{ scale: [1, 1.3, 1] }}
-                transition={{ repeat: Number.POSITIVE_INFINITY, duration: 2 }}
-              />
-              <Text
-                as="span"
-                typography="text-xs-bold"
-                color="muted"
-                className="font-mono tracking-widest uppercase"
-              >
-                Project Details
-              </Text>
-            </Flex>
-            <motion.button
-              onClick={onClose}
-              className="p-2 hover:bg-muted rounded-full transition-colors"
-              whileHover={{ rotate: 90 }}
-              whileTap={{ scale: 0.9 }}
-            >
-              <Icon
-                name="x"
-                size={24}
-              />
-            </motion.button>
-          </Flex>
+          {/* Backdrop */}
+          <motion.div
+            className="absolute inset-0 bg-black/40 backdrop-blur-sm"
+            variants={backdropVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            onClick={onClose}
+          />
 
-          <div className="p-8 md:p-12 space-y-12 pb-24">
-            {/* Header */}
-            <motion.section
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.15, duration: 0.4 }}
+          {/* Side Panel */}
+          <motion.div
+            className="relative w-full max-w-2xl bg-background h-full shadow-2xl overflow-y-auto"
+            variants={panelVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+          >
+            {/* Sticky Header */}
+            <Flex
+              justify="between"
+              align="center"
+              className="sticky top-0 bg-background/80 backdrop-blur-md p-6 border-b border-border z-10"
             >
-              <Text
-                typography="text-sm-regular"
-                color="muted"
-                className="font-mono mb-2"
-              >
-                {project.company}
-              </Text>
-              <Text
-                as="h2"
-                typography="title-2xl-bold"
-                className="tracking-tight mb-4 leading-tight"
-              >
-                {project.title}
-              </Text>
               <Flex
                 align="center"
                 gap={2}
-                className="text-xs font-mono text-muted-foreground mb-6"
               >
-                <span>{project.period}</span>
-                <span className="w-1 h-1 bg-muted-foreground rounded-full" />
-                <span>{project.contribution}</span>
+                <motion.div
+                  className="w-2 h-2 bg-primary rounded-full"
+                  animate={{ scale: [1, 1.3, 1] }}
+                  transition={{ repeat: Number.POSITIVE_INFINITY, duration: 2 }}
+                />
+                <Text
+                  as="span"
+                  typography="text-xs-bold"
+                  color="muted"
+                  className="font-mono tracking-widest uppercase"
+                >
+                  Project Details
+                </Text>
               </Flex>
-              <Flex
-                wrap="wrap"
-                gap={2}
+              <motion.button
+                onClick={onClose}
+                className="p-2 hover:bg-muted rounded-full transition-colors"
+                whileHover={{ rotate: 90 }}
+                whileTap={{ scale: 0.9 }}
               >
-                {project.tech.map((t) => (
-                  <Chip
-                    key={t}
-                    size="sm"
-                  >
-                    {t}
-                  </Chip>
-                ))}
-              </Flex>
-            </motion.section>
+                <Icon
+                  name="x"
+                  size={24}
+                />
+              </motion.button>
+            </Flex>
 
-            {/* P-A-R Sections */}
-            {sections.map((section, i) => (
-              <motion.div
-                key={section.key}
-                className="space-y-4"
-                custom={i}
-                variants={sectionVariants}
-                initial="hidden"
-                animate="visible"
+            <div className="p-8 md:p-12 space-y-12 pb-24">
+              {/* Header */}
+              <motion.section
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.15, duration: 0.4 }}
               >
+                <Text
+                  typography="text-sm-regular"
+                  color="muted"
+                  className="font-mono mb-2"
+                >
+                  {project.company}
+                </Text>
+                <Text
+                  as="h2"
+                  typography="title-2xl-bold"
+                  className="tracking-tight mb-4 leading-tight"
+                >
+                  {project.title}
+                </Text>
                 <Flex
                   align="center"
-                  gap={3}
+                  gap={2}
+                  className="text-xs font-mono text-muted-foreground mb-6"
                 >
-                  <motion.div
-                    className="p-2 bg-muted rounded-lg"
-                    whileHover={{ scale: 1.1 }}
-                  >
-                    <Icon
-                      name={section.icon}
-                      size={20}
-                      className={section.color}
-                    />
-                  </motion.div>
-                  <Text
-                    as="h4"
-                    typography="text-sm-bold"
-                    color="muted"
-                    className="uppercase tracking-[0.2em]"
-                  >
-                    {section.title}
-                  </Text>
+                  <span>{project.period}</span>
+                  <span className="w-1 h-1 bg-muted-foreground rounded-full" />
+                  <span>{project.contribution}</span>
                 </Flex>
-                <div className="pl-12">
-                  <Text
-                    typography="text-lg-regular"
-                    className="leading-relaxed"
-                  >
-                    {project[section.key]}
-                  </Text>
-                  {section.key === 'action' && (
-                    <Text
-                      typography="text-sm-regular"
-                      color="muted"
-                      className="mt-2 font-mono tracking-tighter"
+                <Flex
+                  wrap="wrap"
+                  gap={2}
+                >
+                  {project.tech.map((t) => (
+                    <Chip
+                      key={t}
+                      size="sm"
                     >
-                      {project.contribution}
+                      {t}
+                    </Chip>
+                  ))}
+                </Flex>
+              </motion.section>
+
+              {/* P-A-R Sections */}
+              {sections.map((section, i) => (
+                <motion.div
+                  key={section.key}
+                  className="space-y-4"
+                  custom={i}
+                  variants={sectionVariants}
+                  initial="hidden"
+                  animate="visible"
+                >
+                  <Flex
+                    align="center"
+                    gap={3}
+                  >
+                    <motion.div
+                      className="p-2 bg-muted rounded-lg"
+                      whileHover={{ scale: 1.1 }}
+                    >
+                      <Icon
+                        name={section.icon}
+                        size={20}
+                        className={section.color}
+                      />
+                    </motion.div>
+                    <Text
+                      as="h4"
+                      typography="text-sm-bold"
+                      color="muted"
+                      className="uppercase tracking-[0.2em]"
+                    >
+                      {section.title}
                     </Text>
-                  )}
-                </div>
-              </motion.div>
-            ))}
-          </div>
+                  </Flex>
+                  <div className="pl-12">
+                    <Text
+                      typography="text-lg-regular"
+                      className="leading-relaxed"
+                    >
+                      {project[section.key]}
+                    </Text>
+                    {section.key === 'action' && (
+                      <Text
+                        typography="text-sm-regular"
+                        color="muted"
+                        className="mt-2 font-mono tracking-tighter"
+                      >
+                        {project.contribution}
+                      </Text>
+                    )}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
         </motion.div>
-      </motion.div>
-    )}
+      )}
     </AnimatePresence>
   );
 };
