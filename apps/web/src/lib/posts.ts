@@ -23,22 +23,14 @@ export const getAllPostsIncludingDrafts = async (): Promise<PostMeta[]> => {
 };
 
 export const getPostBySlug = async (slug: string): Promise<Post | null> => {
-  const { data, error } = await supabaseAdmin
-    .from('posts')
-    .select('*')
-    .eq('slug', slug)
-    .single();
+  const { data, error } = await supabaseAdmin.from('posts').select('*').eq('slug', slug).single();
 
   if (error) return null;
   return data;
 };
 
 export const createPost = async (post: Post): Promise<Post> => {
-  const { data, error } = await supabaseAdmin
-    .from('posts')
-    .insert(post)
-    .select()
-    .single();
+  const { data, error } = await supabaseAdmin.from('posts').insert(post).select().single();
 
   if (error) throw new Error(error.message);
   return data;
@@ -57,10 +49,7 @@ export const updatePost = async (slug: string, updates: Partial<Post>): Promise<
 };
 
 export const deletePost = async (slug: string): Promise<void> => {
-  const { error } = await supabaseAdmin
-    .from('posts')
-    .delete()
-    .eq('slug', slug);
+  const { error } = await supabaseAdmin.from('posts').delete().eq('slug', slug);
 
   if (error) throw new Error(error.message);
 };
