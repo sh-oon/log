@@ -1,6 +1,8 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "globalDependencies": ["**/.env.*local"],
+  "globalPassThroughEnv": ["ENABLE_EXPERIMENTAL_COREPACK"],
+  "globalEnv": ["ADMIN_PASSWORD"],
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
