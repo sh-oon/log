@@ -8,7 +8,9 @@ import type { Project } from '@/data/projects';
 
 interface ProjectDetailOverlayProps {
   project: Project;
+  isOpen: boolean;
   onClose: () => void;
+  onExit: () => void;
 }
 
 const backdropVariants = {
@@ -49,18 +51,20 @@ const sections = [
   { key: 'result', icon: 'trophy' as IconName, color: 'text-warning-500', title: 'The Result' },
 ] as const;
 
-export const ProjectDetailOverlay = ({ project, onClose }: ProjectDetailOverlayProps) => {
+export const ProjectDetailOverlay = ({ project, isOpen, onClose, onExit }: ProjectDetailOverlayProps) => {
   useEffect(() => {
+    if (!isOpen) return;
     const original = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
     return () => {
       document.body.style.overflow = original;
     };
-  }, []);
+  }, [isOpen]);
 
   return (
-    <AnimatePresence>
-      <div className="fixed inset-0 z-[100] flex justify-end">
+    <AnimatePresence onExitComplete={onExit}>
+      {isOpen && (
+      <motion.div key="project-overlay" className="fixed inset-0 z-[100] flex justify-end">
         {/* Backdrop */}
         <motion.div
           className="absolute inset-0 bg-black/40 backdrop-blur-sm"
@@ -215,7 +219,8 @@ export const ProjectDetailOverlay = ({ project, onClose }: ProjectDetailOverlayP
             ))}
           </div>
         </motion.div>
-      </div>
+      </motion.div>
+    )}
     </AnimatePresence>
   );
 };

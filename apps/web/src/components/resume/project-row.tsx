@@ -1,7 +1,8 @@
 'use client';
 
 import { Flex, Icon, Text } from '@sunghoon-log/ui';
-import { openProjectOverlay } from '@/components/project/use-project-overlay';
+import { overlay } from 'overlay-kit';
+import { ProjectDetailOverlay } from '@/components/project/project-detail-overlay';
 import type { Project } from '@/data/projects';
 
 interface ProjectRowProps {
@@ -12,7 +13,16 @@ export const ProjectRow = ({ project }: ProjectRowProps) => (
   <button
     type="button"
     className="w-full text-left p-6 rounded-2xl border border-border hover:border-primary transition-all cursor-pointer group bg-background"
-    onClick={() => openProjectOverlay(project)}
+    onClick={() =>
+      overlay.open(({ isOpen, close, unmount }) => (
+        <ProjectDetailOverlay
+          project={project}
+          isOpen={isOpen}
+          onClose={close}
+          onExit={unmount}
+        />
+      ))
+    }
   >
     <Flex
       justify="between"
