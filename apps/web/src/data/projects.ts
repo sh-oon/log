@@ -33,7 +33,8 @@ export const projectsData: Project[] = [
     period: '2024.06 - 진행 중',
     company: '주식회사 써로마인드 (삼성 E&A)',
     contribution: '40% (FE 아키텍처, 인터랙션 구현, 폐쇄망 대응)',
-    summary: '대용량 도면 데이터를 Konva 기반 캔버스로 가상화하여 폐쇄망 환경에서 동작하는 편집 엔진.',
+    summary:
+      '대용량 도면 데이터를 Konva 기반 캔버스로 가상화하여 폐쇄망 환경에서 동작하는 편집 엔진.',
     tech: ['Konva.js', 'React', 'Vite', 'Zod'],
     problem:
       '수만 개의 심볼을 가진 대용량 도면 처리 시 성능 저하 및 폐쇄망 환경에서의 외부 라이브러리 사용 제한.',

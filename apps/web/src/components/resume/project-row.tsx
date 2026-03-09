@@ -1,16 +1,17 @@
 'use client';
 
 import { ArrowRight } from 'lucide-react';
-import type { Project } from '@/data/projects';
 import { openProjectOverlay } from '@/components/project/use-project-overlay';
+import type { Project } from '@/data/projects';
 
 interface ProjectRowProps {
   project: Project;
 }
 
 export const ProjectRow = ({ project }: ProjectRowProps) => (
-  <div
-    className="p-6 rounded-2xl border border-gray-200 dark:border-white/15 hover:border-primary transition-all cursor-pointer group bg-white dark:bg-white/5"
+  <button
+    type="button"
+    className="w-full text-left p-6 rounded-2xl border border-gray-200 dark:border-white/15 hover:border-primary transition-all cursor-pointer group bg-white dark:bg-white/5"
     onClick={() => openProjectOverlay(project)}
   >
     <div className="flex justify-between items-center mb-2">
@@ -24,5 +25,5 @@ export const ProjectRow = ({ project }: ProjectRowProps) => (
     <p className="text-sm text-gray-500 dark:text-gray-300 font-light leading-relaxed">
       {project.summary}
     </p>
-  </div>
+  </button>
 );
