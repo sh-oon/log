@@ -1,0 +1,27 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  notify:
+    name: Deploy Notification
+    runs-on: ubuntu-latest
+    steps:
+      - name: Notify Slack on deploy start
+        uses: slackapi/slack-github-action@v2.1.1
+        with:
+          webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
+          webhook-type: incoming-webhook
+          payload: |
+            text: "Deploy Started"
+            blocks:
+              - type: "section"
+                text:
+                  type: "mrkdwn"
+                  text: "*:rocket: Deploy Started*\n*Commit:* <${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }}|${{ github.event.head_commit.message }}>\n*Author:* ${{ github.actor }}"
