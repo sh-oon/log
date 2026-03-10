@@ -36,7 +36,7 @@ export const markdownComponents: Components = {
   img: ({ src, alt }) => (
     <figure className="my-6">
       <Image
-        src={src ?? ''}
+        src={typeof src === 'string' ? src : ''}
         alt={alt ?? ''}
         width={768}
         height={432}
