@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import type { Components } from 'react-markdown';
 import { CodeBlock, InlineCode } from './code-block';
 
@@ -12,22 +13,14 @@ export const markdownComponents: Components = {
       {children}
     </h2>
   ),
-  h3: ({ children }) => (
-    <h3 className="title-md-semibold mt-8 mb-3 text-foreground">{children}</h3>
-  ),
-  h4: ({ children }) => (
-    <h4 className="title-sm-semibold mt-6 mb-2 text-foreground">{children}</h4>
-  ),
-  h5: ({ children }) => (
-    <h5 className="title-xs-semibold mt-4 mb-2 text-foreground">{children}</h5>
-  ),
+  h3: ({ children }) => <h3 className="title-md-semibold mt-8 mb-3 text-foreground">{children}</h3>,
+  h4: ({ children }) => <h4 className="title-sm-semibold mt-6 mb-2 text-foreground">{children}</h4>,
+  h5: ({ children }) => <h5 className="title-xs-semibold mt-4 mb-2 text-foreground">{children}</h5>,
   h6: ({ children }) => (
     <h6 className="title-xs-medium mt-4 mb-2 text-muted-foreground">{children}</h6>
   ),
 
-  p: ({ children }) => (
-    <p className="text-md-regular text-foreground leading-7 my-4">{children}</p>
-  ),
+  p: ({ children }) => <p className="text-md-regular text-foreground leading-7 my-4">{children}</p>,
 
   a: ({ href, children }) => (
     <a
@@ -42,11 +35,12 @@ export const markdownComponents: Components = {
 
   img: ({ src, alt }) => (
     <figure className="my-6">
-      <img
-        src={src}
+      <Image
+        src={src ?? ''}
         alt={alt ?? ''}
-        className="rounded-lg border border-border w-full"
-        loading="lazy"
+        width={768}
+        height={432}
+        className="rounded-lg border border-border w-full h-auto"
       />
       {alt && (
         <figcaption className="mt-2 text-center text-sm-regular text-muted-foreground">
@@ -66,9 +60,7 @@ export const markdownComponents: Components = {
     <ul className="my-4 ml-6 list-disc space-y-1 text-md-regular text-foreground">{children}</ul>
   ),
   ol: ({ children }) => (
-    <ol className="my-4 ml-6 list-decimal space-y-1 text-md-regular text-foreground">
-      {children}
-    </ol>
+    <ol className="my-4 ml-6 list-decimal space-y-1 text-md-regular text-foreground">{children}</ol>
   ),
   li: ({ children }) => <li className="leading-7 pl-1">{children}</li>,
 
@@ -97,11 +89,7 @@ export const markdownComponents: Components = {
     const isBlock = className?.includes('language-') || String(children).includes('\n');
 
     if (isBlock) {
-      return (
-        <CodeBlock className={className}>
-          {children}
-        </CodeBlock>
-      );
+      return <CodeBlock className={className}>{children}</CodeBlock>;
     }
 
     return <InlineCode>{children}</InlineCode>;
