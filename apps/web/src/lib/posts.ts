@@ -20,7 +20,10 @@ const toMeta = ({ content: _, ...meta }: Post): PostMeta => meta;
 
 export const getAllPosts = async (): Promise<PostMeta[]> => {
   const posts = readPosts();
-  return posts.filter((p) => p.published).sort((a, b) => b.date.localeCompare(a.date)).map(toMeta);
+  return posts
+    .filter((p) => p.published)
+    .sort((a, b) => b.date.localeCompare(a.date))
+    .map(toMeta);
 };
 
 export const getAllPostsIncludingDrafts = async (): Promise<PostMeta[]> => {

@@ -1,7 +1,6 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { useSession, signIn } from 'next-auth/react';
 import {
   Badge,
   Button,
@@ -15,10 +14,14 @@ import {
   ToastProvider,
   toast,
 } from '@sunghoon-log/ui';
+import { signIn, useSession } from 'next-auth/react';
 import type { Post, PostMeta } from '@/types/post';
+
+const isDev = process.env.NODE_ENV === 'development';
 
 const AdminPage = () => {
   const { data: session, status } = useSession();
+  const isAuthed = isDev || !!session;
   const [posts, setPosts] = useState<PostMeta[]>([]);
   const [editingPost, setEditingPost] = useState<Post | null>(null);
   const [isCreating, setIsCreating] = useState(false);
@@ -31,10 +34,10 @@ const AdminPage = () => {
   }, []);
 
   useEffect(() => {
-    if (session) {
+    if (isAuthed) {
       fetchPosts();
     }
-  }, [session, fetchPosts]);
+  }, [isAuthed, fetchPosts]);
 
   const handleCreate = async (post: Post) => {
     const res = await fetch('/api/posts', {
@@ -106,17 +109,20 @@ const AdminPage = () => {
     setIsCreating(true);
   };
 
-  if (status === 'loading') {
+  if (!isDev && status === 'loading') {
     return (
       <main className="max-w-md mx-auto px-6 py-32 text-center">
-        <Text typography="text-sm-regular" color="muted">
+        <Text
+          typography="text-sm-regular"
+          color="muted"
+        >
           Loading...
         </Text>
       </main>
     );
   }
 
-  if (!session) {
+  if (!isAuthed) {
     return (
       <main className="max-w-md mx-auto px-6 py-32">
         <ToastProvider />
@@ -140,8 +146,14 @@ const AdminPage = () => {
             블로그 관리를 위해 GitHub으로 로그인하세요.
           </Text>
         </div>
-        <Button onClick={() => signIn('github')} className="w-full">
-          <Icon name="github" size={16} />
+        <Button
+          onClick={() => signIn('github')}
+          className="w-full"
+        >
+          <Icon
+            name="github"
+            size={16}
+          />
           Sign in with GitHub
         </Button>
       </main>
