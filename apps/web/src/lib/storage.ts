@@ -16,7 +16,7 @@ export const readJson = async <T>(filePath: string, blobPath: string, fallback: 
   const { blobs } = await list({ prefix: blobPath, limit: 1 });
   if (blobs.length === 0) return fallback;
 
-  const res = await fetch(blobs[0].url);
+  const res = await fetch(blobs[0].url, { cache: 'no-store' });
   return res.json();
 };
 
