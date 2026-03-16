@@ -6,7 +6,7 @@ const BLOB_PATH = 'data/posts.json';
 
 const toMeta = ({ content: _, ...meta }: Post): PostMeta => meta;
 
-const readPosts = async (): Promise<Post[]> => readJson<Post[]>(FILE_PATH, BLOB_PATH);
+const readPosts = async (): Promise<Post[]> => readJson<Post[]>(FILE_PATH, BLOB_PATH, []);
 
 const writePosts = async (posts: Post[]): Promise<void> => writeJson(FILE_PATH, BLOB_PATH, posts);
 
