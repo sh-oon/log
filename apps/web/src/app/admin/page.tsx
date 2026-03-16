@@ -15,6 +15,7 @@ import {
   toast,
 } from '@sunghoon-log/ui';
 import { signIn, useSession } from 'next-auth/react';
+import { MarkdownRenderer } from '@/components/markdown-renderer';
 import type { Project } from '@/data/projects';
 import type { Post, PostMeta } from '@/types/post';
 import type { Experience, ResumeData } from '@/types/resume';
@@ -335,6 +336,7 @@ interface PostEditorProps {
 
 const PostEditor = ({ post, isNew, onSave, onCancel }: PostEditorProps) => {
   const [form, setForm] = useState<Post>(post);
+  const [showPreview, setShowPreview] = useState(true);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const handleChange = (field: keyof Post, value: string | boolean) => {
@@ -362,16 +364,32 @@ const PostEditor = ({ post, isNew, onSave, onCancel }: PostEditorProps) => {
         >
           {isNew ? 'New Post' : 'Edit Post'}
         </Text>
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={onCancel}
+        <Flex
+          gap={2}
+          align="center"
         >
-          <Icon
-            name="x"
-            size={20}
-          />
-        </Button>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => setShowPreview((v) => !v)}
+          >
+            <Icon
+              name={showPreview ? 'eye-off' : 'eye'}
+              size={16}
+            />
+            {showPreview ? 'Hide Preview' : 'Show Preview'}
+          </Button>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={onCancel}
+          >
+            <Icon
+              name="x"
+              size={20}
+            />
+          </Button>
+        </Flex>
       </Flex>
       <div className="space-y-4">
         <div className="grid grid-cols-2 gap-4">
@@ -433,22 +451,46 @@ const PostEditor = ({ post, isNew, onSave, onCancel }: PostEditorProps) => {
             />
           )}
         </Field>
-        <Field
-          label="Content (Markdown)"
-          required
-        >
-          {(fieldProps) => (
-            <Textarea
-              {...fieldProps}
-              ref={textareaRef}
-              value={form.content}
-              onChange={(e) => handleChange('content', e.target.value)}
-              rows={12}
-              placeholder="Write your post content in Markdown..."
-              className="font-mono"
-            />
+        <div className={showPreview ? 'grid grid-cols-2 gap-4' : ''}>
+          <Field
+            label="Content (Markdown)"
+            required
+          >
+            {(fieldProps) => (
+              <Textarea
+                {...fieldProps}
+                ref={textareaRef}
+                value={form.content}
+                onChange={(e) => handleChange('content', e.target.value)}
+                rows={24}
+                placeholder="Write your post content in Markdown..."
+                className="font-mono text-sm"
+              />
+            )}
+          </Field>
+          {showPreview && (
+            <div>
+              <Text
+                typography="text-sm-bold"
+                className="mb-2"
+              >
+                Preview
+              </Text>
+              <div className="h-[calc(24*1.5rem+2rem)] overflow-y-auto p-4 border border-border rounded-lg bg-background">
+                {form.content ? (
+                  <MarkdownRenderer content={form.content} />
+                ) : (
+                  <Text
+                    typography="text-sm-regular"
+                    color="muted"
+                  >
+                    마크다운을 입력하면 여기에 미리보기가 표시됩니다.
+                  </Text>
+                )}
+              </div>
+            </div>
           )}
-        </Field>
+        </div>
         <Checkbox
           label="Published"
           checked={form.published}
