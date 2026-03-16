@@ -2,13 +2,16 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Icon, Text } from '@sunghoon-log/ui';
 import { MarkdownRenderer } from '@/components/markdown-renderer';
-import { getPostBySlug } from '@/lib/posts';
-
-export const dynamic = 'force-dynamic';
+import { getAllPosts, getPostBySlug } from '@/lib/posts';
 
 interface BlogDetailPageProps {
   params: Promise<{ slug: string }>;
 }
+
+export const generateStaticParams = async () => {
+  const posts = await getAllPosts();
+  return posts.map((post) => ({ slug: post.slug }));
+};
 
 export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
   const { slug } = await params;

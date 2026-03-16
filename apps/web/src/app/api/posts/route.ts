@@ -1,21 +1,19 @@
-import { type NextRequest, NextResponse } from 'next/server';
-import { createPost, getAllPostsIncludingDrafts } from '@/lib/posts';
+import { NextResponse } from 'next/server';
+import { auth } from '@/lib/auth';
+import { createPost, getAllPosts, getAllPostsIncludingDrafts } from '@/lib/posts';
 import type { Post } from '@/types/post';
 
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD ?? 'admin1234';
-
-const isAuthorized = (request: NextRequest): boolean => {
-  const authHeader = request.headers.get('authorization');
-  return authHeader === `Bearer ${ADMIN_PASSWORD}`;
-};
+const isDev = process.env.NODE_ENV === 'development';
 
 export const GET = async () => {
-  const posts = await getAllPostsIncludingDrafts();
+  const session = isDev || (await auth());
+  const posts = session ? await getAllPostsIncludingDrafts() : await getAllPosts();
   return NextResponse.json(posts);
 };
 
-export const POST = async (request: NextRequest) => {
-  if (!isAuthorized(request)) {
+export const POST = async (request: Request) => {
+  const session = isDev || (await auth());
+  if (!session) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
