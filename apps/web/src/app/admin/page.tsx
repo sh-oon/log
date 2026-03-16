@@ -337,10 +337,51 @@ interface PostEditorProps {
 const PostEditor = ({ post, isNew, onSave, onCancel }: PostEditorProps) => {
   const [form, setForm] = useState<Post>(post);
   const [showPreview, setShowPreview] = useState(true);
+  const [uploading, setUploading] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleChange = (field: keyof Post, value: string | boolean) => {
     setForm((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const handleImageUpload = async (file: File) => {
+    setUploading(true);
+    const formData = new FormData();
+    formData.append('file', file);
+
+    try {
+      const res = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!res.ok) {
+        const data = await res.json();
+        toast.error(data.error ?? '이미지 업로드에 실패했습니다.');
+        return;
+      }
+
+      const { url } = await res.json();
+      const markdown = `![image](${url})`;
+
+      const textarea = textareaRef.current;
+      if (textarea) {
+        const { selectionStart } = textarea;
+        const before = form.content.slice(0, selectionStart);
+        const after = form.content.slice(selectionStart);
+        handleChange('content', `${before}\n${markdown}\n${after}`);
+      } else {
+        handleChange('content', `${form.content}\n${markdown}\n`);
+      }
+
+      toast.success('이미지가 업로드되었습니다.');
+    } catch {
+      toast.error('이미지 업로드에 실패했습니다.');
+    } finally {
+      setUploading(false);
+      if (fileInputRef.current) fileInputRef.current.value = '';
+    }
   };
 
   const handleSubmit = () => {
@@ -491,6 +532,40 @@ const PostEditor = ({ post, isNew, onSave, onCancel }: PostEditorProps) => {
             </div>
           )}
         </div>
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept="image/*"
+          onChange={(e) => {
+            const file = e.target.files?.[0];
+            if (file) handleImageUpload(file);
+          }}
+          className="hidden"
+        />
+        <Flex
+          gap={2}
+          align="center"
+        >
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => fileInputRef.current?.click()}
+            disabled={uploading}
+          >
+            <Icon
+              name={uploading ? 'loader' : 'image'}
+              size={16}
+              className={uploading ? 'animate-spin' : ''}
+            />
+            {uploading ? 'Uploading...' : 'Upload Image'}
+          </Button>
+          <Text
+            typography="text-xs-regular"
+            color="muted"
+          >
+            이미지를 업로드하면 커서 위치에 마크다운이 삽입됩니다. (최대 5MB, 개발 모드 전용)
+          </Text>
+        </Flex>
         <Checkbox
           label="Published"
           checked={form.published}
