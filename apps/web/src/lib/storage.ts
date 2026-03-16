@@ -6,25 +6,15 @@ const useBlob = !!process.env.BLOB_READ_WRITE_TOKEN;
 
 // ─── JSON Storage ───
 
-const readLocal = <T>(filePath: string): T => {
-  const fullPath = path.join(process.cwd(), filePath);
-  const raw = fs.readFileSync(fullPath, 'utf-8');
-  return JSON.parse(raw);
-};
-
-export const readJson = async <T>(filePath: string, blobPath: string): Promise<T> => {
-  if (!useBlob) return readLocal<T>(filePath);
+export const readJson = async <T>(filePath: string, blobPath: string, fallback: T): Promise<T> => {
+  if (!useBlob) {
+    const fullPath = path.join(process.cwd(), filePath);
+    const raw = fs.readFileSync(fullPath, 'utf-8');
+    return JSON.parse(raw);
+  }
 
   const { blobs } = await list({ prefix: blobPath, limit: 1 });
-  if (blobs.length === 0) {
-    const data = readLocal<T>(filePath);
-    await put(blobPath, JSON.stringify(data), {
-      access: 'public',
-      addRandomSuffix: false,
-      contentType: 'application/json',
-    });
-    return data;
-  }
+  if (blobs.length === 0) return fallback;
 
   const res = await fetch(blobs[0].url);
   return res.json();
