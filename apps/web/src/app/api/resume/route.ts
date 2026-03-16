@@ -6,7 +6,7 @@ import type { ResumeData } from '@/types/resume';
 const isDev = process.env.NODE_ENV === 'development';
 
 export const GET = async () => {
-  const resume = getResume();
+  const resume = await getResume();
   return NextResponse.json(resume);
 };
 
@@ -18,7 +18,7 @@ export const PUT = async (request: Request) => {
 
   try {
     const body: ResumeData = await request.json();
-    const updated = updateResume(body);
+    const updated = await updateResume(body);
     return NextResponse.json(updated);
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Unknown error';

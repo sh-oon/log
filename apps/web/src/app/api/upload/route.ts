@@ -1,22 +1,13 @@
 import { NextResponse } from 'next/server';
-import fs from 'node:fs';
-import path from 'node:path';
 import { auth } from '@/lib/auth';
+import { uploadImage } from '@/lib/storage';
 
 const isDev = process.env.NODE_ENV === 'development';
-const UPLOAD_DIR = path.join(process.cwd(), 'public/images/posts');
 
 export const POST = async (request: Request) => {
   const session = isDev || (await auth());
   if (!session) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
-
-  if (process.env.NODE_ENV !== 'development') {
-    return NextResponse.json(
-      { error: 'Image upload is only available in development mode' },
-      { status: 403 }
-    );
   }
 
   const formData = await request.formData();
@@ -42,9 +33,12 @@ export const POST = async (request: Request) => {
     .toLowerCase();
   const fileName = `${timestamp}-${safeName}.${ext}`;
 
-  const buffer = Buffer.from(await file.arrayBuffer());
-  fs.writeFileSync(path.join(UPLOAD_DIR, fileName), buffer);
-
-  const url = `/images/posts/${fileName}`;
-  return NextResponse.json({ url }, { status: 201 });
+  try {
+    const buffer = Buffer.from(await file.arrayBuffer());
+    const url = await uploadImage(fileName, buffer, file.type);
+    return NextResponse.json({ url }, { status: 201 });
+  } catch (error) {
+    const message = error instanceof Error ? error.message : 'Unknown error';
+    return NextResponse.json({ error: message }, { status: 500 });
+  }
 };

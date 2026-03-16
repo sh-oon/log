@@ -1,37 +1,26 @@
-import fs from 'node:fs';
-import path from 'node:path';
 import type { Project } from '@/data/projects';
 import type { ResumeData } from '@/types/resume';
+import { readJson, writeJson } from './storage';
 
-const RESUME_FILE = path.join(process.cwd(), 'src/data/resume.json');
-const PROJECTS_FILE = path.join(process.cwd(), 'src/data/projects.json');
-
-const writeGuard = () => {
-  if (process.env.NODE_ENV !== 'development') {
-    throw new Error('Write operations are only available in development mode');
-  }
-};
+const RESUME_FILE = 'src/data/resume.json';
+const RESUME_BLOB = 'data/resume.json';
+const PROJECTS_FILE = 'src/data/projects.json';
+const PROJECTS_BLOB = 'data/projects.json';
 
 // Resume
-export const getResume = (): ResumeData => {
-  const raw = fs.readFileSync(RESUME_FILE, 'utf-8');
-  return JSON.parse(raw);
-};
+export const getResume = async (): Promise<ResumeData> =>
+  readJson<ResumeData>(RESUME_FILE, RESUME_BLOB);
 
-export const updateResume = (data: ResumeData): ResumeData => {
-  writeGuard();
-  fs.writeFileSync(RESUME_FILE, JSON.stringify(data, null, 2), 'utf-8');
+export const updateResume = async (data: ResumeData): Promise<ResumeData> => {
+  await writeJson(RESUME_FILE, RESUME_BLOB, data);
   return data;
 };
 
 // Projects
-export const getProjects = (): Project[] => {
-  const raw = fs.readFileSync(PROJECTS_FILE, 'utf-8');
-  return JSON.parse(raw);
-};
+export const getProjects = async (): Promise<Project[]> =>
+  readJson<Project[]>(PROJECTS_FILE, PROJECTS_BLOB);
 
-export const updateProjects = (projects: Project[]): Project[] => {
-  writeGuard();
-  fs.writeFileSync(PROJECTS_FILE, JSON.stringify(projects, null, 2), 'utf-8');
+export const updateProjects = async (projects: Project[]): Promise<Project[]> => {
+  await writeJson(PROJECTS_FILE, PROJECTS_BLOB, projects);
   return projects;
 };

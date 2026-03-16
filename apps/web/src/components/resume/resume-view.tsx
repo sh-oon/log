@@ -3,9 +3,9 @@ import { getProjects, getResume } from '@/lib/resume';
 import { ProjectRow } from './project-row';
 import { WorkItem } from './work-item';
 
-export const ResumeView = () => {
-  const resume = getResume();
-  const projects = getProjects();
+export const ResumeView = async () => {
+  const resume = await getResume();
+  const projects = await getProjects();
 
   return (
     <>

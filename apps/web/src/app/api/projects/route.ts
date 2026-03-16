@@ -6,7 +6,7 @@ import { getProjects, updateProjects } from '@/lib/resume';
 const isDev = process.env.NODE_ENV === 'development';
 
 export const GET = async () => {
-  const projects = getProjects();
+  const projects = await getProjects();
   return NextResponse.json(projects);
 };
 
@@ -18,7 +18,7 @@ export const PUT = async (request: Request) => {
 
   try {
     const body: Project[] = await request.json();
-    const updated = updateProjects(body);
+    const updated = await updateProjects(body);
     return NextResponse.json(updated);
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Unknown error';
