@@ -17,7 +17,6 @@ export const readJson = async <T>(filePath: string, blobPath: string): Promise<T
 
   const { blobs } = await list({ prefix: blobPath, limit: 1 });
   if (blobs.length === 0) {
-    // Seed from local file on first access
     const data = readLocal<T>(filePath);
     await put(blobPath, JSON.stringify(data), {
       access: 'public',
