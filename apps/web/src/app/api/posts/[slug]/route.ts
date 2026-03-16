@@ -1,12 +1,6 @@
 import { type NextRequest, NextResponse } from 'next/server';
+import { auth } from '@/lib/auth';
 import { deletePost, getPostBySlug, updatePost } from '@/lib/posts';
-
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD ?? 'admin1234';
-
-const isAuthorized = (request: NextRequest): boolean => {
-  const authHeader = request.headers.get('authorization');
-  return authHeader === `Bearer ${ADMIN_PASSWORD}`;
-};
 
 type RouteParams = { params: Promise<{ slug: string }> };
 
@@ -22,7 +16,8 @@ export const GET = async (_request: NextRequest, { params }: RouteParams) => {
 };
 
 export const PUT = async (request: NextRequest, { params }: RouteParams) => {
-  if (!isAuthorized(request)) {
+  const session = await auth();
+  if (!session) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
@@ -38,8 +33,9 @@ export const PUT = async (request: NextRequest, { params }: RouteParams) => {
   }
 };
 
-export const DELETE = async (request: NextRequest, { params }: RouteParams) => {
-  if (!isAuthorized(request)) {
+export const DELETE = async (_request: NextRequest, { params }: RouteParams) => {
+  const session = await auth();
+  if (!session) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
