@@ -29,7 +29,7 @@ export const Header = () => {
           href="/"
           className="font-bold text-lg tracking-tight"
         >
-          Seonghun.log
+          orka.log
         </Link>
         <Flex
           align="center"
