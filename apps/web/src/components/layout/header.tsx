@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Flex } from '@sunghoon-log/ui';
+import { Flex } from '@orka-log/ui';
 import { ThemeToggle } from '@/components/theme/theme-toggle';
 
 const navItems = [

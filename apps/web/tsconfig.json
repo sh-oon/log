@@ -5,8 +5,8 @@
     "declarationMap": false,
     "paths": {
       "@/*": ["./src/*"],
-      "@sunghoon-log/ui": ["../../packages/ui/src/index.ts"],
-      "@sunghoon-log/shared": ["../../packages/shared/src/index.ts"]
+      "@orka-log/ui": ["../../packages/ui/src/index.ts"],
+      "@orka-log/shared": ["../../packages/shared/src/index.ts"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

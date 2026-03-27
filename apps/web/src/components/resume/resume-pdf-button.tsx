@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Button, Icon } from '@sunghoon-log/ui';
+import { Button, Icon } from '@orka-log/ui';
 import type { Project } from '@/data/projects';
 import type { ResumeData } from '@/types/resume';
 
@@ -35,7 +35,7 @@ export const ResumePdfButton = ({ resume, projects }: ResumePdfButtonProps) => {
       link.click();
       URL.revokeObjectURL(url);
     } catch {
-      const { toast } = await import('@sunghoon-log/ui');
+      const { toast } = await import('@orka-log/ui');
       toast.error('PDF 생성에 실패했습니다.');
     } finally {
       setIsGenerating(false);

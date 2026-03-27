@@ -61,7 +61,7 @@
               "next/**",
               ":PACKAGE:",
               ":PACKAGE_WITH_PROTOCOL:",
-              "@sunghoon-log/**",
+              "@orka-log/**",
               ":ALIAS:",
               "**",
               { "type": true }

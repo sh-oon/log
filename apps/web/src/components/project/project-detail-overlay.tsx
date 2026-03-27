@@ -1,8 +1,8 @@
 'use client';
 
 import { useEffect } from 'react';
-import type { IconName } from '@sunghoon-log/ui';
-import { Chip, Flex, Icon, Text } from '@sunghoon-log/ui';
+import type { IconName } from '@orka-log/ui';
+import { Chip, Flex, Icon, Text } from '@orka-log/ui';
 import { AnimatePresence, motion } from 'framer-motion';
 import type { Project } from '@/data/projects';
 

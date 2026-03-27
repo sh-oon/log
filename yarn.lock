@@ -1273,6 +1273,98 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@orka-log/lib@workspace:*, @orka-log/lib@workspace:packages/lib":
+  version: 0.0.0-use.local
+  resolution: "@orka-log/lib@workspace:packages/lib"
+  dependencies:
+    "@biomejs/biome": "npm:^2.3.15"
+    "@orka-log/tsconfig": "npm:*"
+    typescript: "npm:^5"
+  languageName: unknown
+  linkType: soft
+
+"@orka-log/shared@npm:*, @orka-log/shared@workspace:*, @orka-log/shared@workspace:packages/shared":
+  version: 0.0.0-use.local
+  resolution: "@orka-log/shared@workspace:packages/shared"
+  dependencies:
+    "@biomejs/biome": "npm:^2.3.15"
+    "@orka-log/tsconfig": "npm:*"
+    class-variance-authority: "npm:^0.7.1"
+    clsx: "npm:^2.1.1"
+    tailwind-merge: "npm:^3.5.0"
+    tsup: "npm:^8"
+    typescript: "npm:^5"
+    vitest: "npm:^4"
+  languageName: unknown
+  linkType: soft
+
+"@orka-log/tsconfig@npm:*, @orka-log/tsconfig@workspace:packages/tsconfig":
+  version: 0.0.0-use.local
+  resolution: "@orka-log/tsconfig@workspace:packages/tsconfig"
+  languageName: unknown
+  linkType: soft
+
+"@orka-log/ui@npm:*, @orka-log/ui@workspace:packages/ui":
+  version: 0.0.0-use.local
+  resolution: "@orka-log/ui@workspace:packages/ui"
+  dependencies:
+    "@biomejs/biome": "npm:^2.3.15"
+    "@orka-log/lib": "workspace:*"
+    "@orka-log/shared": "workspace:*"
+    "@orka-log/tsconfig": "npm:*"
+    "@storybook/react": "npm:^10"
+    "@storybook/react-vite": "npm:^10"
+    "@tailwindcss/vite": "npm:^4"
+    "@types/node": "npm:^25.2.3"
+    "@types/react": "npm:^19.2.14"
+    "@types/react-dom": "npm:^19"
+    gsap: "npm:^3.14.2"
+    lucide-react: "npm:^0.577.0"
+    overlay-kit: "npm:^1.8.6"
+    pretendard: "npm:^1.3.9"
+    react: "npm:^19.2.4"
+    react-dom: "npm:^19.2.0"
+    sonner: "npm:^2.0.7"
+    storybook: "npm:^10"
+    tailwindcss: "npm:^4"
+    tsup: "npm:^8"
+    typescript: "npm:^5"
+    vite: "npm:^7.3.1"
+  peerDependencies:
+    react: ^19.2.0
+    react-dom: ^19.2.0
+  languageName: unknown
+  linkType: soft
+
+"@orka-log/web@workspace:apps/web":
+  version: 0.0.0-use.local
+  resolution: "@orka-log/web@workspace:apps/web"
+  dependencies:
+    "@biomejs/biome": "npm:^2.3.15"
+    "@orka-log/shared": "npm:*"
+    "@orka-log/ui": "npm:*"
+    "@react-pdf/renderer": "npm:^4.3.2"
+    "@tailwindcss/postcss": "npm:^4"
+    "@types/node": "npm:^25"
+    "@types/react": "npm:^19"
+    "@types/react-dom": "npm:^19"
+    "@vercel/analytics": "npm:^2.0.1"
+    "@vercel/blob": "npm:^0.27.1"
+    framer-motion: "npm:^12.35.1"
+    lucide-react: "npm:^0.577.0"
+    next: "npm:15.5.12"
+    next-auth: "npm:5.0.0-beta.25"
+    overlay-kit: "npm:^1.9.0"
+    react: "npm:19.2.4"
+    react-dom: "npm:19.2.4"
+    react-markdown: "npm:^10.1.0"
+    rehype-raw: "npm:^7.0.0"
+    remark-gfm: "npm:^4.0.1"
+    tailwindcss: "npm:^4"
+    typescript: "npm:^5"
+  languageName: unknown
+  linkType: soft
+
 "@panva/hkdf@npm:^1.2.1":
   version: 1.2.1
   resolution: "@panva/hkdf@npm:1.2.1"
@@ -1942,98 +2034,6 @@ __metadata:
   checksum: 10c0/436d2eb5be06cfc96bda1666e3c0edb098d4ec3cfdcb1454f5adab75566ae4b1fbb17a253ec7f3df5895e3222c59f1b890f739d2ebb769082e4f7ce9caace522
   languageName: node
   linkType: hard
-
-"@sunghoon-log/lib@workspace:*, @sunghoon-log/lib@workspace:packages/lib":
-  version: 0.0.0-use.local
-  resolution: "@sunghoon-log/lib@workspace:packages/lib"
-  dependencies:
-    "@biomejs/biome": "npm:^2.3.15"
-    "@sunghoon-log/tsconfig": "npm:*"
-    typescript: "npm:^5"
-  languageName: unknown
-  linkType: soft
-
-"@sunghoon-log/shared@npm:*, @sunghoon-log/shared@workspace:*, @sunghoon-log/shared@workspace:packages/shared":
-  version: 0.0.0-use.local
-  resolution: "@sunghoon-log/shared@workspace:packages/shared"
-  dependencies:
-    "@biomejs/biome": "npm:^2.3.15"
-    "@sunghoon-log/tsconfig": "npm:*"
-    class-variance-authority: "npm:^0.7.1"
-    clsx: "npm:^2.1.1"
-    tailwind-merge: "npm:^3.5.0"
-    tsup: "npm:^8"
-    typescript: "npm:^5"
-    vitest: "npm:^4"
-  languageName: unknown
-  linkType: soft
-
-"@sunghoon-log/tsconfig@npm:*, @sunghoon-log/tsconfig@workspace:packages/tsconfig":
-  version: 0.0.0-use.local
-  resolution: "@sunghoon-log/tsconfig@workspace:packages/tsconfig"
-  languageName: unknown
-  linkType: soft
-
-"@sunghoon-log/ui@npm:*, @sunghoon-log/ui@workspace:packages/ui":
-  version: 0.0.0-use.local
-  resolution: "@sunghoon-log/ui@workspace:packages/ui"
-  dependencies:
-    "@biomejs/biome": "npm:^2.3.15"
-    "@storybook/react": "npm:^10"
-    "@storybook/react-vite": "npm:^10"
-    "@sunghoon-log/lib": "workspace:*"
-    "@sunghoon-log/shared": "workspace:*"
-    "@sunghoon-log/tsconfig": "npm:*"
-    "@tailwindcss/vite": "npm:^4"
-    "@types/node": "npm:^25.2.3"
-    "@types/react": "npm:^19.2.14"
-    "@types/react-dom": "npm:^19"
-    gsap: "npm:^3.14.2"
-    lucide-react: "npm:^0.577.0"
-    overlay-kit: "npm:^1.8.6"
-    pretendard: "npm:^1.3.9"
-    react: "npm:^19.2.4"
-    react-dom: "npm:^19.2.0"
-    sonner: "npm:^2.0.7"
-    storybook: "npm:^10"
-    tailwindcss: "npm:^4"
-    tsup: "npm:^8"
-    typescript: "npm:^5"
-    vite: "npm:^7.3.1"
-  peerDependencies:
-    react: ^19.2.0
-    react-dom: ^19.2.0
-  languageName: unknown
-  linkType: soft
-
-"@sunghoon-log/web@workspace:apps/web":
-  version: 0.0.0-use.local
-  resolution: "@sunghoon-log/web@workspace:apps/web"
-  dependencies:
-    "@biomejs/biome": "npm:^2.3.15"
-    "@react-pdf/renderer": "npm:^4.3.2"
-    "@sunghoon-log/shared": "npm:*"
-    "@sunghoon-log/ui": "npm:*"
-    "@tailwindcss/postcss": "npm:^4"
-    "@types/node": "npm:^25"
-    "@types/react": "npm:^19"
-    "@types/react-dom": "npm:^19"
-    "@vercel/analytics": "npm:^2.0.1"
-    "@vercel/blob": "npm:^0.27.1"
-    framer-motion: "npm:^12.35.1"
-    lucide-react: "npm:^0.577.0"
-    next: "npm:15.5.12"
-    next-auth: "npm:5.0.0-beta.25"
-    overlay-kit: "npm:^1.9.0"
-    react: "npm:19.2.4"
-    react-dom: "npm:19.2.4"
-    react-markdown: "npm:^10.1.0"
-    rehype-raw: "npm:^7.0.0"
-    remark-gfm: "npm:^4.0.1"
-    tailwindcss: "npm:^4"
-    typescript: "npm:^5"
-  languageName: unknown
-  linkType: soft
 
 "@swc/helpers@npm:0.5.15":
   version: 0.5.15
@@ -5688,6 +5688,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"orka-log@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "orka-log@workspace:."
+  dependencies:
+    "@biomejs/biome": "npm:2.3.15"
+    "@changesets/cli": "npm:^2.29.4"
+    "@orka-log/tsconfig": "npm:*"
+    glob: "npm:^11.0.0"
+    husky: "npm:^9"
+    lint-staged: "npm:^16"
+    turbo: "npm:^2.8.7"
+    typescript: "npm:^5"
+  languageName: unknown
+  linkType: soft
+
 "outdent@npm:^0.5.0":
   version: 0.5.0
   resolution: "outdent@npm:0.5.0"
@@ -7020,21 +7035,6 @@ __metadata:
   checksum: 10c0/ac85f3359d2c2ecbf5febca6a24ae9bf96c931f05fde533c22a94f59c6a74895e5d5f0e871878dfd59c2697a75ebb04e4b2224ef0bfc24ca1210735c2ec191ef
   languageName: node
   linkType: hard
-
-"sunghoon-log@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "sunghoon-log@workspace:."
-  dependencies:
-    "@biomejs/biome": "npm:2.3.15"
-    "@changesets/cli": "npm:^2.29.4"
-    "@sunghoon-log/tsconfig": "npm:*"
-    glob: "npm:^11.0.0"
-    husky: "npm:^9"
-    lint-staged: "npm:^16"
-    turbo: "npm:^2.8.7"
-    typescript: "npm:^5"
-  languageName: unknown
-  linkType: soft
 
 "supports-preserve-symlinks-flag@npm:^1.0.0":
   version: 1.0.0

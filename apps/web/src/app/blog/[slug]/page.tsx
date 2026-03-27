@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { Icon, Text } from '@sunghoon-log/ui';
+import { Icon, Text } from '@orka-log/ui';
 import type { Metadata } from 'next';
 import { MarkdownRenderer } from '@/components/markdown-renderer';
 import { getPostBySlug } from '@/lib/posts';

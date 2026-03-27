@@ -1,4 +1,4 @@
-import { Flex, Text } from '@sunghoon-log/ui';
+import { Flex, Text } from '@orka-log/ui';
 
 export const Footer = () => (
   <footer className="border-t border-border py-12">

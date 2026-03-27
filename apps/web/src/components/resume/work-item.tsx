@@ -1,4 +1,4 @@
-import { Flex, Text } from '@sunghoon-log/ui';
+import { Flex, Text } from '@orka-log/ui';
 
 interface WorkItemProps {
   company: string;

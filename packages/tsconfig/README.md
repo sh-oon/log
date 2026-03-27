@@ -1,4 +1,4 @@
-# @sunghoon-log/tsconfig
+# @orka-log/tsconfig
 
 모노레포 전체에서 사용하는 공유 TypeScript 설정입니다.
 
@@ -14,7 +14,7 @@
 
 ```json
 {
-  "extends": "@sunghoon-log/tsconfig/nextjs.json",
+  "extends": "@orka-log/tsconfig/nextjs.json",
   "compilerOptions": {
     "paths": {
       "@/*": ["./src/*"]
@@ -27,7 +27,7 @@
 
 ```json
 {
-  "extends": "@sunghoon-log/tsconfig/react-library.json"
+  "extends": "@orka-log/tsconfig/react-library.json"
 }
 ```
 

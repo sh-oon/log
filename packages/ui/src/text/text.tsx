@@ -1,4 +1,4 @@
-import { cn } from '@sunghoon-log/shared';
+import { cn } from '@orka-log/shared';
 import type { TextAlign, TextColor, Typography } from './text.variants';
 import { alignClassMap, colorClassMap } from './text.variants';
 

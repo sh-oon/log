@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useRef, useState } from 'react';
-import { cn } from '@sunghoon-log/shared';
+import { cn } from '@orka-log/shared';
 import type { InputVariants } from './input.variants';
 import { inputSizeConfig, inputVariants } from './input.variants';
 

@@ -1,4 +1,4 @@
-import { Chip, Flex, Icon, Text } from '@sunghoon-log/ui';
+import { Chip, Flex, Icon, Text } from '@orka-log/ui';
 import { getProjects, getResume } from '@/lib/resume';
 import { ProjectRow } from './project-row';
 import { WorkItem } from './work-item';

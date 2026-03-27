@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { cn } from '@sunghoon-log/shared';
+import { cn } from '@orka-log/shared';
 import gsap from 'gsap';
 import { Text } from '../text';
 

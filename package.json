@@ -1,5 +1,5 @@
 {
-  "name": "sunghoon-log",
+  "name": "orka-log",
   "version": "1.1.0",
   "description": "Yarn Berry workspace based monorepo boilerplate with TypeScript, Biome, and Turbo",
   "keywords": [
@@ -36,14 +36,14 @@
     "type-check": "turbo run type-check",
     "test": "turbo run test",
     "storybook": "turbo run storybook",
-    "storybook:ui": "yarn workspace @sunghoon-log/ui storybook",
-    "storybook:native": "yarn workspace @sunghoon-log/storybook-native storybook",
-    "dev:mobile": "yarn workspace @sunghoon-log/mobile start"
+    "storybook:ui": "yarn workspace @orka-log/ui storybook",
+    "storybook:native": "yarn workspace @orka-log/storybook-native storybook",
+    "dev:mobile": "yarn workspace @orka-log/mobile start"
   },
   "devDependencies": {
     "@biomejs/biome": "2.3.15",
     "@changesets/cli": "^2.29.4",
-    "@sunghoon-log/tsconfig": "*",
+    "@orka-log/tsconfig": "*",
     "glob": "^11.0.0",
     "husky": "^9",
     "lint-staged": "^16",

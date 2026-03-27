@@ -1,4 +1,4 @@
-import { cn } from '@sunghoon-log/shared';
+import { cn } from '@orka-log/shared';
 import type { FlexVariants } from './flex.variants';
 import { flexVariants } from './flex.variants';
 
