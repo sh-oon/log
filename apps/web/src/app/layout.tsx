@@ -51,14 +51,6 @@ export const metadata: Metadata = {
     title: 'orka.log',
     description: '정성훈 - 프론트엔드 개발자 포트폴리오 & 기술 블로그',
   },
-  icons: {
-    icon: [
-      { url: '/assets/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
-      { url: '/assets/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
-    ],
-    shortcut: '/assets/favicon.ico',
-    apple: '/assets/apple-touch-icon.png',
-  },
   manifest: '/assets/site.webmanifest',
   robots: {
     index: true,
