@@ -1,3 +1,9 @@
+export interface Challenge {
+  problem: string;
+  action: string;
+  result: string;
+}
+
 export interface Project {
   id: string;
   title: string;
@@ -6,7 +12,5 @@ export interface Project {
   contribution: string;
   summary: string;
   tech: string[];
-  problem: string;
-  action: string;
-  result: string;
+  challenges: Challenge[];
 }
