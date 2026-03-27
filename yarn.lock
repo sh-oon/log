@@ -1320,7 +1320,7 @@ __metadata:
     "@types/react-dom": "npm:^19"
     gsap: "npm:^3.14.2"
     lucide-react: "npm:^0.577.0"
-    overlay-kit: "npm:^1.8.6"
+    overlay-kit: "npm:^1.9.0"
     pretendard: "npm:^1.3.9"
     react: "npm:^19.2.4"
     react-dom: "npm:^19.2.0"
@@ -5707,16 +5707,6 @@ __metadata:
   version: 0.5.0
   resolution: "outdent@npm:0.5.0"
   checksum: 10c0/e216a4498889ba1babae06af84cdc4091f7cac86da49d22d0163b3be202a5f52efcd2bcd3dfca60a361eb3a27b4299f185c5655061b6b402552d7fcd1d040cff
-  languageName: node
-  linkType: hard
-
-"overlay-kit@npm:^1.8.6":
-  version: 1.8.6
-  resolution: "overlay-kit@npm:1.8.6"
-  peerDependencies:
-    react: ^16.8 || ^17 || ^18 || ^19
-    react-dom: ^16.8 || ^17 || ^18 || ^19
-  checksum: 10c0/025d61133475500ccd7f07d07e346f65880feec7898ab2ad535a4f290c885dfb68d749518873ac5dd85b38b4caa4ef2b6464e249aef03707a26e0f1768fb2ef9
   languageName: node
   linkType: hard
 
