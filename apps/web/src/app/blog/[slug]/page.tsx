@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import type { Metadata } from 'next';
 import { Icon, Text } from '@sunghoon-log/ui';
+import type { Metadata } from 'next';
 import { MarkdownRenderer } from '@/components/markdown-renderer';
 import { getPostBySlug } from '@/lib/posts';
 
