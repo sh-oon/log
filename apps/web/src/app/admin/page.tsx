@@ -16,6 +16,7 @@ import {
 } from '@sunghoon-log/ui';
 import { signIn, useSession } from 'next-auth/react';
 import { MarkdownRenderer } from '@/components/markdown-renderer';
+import { ResumePdfButton } from '@/components/resume/resume-pdf-button';
 import type { Project } from '@/data/projects';
 import type { Post, PostMeta } from '@/types/post';
 import type { Experience, ResumeData } from '@/types/resume';
@@ -587,12 +588,17 @@ const PostEditor = ({ post, isNew, onSave, onCancel }: PostEditorProps) => {
 
 const ResumeTab = () => {
   const [resume, setResume] = useState<ResumeData | null>(null);
+  const [projects, setProjects] = useState<Project[]>([]);
   const [editingExpId, setEditingExpId] = useState<string | null>(null);
   const [isAddingExp, setIsAddingExp] = useState(false);
 
   const fetchResume = useCallback(async () => {
-    const res = await fetch('/api/resume');
-    if (res.ok) setResume(await res.json());
+    const [resumeRes, projectsRes] = await Promise.all([
+      fetch('/api/resume'),
+      fetch('/api/projects'),
+    ]);
+    if (resumeRes.ok) setResume(await resumeRes.json());
+    if (projectsRes.ok) setProjects(await projectsRes.json());
   }, []);
 
   useEffect(() => {
@@ -652,6 +658,23 @@ const ResumeTab = () => {
 
   return (
     <div className="space-y-8">
+      {/* Header with PDF Download */}
+      <Flex
+        justify="between"
+        align="center"
+      >
+        <Text
+          as="h2"
+          typography="text-lg-bold"
+        >
+          Resume
+        </Text>
+        <ResumePdfButton
+          resume={resume}
+          projects={projects}
+        />
+      </Flex>
+
       {/* Intro */}
       <IntroEditor
         intro={resume.intro}
@@ -1188,9 +1211,7 @@ const ProjectsTab = () => {
     contribution: '',
     summary: '',
     tech: [],
-    problem: '',
-    action: '',
-    result: '',
+    challenges: [{ problem: '', action: '', result: '' }],
   };
 
   return (
@@ -1433,36 +1454,117 @@ const ProjectEditor = ({
             placeholder="기술 입력 후 Enter"
           />
         </div>
-        <Field label="Problem">
-          {(fieldProps) => (
-            <Textarea
-              {...fieldProps}
-              value={form.problem}
-              onChange={(e) => setForm((f) => ({ ...f, problem: e.target.value }))}
-              rows={3}
-            />
-          )}
-        </Field>
-        <Field label="Action">
-          {(fieldProps) => (
-            <Textarea
-              {...fieldProps}
-              value={form.action}
-              onChange={(e) => setForm((f) => ({ ...f, action: e.target.value }))}
-              rows={3}
-            />
-          )}
-        </Field>
-        <Field label="Result">
-          {(fieldProps) => (
-            <Textarea
-              {...fieldProps}
-              value={form.result}
-              onChange={(e) => setForm((f) => ({ ...f, result: e.target.value }))}
-              rows={3}
-            />
-          )}
-        </Field>
+        {/* Challenges */}
+        <div className="space-y-4">
+          <Flex
+            justify="between"
+            align="center"
+          >
+            <Text typography="text-sm-bold">Challenges (Problem → Action → Result)</Text>
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={() =>
+                setForm((f) => ({
+                  ...f,
+                  challenges: [...f.challenges, { problem: '', action: '', result: '' }],
+                }))
+              }
+            >
+              <Icon
+                name="plus"
+                size={14}
+              />
+              Add Challenge
+            </Button>
+          </Flex>
+          {form.challenges.map((ch, ci) => (
+            <div
+              key={`challenge-${ci}`}
+              className="p-4 border border-border rounded-lg space-y-3"
+            >
+              <Flex
+                justify="between"
+                align="center"
+              >
+                <Text
+                  typography="text-xs-bold"
+                  color="muted"
+                >
+                  Challenge {ci + 1}
+                </Text>
+                {form.challenges.length > 1 && (
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() =>
+                      setForm((f) => ({
+                        ...f,
+                        challenges: f.challenges.filter((_, i) => i !== ci),
+                      }))
+                    }
+                  >
+                    <Icon
+                      name="trash-2"
+                      size={14}
+                    />
+                  </Button>
+                )}
+              </Flex>
+              <Field label="Problem">
+                {(fieldProps) => (
+                  <Textarea
+                    {...fieldProps}
+                    value={ch.problem}
+                    onChange={(e) =>
+                      setForm((f) => ({
+                        ...f,
+                        challenges: f.challenges.map((c, i) =>
+                          i === ci ? { ...c, problem: e.target.value } : c,
+                        ),
+                      }))
+                    }
+                    rows={3}
+                  />
+                )}
+              </Field>
+              <Field label="Action">
+                {(fieldProps) => (
+                  <Textarea
+                    {...fieldProps}
+                    value={ch.action}
+                    onChange={(e) =>
+                      setForm((f) => ({
+                        ...f,
+                        challenges: f.challenges.map((c, i) =>
+                          i === ci ? { ...c, action: e.target.value } : c,
+                        ),
+                      }))
+                    }
+                    rows={3}
+                  />
+                )}
+              </Field>
+              <Field label="Result">
+                {(fieldProps) => (
+                  <Textarea
+                    {...fieldProps}
+                    value={ch.result}
+                    onChange={(e) =>
+                      setForm((f) => ({
+                        ...f,
+                        challenges: f.challenges.map((c, i) =>
+                          i === ci ? { ...c, result: e.target.value } : c,
+                        ),
+                      }))
+                    }
+                    rows={3}
+                  />
+                )}
+              </Field>
+            </div>
+          ))}
+        </div>
         <Button
           onClick={() => {
             if (!form.id || !form.title) {
