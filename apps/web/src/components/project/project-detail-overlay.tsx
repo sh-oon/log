@@ -40,16 +40,21 @@ const sectionVariants = {
   }),
 };
 
-const sections = [
+const challengeSections = [
   {
-    key: 'problem',
+    key: 'problem' as const,
     icon: 'target' as IconName,
     color: 'text-destructive-500',
-    title: 'The Problem',
+    title: 'Problem',
   },
-  { key: 'action', icon: 'code-2' as IconName, color: 'text-primary', title: 'My Action' },
-  { key: 'result', icon: 'trophy' as IconName, color: 'text-warning-500', title: 'The Result' },
-] as const;
+  { key: 'action' as const, icon: 'code-2' as IconName, color: 'text-primary', title: 'Action' },
+  {
+    key: 'result' as const,
+    icon: 'trophy' as IconName,
+    color: 'text-warning-500',
+    title: 'Result',
+  },
+];
 
 export const ProjectDetailOverlay = ({
   project,
@@ -173,56 +178,64 @@ export const ProjectDetailOverlay = ({
                 </Flex>
               </motion.section>
 
-              {/* P-A-R Sections */}
-              {sections.map((section, i) => (
+              {/* Challenges */}
+              {project.challenges.map((challenge, ci) => (
                 <motion.div
-                  key={section.key}
-                  className="space-y-4"
-                  custom={i}
+                  key={`challenge-${challenge.problem.slice(0, 20) || ci}`}
+                  className="space-y-6"
+                  custom={ci}
                   variants={sectionVariants}
                   initial="hidden"
                   animate="visible"
                 >
-                  <Flex
-                    align="center"
-                    gap={3}
-                  >
-                    <motion.div
-                      className="p-2 bg-muted rounded-lg"
-                      whileHover={{ scale: 1.1 }}
-                    >
-                      <Icon
-                        name={section.icon}
-                        size={20}
-                        className={section.color}
-                      />
-                    </motion.div>
+                  {project.challenges.length > 1 && (
                     <Text
-                      as="h4"
-                      typography="text-sm-bold"
+                      typography="text-xs-bold"
                       color="muted"
-                      className="uppercase tracking-[0.2em]"
+                      className="font-mono uppercase tracking-[0.2em]"
                     >
-                      {section.title}
+                      Challenge {ci + 1}
                     </Text>
-                  </Flex>
-                  <div className="pl-12">
-                    <Text
-                      typography="text-lg-regular"
-                      className="leading-relaxed"
+                  )}
+                  {challengeSections.map((section) => (
+                    <div
+                      key={`${ci}-${section.key}`}
+                      className="space-y-3"
                     >
-                      {project[section.key]}
-                    </Text>
-                    {section.key === 'action' && (
-                      <Text
-                        typography="text-sm-regular"
-                        color="muted"
-                        className="mt-2 font-mono tracking-tighter"
+                      <Flex
+                        align="center"
+                        gap={3}
                       >
-                        {project.contribution}
-                      </Text>
-                    )}
-                  </div>
+                        <motion.div
+                          className="p-2 bg-muted rounded-lg"
+                          whileHover={{ scale: 1.1 }}
+                        >
+                          <Icon
+                            name={section.icon}
+                            size={20}
+                            className={section.color}
+                          />
+                        </motion.div>
+                        <Text
+                          as="h4"
+                          typography="text-sm-bold"
+                          color="muted"
+                          className="uppercase tracking-[0.2em]"
+                        >
+                          {section.title}
+                        </Text>
+                      </Flex>
+                      <div className="pl-12">
+                        <Text
+                          typography="text-lg-regular"
+                          className="leading-relaxed"
+                        >
+                          {challenge[section.key]}
+                        </Text>
+                      </div>
+                    </div>
+                  ))}
+                  {ci < project.challenges.length - 1 && <div className="border-b border-border" />}
                 </motion.div>
               ))}
             </div>

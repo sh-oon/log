@@ -55,3 +55,6 @@ expo-env.d.ts
 # Biome
 .biome/cache
 
+
+# bkit
+.bkit/

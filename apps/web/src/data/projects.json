@@ -7,21 +7,55 @@
     "contribution": "30% (FE 아키텍처 기획 핵심 플로우 주도)",
     "summary": "문서 업로드부터 벡터화까지의 과정을 SSE 스트리밍 UI로 시각화한 지능형 검색 플랫폼.",
     "tech": ["Next.js", "TypeScript", "SSE", "Tailwind CSS"],
-    "problem": "기존 검색 시스템이 키워드 중심이라 문맥 이해가 부족하고, 여러 저장소에 분산된 정보 탐색에 시간이 많이 소요됨.",
-    "action": "문서 업로드 -> 벡터화 인덱싱 진행 상태를 SSE 스트리밍 UI로 실시간 표시. 출처/근거 스니펫을 포함한 Explainable UI 설계.",
-    "result": "대량 문서 처리 환경에서도 안정적인 UX 제공 기반 마련. 엔터프라이즈 환경에 적합한 신뢰성 확보."
+    "challenges": [
+      {
+        "problem": "기존 검색 시스템이 키워드 중심이라 문맥 이해가 부족하고, 여러 저장소에 분산된 정보 탐색에 시간이 많이 소요됨.",
+        "action": "문서 업로드 -> 벡터화 인덱싱 진행 상태를 SSE 스트리밍 UI로 실시간 표시. 출처/근거 스니펫을 포함한 Explainable UI 설계.",
+        "result": "대량 문서 처리 환경에서도 안정적인 UX 제공 기반 마련. 엔터프라이즈 환경에 적합한 신뢰성 확보."
+      }
+    ]
   },
   {
     "id": "plant-pid",
-    "title": "플랜트 P&ID AI 시각화 편집 솔루션",
+    "title": "플랜트 P&ID PSN 관리 시스템",
     "period": "2024.06 - 진행 중",
     "company": "주식회사 써로마인드 (삼성 E&A)",
     "contribution": "40% (FE 아키텍처, 인터랙션 구현, 폐쇄망 대응)",
-    "summary": "대용량 도면 데이터를 Konva 기반 캔버스로 가상화하여 폐쇄망 환경에서 동작하는 편집 엔진.",
-    "tech": ["Konva.js", "React", "Vite", "Zod"],
-    "problem": "수만 개의 심볼을 가진 대용량 도면 처리 시 성능 저하 및 폐쇄망 환경에서의 외부 라이브러리 사용 제한.",
-    "action": "Konva 기반 시각화/편집 아키텍처 설계. 대용량 도면 가상화 전략 적용. 리소스 로컬라이징 및 번들 최적화.",
-    "result": "사내망 환경에서 AI 분석 -> 시각화 편집 -> 저장까지 전 과정 안정적 수행 성공."
+    "summary": "삼성 E&A 외주 수주로 시작된 플랜트 P&ID 도면 PSN 관리 시스템. 도메인 무경험 상태에서 프론트엔드를 단독 설계·구현.",
+    "tech": [
+      "React 19",
+      "TypeScript",
+      "Vite 6",
+      "AG Grid Enterprise",
+      "Konva",
+      "Zustand",
+      "TanStack Query",
+      "Zod",
+      "Tailwind CSS 4",
+      "Radix UI"
+    ],
+    "challenges": [
+      {
+        "problem": "팀 전원이 플랜트 도메인 경험이 없는 상태에서 출발. 기획이 동시에 진행되고, ML팀의 도면 분석 결과 형식도 미정이라 화면에 무엇을 어떻게 보여줘야 하는지 자체가 정해지지 않았음. 고객사·기획·백엔드 간 API 설계 미팅이 끊임없이 반복됨.",
+        "action": "불확실성 속에서 프론트엔드가 먼저 할 수 있는 일을 정의. 도면 뷰어(Konva)와 데이터 그리드(AG Grid)를 독립적인 모듈로 설계하여, API 스펙이 바뀌어도 뷰어와 그리드 자체는 영향받지 않는 구조를 만듦. 확정된 단위부터 순차 구현할 수 있도록 모듈 간 의존성을 끊음.",
+        "result": "기획과 API가 변경되어도 프론트엔드 구현 진행이 블로킹되지 않는 구조를 확보. 10개 뷰(Dashboard/PSN/Equipment/Nozzle/Pipeline/Piping Parts/Pattern Group/Valve Group/Code/Export)를 계약 일정 내에 모두 구현 완료."
+      },
+      {
+        "problem": "백엔드 응답 구조가 엔드포인트마다 달랐고(PSN은 중첩 객체, Equipment는 직접 배열, Pattern Group은 또 다른 구조), 스펙 변경도 빈번하여 프론트에서 런타임 에러가 반복됨.",
+        "action": "Zod 기반 요청/응답 스키마 검증 레이어를 API 클라이언트와 뷰 사이에 구축. API 응답이 예상 스키마와 다를 경우 런타임 에러로 번지기 전에 프론트에서 포착하고, 변경 영향 범위를 검증 레이어 안으로 격리.",
+        "result": "API 스펙 변경 시 수정 포인트가 Zod 스키마 1곳으로 한정되어, 변경 대응 시간이 크게 단축됨."
+      },
+      {
+        "problem": "계약된 기능을 모두 구현한 뒤, 최종 사용자의 하드웨어 스펙과 브라우저 버전이 예상보다 낮았음. 도면 위 수백 개 도형에 각각 상호작용(클릭, 호버, 하이라이팅)이 걸려 있어 시간·공간 복잡도가 렌더링 성능을 직접적으로 압박.",
+        "action": "Konva 캔버스에 가상화 전략을 적용하여 뷰포트 밖 도형의 렌더링을 제거. Zustand로 탭별 상태를 격리하여 비활성 탭이 활성 탭의 렌더링에 영향을 주지 않도록 설계.",
+        "result": "저사양 환경에서도 도면 렌더링과 상호작용이 정상 동작하는 수준으로 성능 개선."
+      },
+      {
+        "problem": "빠르게 기능을 쌓는 과정에서 CRUD 뷰 10개가 거의 동일한 패턴을 각자 복사해서 사용. 하나를 고치면 나머지 9개를 수동으로 맞춰야 하여, 기존 기능 수정에 필요 이상의 리소스가 투입됨.",
+        "action": "계약 기능 완료 후 지금이 리팩토링할 시점이라 판단. 6단계 리팩토링 계획을 수립하여 공유 훅 추출(useViewDrawing, useEntityMutation 등)과 Dialog 패턴 통일을 실행.",
+        "result": "View 코드 33%(~1,530줄) 감소. 기능 변경 시 수정 범위를 10개 뷰에서 1개 파일로 축소."
+      }
+    ]
   },
   {
     "id": "build-simple",
@@ -31,8 +65,12 @@
     "contribution": "40% (FE 전환, 3D 시각화, 배포 파이프라인)",
     "summary": "Three.js를 활용한 주택 타입별 실시간 3D 프리뷰 및 견적 데이터 동기화 시스템.",
     "tech": ["Three.js", "Express.js", "React", "Puppeteer"],
-    "problem": "CSR 기반의 낮은 SEO 점수 및 브라우저별 PDF 레이아웃 깨짐 현상 빈번 발생.",
-    "action": "Express 기반 SSG 전환으로 SEO 개선. Headless Chromium(Puppeteer) 도입으로 안정적 PDF 생성.",
-    "result": "SEO Lighthouse 점수 91점 개선. 유입 트래픽 1.8배 증가. PDF 오류 접수 월 15건 -> 2건으로 감소."
+    "challenges": [
+      {
+        "problem": "CSR 기반의 낮은 SEO 점수 및 브라우저별 PDF 레이아웃 깨짐 현상 빈번 발생.",
+        "action": "Express 기반 SSG 전환으로 SEO 개선. Headless Chromium(Puppeteer) 도입으로 안정적 PDF 생성.",
+        "result": "SEO Lighthouse 점수 91점 개선. 유입 트래픽 1.8배 증가. PDF 오류 접수 월 15건 -> 2건으로 감소."
+      }
+    ]
   }
 ]
