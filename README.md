@@ -83,7 +83,7 @@ yarn install
 yarn setup
 ```
 
-스크립트가 실행되면 조직명(예: `mycompany`)을 입력하면 모든 `@sunghoon-log` 참조가 `@mycompany`로 자동 변경됩니다.
+스크립트가 실행되면 조직명(예: `mycompany`)을 입력하면 모든 `@orka-log` 참조가 `@mycompany`로 자동 변경됩니다.
 
 ### 2. 의존성 재설치
 
@@ -127,13 +127,13 @@ yarn format
 
 ### Apps
 
-#### @sunghoon-log/web
+#### @orka-log/web
 
 Next.js 기반의 웹 애플리케이션입니다.
 
 ### Packages
 
-#### @sunghoon-log/tsconfig
+#### @orka-log/tsconfig
 
 공유 TypeScript 설정 패키지입니다.
 
@@ -141,22 +141,22 @@ Next.js 기반의 웹 애플리케이션입니다.
 - `nextjs.json` - Next.js 앱용
 - `react-library.json` - React 라이브러리용
 
-#### @sunghoon-log/ui
+#### @orka-log/ui
 
 공유 UI 컴포넌트 라이브러리입니다.
 
 ```tsx
-import { Button } from '@sunghoon-log/ui';
+import { Button } from '@orka-log/ui';
 
 <Button onClick={() => console.log('클릭')}>버튼</Button>;
 ```
 
-#### @sunghoon-log/utils
+#### @orka-log/utils
 
 공유 유틸리티 함수 라이브러리입니다.
 
 ```ts
-import { formatDate, debounce } from '@sunghoon-log/utils';
+import { formatDate, debounce } from '@orka-log/utils';
 
 const today = formatDate(new Date());
 const debouncedFn = debounce(() => console.log('실행!'), 300);
@@ -219,7 +219,7 @@ yarn init -y
 1. `react` - React 라이브러리
 2. `next`, `next/**` - Next.js 관련 (apps/web만)
 3. `:Library:` - 외부 라이브러리 (node_modules)
-4. `@sunghoon-log/**` - 내부 모노레포 패키지
+4. `@orka-log/**` - 내부 모노레포 패키지
 5. `**` - 상대 경로 import
 6. `{ "type": true }` - Type import
 
@@ -311,7 +311,7 @@ pnpm create @ziclo/next-boilerplate my-project
 CLI가 자동으로:
 1. 템플릿 복사
 2. 조직명 입력 받기
-3. `@sunghoon-log`를 사용자 조직명으로 변경
+3. `@orka-log`를 사용자 조직명으로 변경
 4. 의존성 설치
 5. 프로젝트 완료!
 

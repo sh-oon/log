@@ -7,5 +7,5 @@
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
-  "ignore": ["@sunghoon-log/web"]
+  "ignore": ["@orka-log/web"]
 }

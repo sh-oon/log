@@ -1,7 +1,7 @@
 'use client';
 
 import { useId } from 'react';
-import { cn } from '@sunghoon-log/shared';
+import { cn } from '@orka-log/shared';
 
 export interface FieldProps {
   label?: string;

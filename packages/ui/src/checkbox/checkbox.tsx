@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback } from 'react';
-import { cn } from '@sunghoon-log/shared';
+import { cn } from '@orka-log/shared';
 import { Text } from '../text';
 
 const sizeConfig = {

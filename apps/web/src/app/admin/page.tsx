@@ -13,7 +13,7 @@ import {
   Textarea,
   ToastProvider,
   toast,
-} from '@sunghoon-log/ui';
+} from '@orka-log/ui';
 import { signIn, useSession } from 'next-auth/react';
 import { MarkdownRenderer } from '@/components/markdown-renderer';
 import { ResumePdfButton } from '@/components/resume/resume-pdf-button';

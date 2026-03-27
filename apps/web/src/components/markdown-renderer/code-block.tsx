@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Icon } from '@sunghoon-log/ui';
+import { Icon } from '@orka-log/ui';
 
 interface CodeBlockProps {
   className?: string;

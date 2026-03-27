@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useState } from 'react';
-import { cn } from '@sunghoon-log/shared';
+import { cn } from '@orka-log/shared';
 import type { TextareaVariants } from './textarea.variants';
 import { textareaVariants } from './textarea.variants';
 

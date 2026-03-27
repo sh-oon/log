@@ -1,6 +1,6 @@
 'use client';
 
-import { cn } from '@sunghoon-log/shared';
+import { cn } from '@orka-log/shared';
 import { XIcon } from '../icons';
 import { Text } from '../text';
 import type { Typography } from '../text/text.variants';

@@ -1,4 +1,4 @@
-import { cva, type VariantProps } from '@sunghoon-log/shared';
+import { cva, type VariantProps } from '@orka-log/shared';
 
 export const chipVariants = cva(
   [

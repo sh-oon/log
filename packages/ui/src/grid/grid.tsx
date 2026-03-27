@@ -1,4 +1,4 @@
-import { cn } from '@sunghoon-log/shared';
+import { cn } from '@orka-log/shared';
 import type { GridVariants } from './grid.variants';
 import { gridVariants } from './grid.variants';
 

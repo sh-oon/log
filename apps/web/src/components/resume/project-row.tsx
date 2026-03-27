@@ -1,6 +1,6 @@
 'use client';
 
-import { Flex, Icon, Text } from '@sunghoon-log/ui';
+import { Flex, Icon, Text } from '@orka-log/ui';
 import { overlay } from 'overlay-kit';
 import { ProjectDetailOverlay } from '@/components/project/project-detail-overlay';
 import type { Project } from '@/data/projects';

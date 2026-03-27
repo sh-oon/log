@@ -1,5 +1,5 @@
 {
-  "name": "@sunghoon-log/web",
+  "name": "@orka-log/web",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -26,8 +26,8 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^2.3.15",
-    "@sunghoon-log/shared": "*",
-    "@sunghoon-log/ui": "*",
+    "@orka-log/shared": "*",
+    "@orka-log/ui": "*",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^25",
     "@types/react": "^19",

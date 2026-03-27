@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { cn, cva, type VariantProps } from '@sunghoon-log/shared';
+import { cn, cva, type VariantProps } from '@orka-log/shared';
 import { Text } from '../text';
 
 const switchTrackVariants = cva(

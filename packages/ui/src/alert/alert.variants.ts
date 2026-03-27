@@ -1,4 +1,4 @@
-import { cva, type VariantProps } from '@sunghoon-log/shared';
+import { cva, type VariantProps } from '@orka-log/shared';
 
 export const alertVariants = cva(
   'flex gap-3 rounded-xl p-4 border-l-4 transition-all duration-200',

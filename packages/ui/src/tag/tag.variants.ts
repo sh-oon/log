@@ -1,4 +1,4 @@
-import { cva, type VariantProps } from '@sunghoon-log/shared';
+import { cva, type VariantProps } from '@orka-log/shared';
 
 export const tagVariants = cva(
   'inline-flex items-center rounded-full transition-all duration-200',

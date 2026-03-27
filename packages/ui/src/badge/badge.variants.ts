@@ -1,4 +1,4 @@
-import { cva, type VariantProps } from '@sunghoon-log/shared';
+import { cva, type VariantProps } from '@orka-log/shared';
 
 export const badgeVariants = cva(
   'inline-flex items-center px-3 py-1 text-xs font-medium transition-all duration-200',

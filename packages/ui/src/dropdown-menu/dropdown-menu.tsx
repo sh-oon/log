@@ -11,7 +11,7 @@ import {
   useRef,
   useState,
 } from 'react';
-import { cn } from '@sunghoon-log/shared';
+import { cn } from '@orka-log/shared';
 import gsap from 'gsap';
 import { createPortal } from 'react-dom';
 import { Text } from '../text';

@@ -1,7 +1,7 @@
 'use client';
 
-import type { IconName } from '@sunghoon-log/ui';
-import { Icon } from '@sunghoon-log/ui';
+import type { IconName } from '@orka-log/ui';
+import { Icon } from '@orka-log/ui';
 import { useTheme } from './theme-provider';
 
 const icons: Record<string, IconName> = {

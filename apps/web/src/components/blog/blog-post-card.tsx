@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Badge, Flex, Text } from '@sunghoon-log/ui';
+import { Badge, Flex, Text } from '@orka-log/ui';
 import type { PostMeta } from '@/types/post';
 
 interface BlogPostCardProps {
