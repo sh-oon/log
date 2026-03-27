@@ -17,9 +17,45 @@ const geistMono = Geist_Mono({
   subsets: ['latin'],
 });
 
+const SITE_URL = 'https://orka-log.vercel.app';
+
 export const metadata: Metadata = {
-  title: 'Seonghun.log',
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: 'orka.log',
+    template: '%s | orka.log',
+  },
   description: '정성훈 - 프론트엔드 개발자 포트폴리오 & 기술 블로그',
+  keywords: [
+    '프론트엔드',
+    'Frontend',
+    'React',
+    'Next.js',
+    'TypeScript',
+    '포트폴리오',
+    '기술 블로그',
+    '정성훈',
+  ],
+  authors: [{ name: 'orka', url: SITE_URL }],
+  creator: 'orka',
+  openGraph: {
+    type: 'website',
+    locale: 'ko_KR',
+    url: SITE_URL,
+    siteName: 'orka.log',
+    title: 'orka.log',
+    description: '정성훈 - 프론트엔드 개발자 포트폴리오 & 기술 블로그',
+  },
+  twitter: {
+    card: 'summary',
+    title: 'orka.log',
+    description: '정성훈 - 프론트엔드 개발자 포트폴리오 & 기술 블로그',
+  },
+  manifest: '/assets/site.webmanifest',
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({

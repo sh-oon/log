@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Icon, Text } from '@orka-log/ui';
+import type { Metadata } from 'next';
 import { MarkdownRenderer } from '@/components/markdown-renderer';
 import { getPostBySlug } from '@/lib/posts';
 
@@ -9,6 +10,32 @@ export const dynamic = 'force-dynamic';
 interface BlogDetailPageProps {
   params: Promise<{ slug: string }>;
 }
+
+export const generateMetadata = async ({ params }: BlogDetailPageProps): Promise<Metadata> => {
+  const { slug } = await params;
+  const post = await getPostBySlug(slug);
+
+  if (!post || !post.published) {
+    return { title: 'Not Found' };
+  }
+
+  return {
+    title: post.title,
+    description: post.excerpt,
+    openGraph: {
+      title: post.title,
+      description: post.excerpt,
+      type: 'article',
+      publishedTime: post.date,
+      authors: ['orka'],
+    },
+    twitter: {
+      card: 'summary',
+      title: post.title,
+      description: post.excerpt,
+    },
+  };
+};
 
 export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
   const { slug } = await params;
