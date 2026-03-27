@@ -1,5 +1,11 @@
+import type { Metadata } from 'next';
 import { BlogPostCard } from '@/components/blog/blog-post-card';
 import { getAllPosts } from '@/lib/posts';
+
+export const metadata: Metadata = {
+  title: 'Blog',
+  description: '프론트엔드 아키텍처, DX 최적화, 그리고 개발 과정에서의 고민들을 기록합니다.',
+};
 
 export const dynamic = 'force-dynamic';
 
