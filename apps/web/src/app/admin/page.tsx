@@ -1480,7 +1480,7 @@ const ProjectEditor = ({
           </Flex>
           {form.challenges.map((ch, ci) => (
             <div
-              key={`challenge-${ci}`}
+              key={`challenge-${ch.problem.slice(0, 20) || ci}`}
               className="p-4 border border-border rounded-lg space-y-3"
             >
               <Flex
@@ -1520,7 +1520,7 @@ const ProjectEditor = ({
                       setForm((f) => ({
                         ...f,
                         challenges: f.challenges.map((c, i) =>
-                          i === ci ? { ...c, problem: e.target.value } : c,
+                          i === ci ? { ...c, problem: e.target.value } : c
                         ),
                       }))
                     }
@@ -1537,7 +1537,7 @@ const ProjectEditor = ({
                       setForm((f) => ({
                         ...f,
                         challenges: f.challenges.map((c, i) =>
-                          i === ci ? { ...c, action: e.target.value } : c,
+                          i === ci ? { ...c, action: e.target.value } : c
                         ),
                       }))
                     }
@@ -1554,7 +1554,7 @@ const ProjectEditor = ({
                       setForm((f) => ({
                         ...f,
                         challenges: f.challenges.map((c, i) =>
-                          i === ci ? { ...c, result: e.target.value } : c,
+                          i === ci ? { ...c, result: e.target.value } : c
                         ),
                       }))
                     }

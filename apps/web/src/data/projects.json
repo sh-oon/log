@@ -22,7 +22,18 @@
     "company": "주식회사 써로마인드 (삼성 E&A)",
     "contribution": "40% (FE 아키텍처, 인터랙션 구현, 폐쇄망 대응)",
     "summary": "삼성 E&A 외주 수주로 시작된 플랜트 P&ID 도면 PSN 관리 시스템. 도메인 무경험 상태에서 프론트엔드를 단독 설계·구현.",
-    "tech": ["React 19", "TypeScript", "Vite 6", "AG Grid Enterprise", "Konva", "Zustand", "TanStack Query", "Zod", "Tailwind CSS 4", "Radix UI"],
+    "tech": [
+      "React 19",
+      "TypeScript",
+      "Vite 6",
+      "AG Grid Enterprise",
+      "Konva",
+      "Zustand",
+      "TanStack Query",
+      "Zod",
+      "Tailwind CSS 4",
+      "Radix UI"
+    ],
     "challenges": [
       {
         "problem": "팀 전원이 플랜트 도메인 경험이 없는 상태에서 출발. 기획이 동시에 진행되고, ML팀의 도면 분석 결과 형식도 미정이라 화면에 무엇을 어떻게 보여줘야 하는지 자체가 정해지지 않았음. 고객사·기획·백엔드 간 API 설계 미팅이 끊임없이 반복됨.",

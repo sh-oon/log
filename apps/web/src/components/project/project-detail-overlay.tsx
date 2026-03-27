@@ -181,7 +181,7 @@ export const ProjectDetailOverlay = ({
               {/* Challenges */}
               {project.challenges.map((challenge, ci) => (
                 <motion.div
-                  key={`challenge-${ci}`}
+                  key={`challenge-${challenge.problem.slice(0, 20) || ci}`}
                   className="space-y-6"
                   custom={ci}
                   variants={sectionVariants}
@@ -235,9 +235,7 @@ export const ProjectDetailOverlay = ({
                       </div>
                     </div>
                   ))}
-                  {ci < project.challenges.length - 1 && (
-                    <div className="border-b border-border" />
-                  )}
+                  {ci < project.challenges.length - 1 && <div className="border-b border-border" />}
                 </motion.div>
               ))}
             </div>

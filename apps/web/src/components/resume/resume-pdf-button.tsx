@@ -10,10 +10,7 @@ interface ResumePdfButtonProps {
   projects: Project[];
 }
 
-export const ResumePdfButton = ({
-  resume,
-  projects,
-}: ResumePdfButtonProps) => {
+export const ResumePdfButton = ({ resume, projects }: ResumePdfButtonProps) => {
   const [isGenerating, setIsGenerating] = useState(false);
 
   const handleDownload = async () => {
@@ -28,7 +25,7 @@ export const ResumePdfButton = ({
         <ResumePdfDocument
           resume={resume}
           projects={projects}
-        />,
+        />
       ).toBlob();
 
       const url = URL.createObjectURL(blob);

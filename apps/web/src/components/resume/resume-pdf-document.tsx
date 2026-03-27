@@ -1,11 +1,4 @@
-import {
-  Document,
-  Font,
-  Page,
-  StyleSheet,
-  Text,
-  View,
-} from '@react-pdf/renderer';
+import { Document, Font, Page, StyleSheet, Text, View } from '@react-pdf/renderer';
 import type { Project } from '@/data/projects';
 import type { ResumeData } from '@/types/resume';
 
@@ -166,10 +159,7 @@ const SectionTitle = ({ children }: { children: string }) => (
   <Text style={styles.sectionTitle}>{children}</Text>
 );
 
-export const ResumePdfDocument = ({
-  resume,
-  projects,
-}: ResumePdfDocumentProps) => (
+export const ResumePdfDocument = ({ resume, projects }: ResumePdfDocumentProps) => (
   <Document>
     <Page
       size="A4"
@@ -178,9 +168,7 @@ export const ResumePdfDocument = ({
       {/* Header */}
       <View>
         <Text style={styles.headerName}>{resume.intro.name}</Text>
-        <Text style={styles.headerRole}>
-          {resume.intro.highlight || 'Frontend Developer'}
-        </Text>
+        <Text style={styles.headerRole}>{resume.intro.highlight || 'Frontend Developer'}</Text>
         <Text style={styles.headerContact}>ajcjcjc@gmail.com | GitHub</Text>
       </View>
 
@@ -236,9 +224,7 @@ export const ResumePdfDocument = ({
                 </Text>
               </View>
               {proj.tech.length > 0 && (
-                <Text style={styles.projectTech}>
-                  Tech: {proj.tech.join(', ')}
-                </Text>
+                <Text style={styles.projectTech}>Tech: {proj.tech.join(', ')}</Text>
               )}
               {proj.challenges.map((ch, ci) => (
                 <View key={`${proj.id}-ch-${ci}`}>
