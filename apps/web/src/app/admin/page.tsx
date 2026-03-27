@@ -1480,7 +1480,8 @@ const ProjectEditor = ({
           </Flex>
           {form.challenges.map((ch, ci) => (
             <div
-              key={`challenge-${ch.problem.slice(0, 20) || ci}`}
+              // biome-ignore lint/suspicious/noArrayIndexKey: challenges have no stable id, order is user-controlled
+              key={ci}
               className="p-4 border border-border rounded-lg space-y-3"
             >
               <Flex
