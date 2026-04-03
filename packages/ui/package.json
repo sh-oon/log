@@ -24,7 +24,7 @@
     "@orka-log/lib": "workspace:*",
     "@orka-log/shared": "workspace:*",
     "gsap": "^3.14.2",
-    "lucide-react": "^0.577.0",
+    "lucide-react": "^1.7.0",
     "overlay-kit": "^1.9.0",
     "sonner": "^2.0.7"
   },
