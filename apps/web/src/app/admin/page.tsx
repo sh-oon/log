@@ -335,15 +335,29 @@ interface PostEditorProps {
   onCancel: () => void;
 }
 
+/** "react, nextjs" 형태의 입력을 태그 배열로 변환한다. */
+const parseTags = (value: string): string[] =>
+  value
+    .split(',')
+    .map((tag) => tag.trim())
+    .filter(Boolean);
+
 const PostEditor = ({ post, isNew, onSave, onCancel }: PostEditorProps) => {
   const [form, setForm] = useState<Post>(post);
+  // 콤마 입력 도중 값이 튀지 않도록 원문 문자열을 따로 보관한다.
+  const [tagsInput, setTagsInput] = useState((post.tags ?? []).join(', '));
   const [showPreview, setShowPreview] = useState(true);
   const [uploading, setUploading] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleChange = (field: keyof Post, value: string | boolean) => {
+  const handleChange = <K extends keyof Post>(field: K, value: Post[K]) => {
     setForm((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const handleTagsChange = (value: string) => {
+    setTagsInput(value);
+    handleChange('tags', parseTags(value));
   };
 
   const handleImageUpload = async (file: File) => {
@@ -390,7 +404,13 @@ const PostEditor = ({ post, isNew, onSave, onCancel }: PostEditorProps) => {
       toast.error('slug, title, content는 필수입니다.');
       return;
     }
-    onSave(form);
+    const series = form.series?.trim();
+    onSave({
+      ...form,
+      tags: parseTags(tagsInput),
+      series: series || undefined,
+      seriesOrder: series ? form.seriesOrder : undefined,
+    });
   };
 
   return (
@@ -483,6 +503,51 @@ const PostEditor = ({ post, isNew, onSave, onCancel }: PostEditorProps) => {
             />
           )}
         </Field>
+        <Field
+          label="Tags"
+          helperText="쉼표로 구분합니다. 블로그 목록의 '태그' 묶어보기에 사용됩니다."
+        >
+          {(fieldProps) => (
+            <Input
+              {...fieldProps}
+              value={tagsInput}
+              onChange={(e) => handleTagsChange(e.target.value)}
+              placeholder="react, monorepo, dx"
+            />
+          )}
+        </Field>
+        <div className="grid grid-cols-3 gap-4">
+          <Field
+            label="Series"
+            className="col-span-2"
+          >
+            {(fieldProps) => (
+              <Input
+                {...fieldProps}
+                value={form.series ?? ''}
+                onChange={(e) => handleChange('series', e.target.value)}
+                placeholder="모노레포 구축기"
+              />
+            )}
+          </Field>
+          <Field label="Series Order">
+            {(fieldProps) => (
+              <Input
+                {...fieldProps}
+                type="number"
+                min={1}
+                value={form.seriesOrder ?? ''}
+                onChange={(e) =>
+                  handleChange(
+                    'seriesOrder',
+                    e.target.value === '' ? undefined : Number(e.target.value)
+                  )
+                }
+                placeholder="1"
+              />
+            )}
+          </Field>
+        </div>
         <Field label="Date">
           {(fieldProps) => (
             <Input
