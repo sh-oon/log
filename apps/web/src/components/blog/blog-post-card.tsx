@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Badge, Flex, Text } from '@orka-log/ui';
+import { Badge, Flex, Tag, Text } from '@orka-log/ui';
 import type { PostMeta } from '@/types/post';
 
 interface BlogPostCardProps {
@@ -13,12 +13,19 @@ export const BlogPostCard = ({ post }: BlogPostCardProps) => (
   >
     <Flex
       align="center"
+      wrap="wrap"
       gap={3}
       className="text-xs font-mono text-muted-foreground mb-3"
     >
       <span>{post.date}</span>
       <span className="w-1 h-1 bg-muted-foreground rounded-full" />
       <Badge>{post.category}</Badge>
+      {post.series && (
+        <Badge variant="outline">
+          {post.series}
+          {post.seriesOrder !== undefined && ` #${post.seriesOrder}`}
+        </Badge>
+      )}
     </Flex>
     <Text
       as="h3"
@@ -34,5 +41,16 @@ export const BlogPostCard = ({ post }: BlogPostCardProps) => (
     >
       {post.excerpt}
     </Text>
+    {post.tags && post.tags.length > 0 && (
+      <Flex
+        wrap="wrap"
+        gap={1}
+        className="mt-3"
+      >
+        {post.tags.map((tag) => (
+          <Tag key={tag}>{tag}</Tag>
+        ))}
+      </Flex>
+    )}
   </Link>
 );

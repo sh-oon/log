@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { Icon, Text } from '@orka-log/ui';
+import { Icon, Tag, Text } from '@orka-log/ui';
 import type { Metadata } from 'next';
 import { MarkdownRenderer } from '@/components/markdown-renderer';
 import { getPostBySlug } from '@/lib/posts';
@@ -60,10 +60,22 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
       </Link>
 
       <article>
-        <div className="flex items-center space-x-3 text-xs font-mono text-muted-foreground mb-4">
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-xs font-mono text-muted-foreground mb-4">
           <span>{post.date}</span>
           <span className="w-1 h-1 bg-muted-foreground rounded-full" />
           <span className="text-primary font-bold uppercase tracking-widest">{post.category}</span>
+          {post.series && (
+            <>
+              <span className="w-1 h-1 bg-muted-foreground rounded-full" />
+              <Link
+                href="/blog?group=series"
+                className="hover:text-foreground transition-colors"
+              >
+                {post.series}
+                {post.seriesOrder !== undefined && ` #${post.seriesOrder}`}
+              </Link>
+            </>
+          )}
         </div>
 
         <Text
@@ -81,6 +93,14 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
         >
           {post.excerpt}
         </Text>
+
+        {post.tags && post.tags.length > 0 && (
+          <div className="flex flex-wrap gap-1 mb-12 -mt-8">
+            {post.tags.map((tag) => (
+              <Tag key={tag}>{tag}</Tag>
+            ))}
+          </div>
+        )}
 
         <MarkdownRenderer content={post.content} />
       </article>
