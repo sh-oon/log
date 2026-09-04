@@ -1,58 +1,111 @@
 {
   "intro": {
     "name": "정성훈",
-    "description": "사용자 경험(UX)과 개발 경험(DX)을 동시에 개선하는 4년 차 프론트엔드 개발자입니다. 단순한 기능 구현을 넘어, 서비스와 팀이 지속 성장 가능한 아키텍처 설계와 생산성 개선을 주도합니다.",
-    "highlight": "아키텍처 설계와 생산성 개선"
+    "role": "Frontend Developer",
+    "description": "사용자 경험뿐 아니라 개발자가 일하는 환경까지 제품의 일부로 바라봅니다. 서비스 설계와 운영, 디자인 시스템, 모노레포 자동화, 성능 최적화를 직접 수행하며 반복되는 문제를 재사용 가능한 구조와 프로세스로 해결해 왔습니다.",
+    "highlight": "반복되는 문제를 재사용 가능한 구조와 프로세스로 해결",
+    "email": "ajcjcjc@gmail.com",
+    "github": "https://github.com/sh-oon"
   },
+  "metrics": [
+    {
+      "value": "10,000+",
+      "label": "중복 UI 코드 제거",
+      "context": "디자인 시스템 1.0 마이그레이션"
+    },
+    {
+      "value": "28%",
+      "label": "서버 부하 절감",
+      "context": "TanStack Query 캐시·Refetch 정책"
+    },
+    {
+      "value": "4.2s → 2.0s",
+      "label": "LCP 단축",
+      "context": "이미지 최적화와 코드 스플리팅"
+    }
+  ],
   "experiences": [
     {
       "id": "surromind",
-      "company": "써로마인드",
-      "role": "Frontend Engineer / Researcher",
-      "period": "2024.10 -- Present",
+      "company": "주식회사 써로마인드",
+      "role": "GEN AI · 프론트엔드 엔지니어",
+      "period": "2024.10 — 현재",
       "points": [
-        "Next.js App Router 기반 모노레포(Turbo Repo) 아키텍처 구축",
-        "Samsung E&A PSN 관리 시스템 FE 단독 설계 — 기획·ML 결과 미정 상태에서 API 변경에 영향받지 않는 모듈 구조 선제 설계, 10개 뷰 구현",
-        "도면 위 수백 개 도형 상호작용의 렌더링 병목을 캔버스 가상화 + 상태 격리로 해결",
-        "계약 기능 완료 후 동일 패턴 10개 뷰 복사 구조를 식별, 공유 훅 추출로 View 코드 33% 감소·수정 범위 1파일로 축소",
-        "Tailwind CSS 디자인 시스템 마이그레이션 (CSS 번들 22% 감소)",
-        "Husky & dependency-cruiser 도입을 통한 아키텍처 표준화 및 자동 검증"
+        "Primitive·Semantic Token과 Headless Component 기반의 전사 디자인 시스템을 설계하고 React UI 라이브러리로 구현했습니다.",
+        "Changesets 기반 버전·릴리즈 자동화와 기존 서비스 마이그레이션을 주도해 중복 UI 코드 1만 줄 이상을 제거했습니다.",
+        "디자인 시스템 메타데이터와 MCP를 자동 동기화해 AI Assistant가 최신 컴포넌트 API와 디자인 규격을 활용하도록 개선했습니다.",
+        "Agentic RAG 서비스의 기술 방향과 프론트엔드 아키텍처를 리딩하고 SSE 기반 응답·처리 상태 UI와 대화 상태 구조를 설계했습니다.",
+        "Biome, Husky, lint-staged를 모노레포 개발 프로세스에 통합해 코드 품질 기준과 검증 과정을 표준화했습니다."
       ]
     },
     {
       "id": "kc-industry",
-      "company": "케이씨산업",
-      "role": "Frontend Engineer",
-      "period": "2023.05 -- 2024.05",
+      "company": "(주)케이씨산업",
+      "role": "프론트엔드 엔지니어",
+      "period": "2023.05 — 2024.05",
       "points": [
-        "CSR -> SSG 전환을 통한 SEO 최적화 및 LCP 단축 (4.2s -> 2.0s)",
-        "Three.js 연동 3D 건축 시각화 뷰어 인터페이스 고도화",
-        "Puppeteer 기반 PDF 렌더링 서버 구축 및 레이아웃 오류 86% 감소"
+        "TanStack Query의 데이터별 캐시·Refetch 정책을 설계해 중복 요청을 줄이고 서버 부하를 약 28% 절감했습니다.",
+        "Three.js 3D 조감도와 견적 데이터를 동기화하고 Kakao Map·공공 데이터를 결합한 설계 인터페이스를 구현했습니다.",
+        "Node.js·Express 기반 Pre-rendering 서버와 메타데이터 최적화로 Lighthouse SEO를 62에서 91로 개선했습니다.",
+        "WebP 변환, 이미지 Resize, 코드 스플리팅으로 LCP를 4.2초에서 2.0초로 단축했습니다.",
+        "Puppeteer 기반 서버 사이드 PDF 생성 엔진을 구축해 출력 오류 접수를 월 15건에서 2건으로 줄였습니다."
       ]
     },
     {
       "id": "modu-designer",
-      "company": "모두디자이너",
-      "role": "Frontend Engineer",
-      "period": "2021.10 -- 2023.03",
+      "company": "(주)모두디자이너",
+      "role": "RnD · 프론트엔드 엔지니어",
+      "period": "2021.10 — 2023.03",
       "points": [
-        "Vue 2 -> Vue 3 점진적 마이그레이션 주도 및 빌드 시간 66% 단축",
-        "WebRTC 기반 P2P 실시간 미아 찾기 서비스 보안 아키텍처 설계",
-        "Canvas 편집 툴 Off-screen Canvas 최적화"
+        "WebRTC·WebSocket·Geolocation을 결합해 미디어를 서버에 저장하지 않는 실시간 미아 찾기 서비스를 구현했습니다.",
+        "Vue 2를 Vue 3와 Composition API로 전환해 비즈니스 로직을 관심사 단위의 재사용 가능한 구조로 재설계했습니다.",
+        "Webpack을 Vite로 교체해 개발 서버 기동을 11초에서 3초, 전체 빌드를 21분에서 7분으로 단축했습니다.",
+        "OffscreenCanvas 기반으로 이미지 연산을 분리해 편집 과정의 메인 스레드 병목과 브라우저 프리징을 완화했습니다."
       ]
     }
   ],
-  "skills": [
-    "React",
-    "Next.js",
-    "TypeScript",
-    "Node.js",
-    "Vue.js",
-    "TurboRepo",
-    "React-Query",
-    "Zod",
-    "TailwindCSS",
-    "Three.js",
-    "Konva"
+  "skillGroups": [
+    {
+      "label": "Frontend",
+      "skills": ["React", "Next.js", "TypeScript", "Vue 3", "HTML/CSS", "Node.js"]
+    },
+    {
+      "label": "Architecture",
+      "skills": ["TanStack Query", "Headless UI", "Design Tokens", "Monorepo", "SSE"]
+    },
+    {
+      "label": "Interaction",
+      "skills": ["Three.js", "WebRTC", "WebSocket", "Canvas", "Kakao Map"]
+    },
+    {
+      "label": "DX & Quality",
+      "skills": ["Storybook", "Vite", "Vitest", "Biome", "Changesets", "Git"]
+    }
+  ],
+  "education": [
+    {
+      "school": "한국방송통신대학교",
+      "course": "컴퓨터과학과 · 학사 과정",
+      "status": "재학 중",
+      "period": "2025.03 — 현재"
+    },
+    {
+      "school": "부평그린컴퓨터아카데미",
+      "course": "프론트엔드 실무 과정",
+      "status": "수료",
+      "period": "2021.03 — 2021.09"
+    },
+    {
+      "school": "평택대학교",
+      "course": "데이터정보학과 · 학사 과정",
+      "status": "중퇴",
+      "period": "2016.03 — 2020.12"
+    },
+    {
+      "school": "산곡고등학교",
+      "course": "이과",
+      "status": "졸업",
+      "period": "2014.03 — 2016.02"
+    }
   ]
 }

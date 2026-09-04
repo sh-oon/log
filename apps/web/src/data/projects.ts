@@ -9,7 +9,7 @@ export interface Project {
   title: string;
   period: string;
   company: string;
-  contribution: string;
+  role: string;
   summary: string;
   tech: string[];
   challenges: Challenge[];

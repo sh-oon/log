@@ -168,8 +168,8 @@ export const ResumePdfDocument = ({ resume, projects }: ResumePdfDocumentProps) 
       {/* Header */}
       <View>
         <Text style={styles.headerName}>{resume.intro.name}</Text>
-        <Text style={styles.headerRole}>{resume.intro.highlight || 'Frontend Developer'}</Text>
-        <Text style={styles.headerContact}>ajcjcjc@gmail.com | GitHub</Text>
+        <Text style={styles.headerRole}>{resume.intro.role || 'Frontend Developer'}</Text>
+        <Text style={styles.headerContact}>{resume.intro.email} | GitHub</Text>
       </View>
 
       {/* About */}
@@ -226,6 +226,7 @@ export const ResumePdfDocument = ({ resume, projects }: ResumePdfDocumentProps) 
               {proj.tech.length > 0 && (
                 <Text style={styles.projectTech}>Tech: {proj.tech.join(', ')}</Text>
               )}
+              <Text style={styles.projectDesc}>{proj.role}</Text>
               {proj.challenges.map((ch, ci) => (
                 <View key={`${proj.id}-ch-${ci}`}>
                   {proj.challenges.length > 1 && (
@@ -267,18 +268,20 @@ export const ResumePdfDocument = ({ resume, projects }: ResumePdfDocumentProps) 
       )}
 
       {/* Skills */}
-      {resume.skills.length > 0 && (
+      {resume.skillGroups.length > 0 && (
         <View style={styles.section}>
           <SectionTitle>Skills</SectionTitle>
           <View style={styles.skillsRow}>
-            {resume.skills.map((skill) => (
-              <Text
-                key={skill}
-                style={styles.skillChip}
-              >
-                {skill}
-              </Text>
-            ))}
+            {resume.skillGroups.flatMap((group) =>
+              group.skills.map((skill) => (
+                <Text
+                  key={`${group.label}-${skill}`}
+                  style={styles.skillChip}
+                >
+                  {skill}
+                </Text>
+              ))
+            )}
           </View>
         </View>
       )}

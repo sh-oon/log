@@ -44,13 +44,13 @@ export const metadata: Metadata = {
     locale: 'ko_KR',
     url: SITE_URL,
     siteName: 'orka.log',
-    title: 'orka.log',
-    description: '정성훈 - 프론트엔드 개발자 포트폴리오 & 기술 블로그',
+    title: '정성훈 · Frontend Developer',
+    description: '디자인 시스템, 프론트엔드 아키텍처, DX 자동화를 설계하는 정성훈의 포트폴리오',
   },
   twitter: {
     card: 'summary',
-    title: 'orka.log',
-    description: '정성훈 - 프론트엔드 개발자 포트폴리오 & 기술 블로그',
+    title: '정성훈 · Frontend Developer',
+    description: '디자인 시스템, 프론트엔드 아키텍처, DX 자동화를 설계하는 정성훈의 포트폴리오',
   },
   manifest: '/assets/site.webmanifest',
   robots: {

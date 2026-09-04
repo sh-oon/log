@@ -1,9 +1,8 @@
 'use client';
 
-import { useEffect } from 'react';
-import type { IconName } from '@orka-log/ui';
-import { Chip, Flex, Icon, Text } from '@orka-log/ui';
+import { useEffect, useId, useRef } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
+import { CheckCircle2, Target, Wrench, X } from 'lucide-react';
 import type { Project } from '@/data/projects';
 
 interface ProjectDetailOverlayProps {
@@ -13,47 +12,10 @@ interface ProjectDetailOverlayProps {
   onExit: () => void;
 }
 
-const backdropVariants = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1 },
-  exit: { opacity: 0, transition: { delay: 0.2 } },
-};
-
-const panelVariants = {
-  hidden: { x: '100%' },
-  visible: {
-    x: 0,
-    transition: { type: 'spring' as const, damping: 30, stiffness: 300 },
-  },
-  exit: {
-    x: '100%',
-    transition: { type: 'spring' as const, damping: 30, stiffness: 300 },
-  },
-};
-
-const sectionVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { delay: 0.3 + i * 0.1, duration: 0.4, ease: 'easeOut' as const },
-  }),
-};
-
-const challengeSections = [
-  {
-    key: 'problem' as const,
-    icon: 'target' as IconName,
-    color: 'text-destructive-500',
-    title: 'Problem',
-  },
-  { key: 'action' as const, icon: 'code-2' as IconName, color: 'text-primary', title: 'Action' },
-  {
-    key: 'result' as const,
-    icon: 'trophy' as IconName,
-    color: 'text-warning-500',
-    title: 'Result',
-  },
+const sections = [
+  { key: 'problem' as const, label: '문제', icon: Target },
+  { key: 'action' as const, label: '접근', icon: Wrench },
+  { key: 'result' as const, label: '결과', icon: CheckCircle2 },
 ];
 
 export const ProjectDetailOverlay = ({
@@ -62,186 +24,148 @@ export const ProjectDetailOverlay = ({
   onClose,
   onExit,
 }: ProjectDetailOverlayProps) => {
+  const titleId = useId();
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+
   useEffect(() => {
     if (!isOpen) return;
-    const original = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
-    return () => {
-      document.body.style.overflow = original;
+
+    const originalOverflow = document.body.style.overflow;
+    const previouslyFocusedElement = document.activeElement as HTMLElement | null;
+    const focusFrame = requestAnimationFrame(() => closeButtonRef.current?.focus());
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') onClose();
     };
-  }, [isOpen]);
+
+    document.body.style.overflow = 'hidden';
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = originalOverflow;
+      document.removeEventListener('keydown', handleKeyDown);
+      cancelAnimationFrame(focusFrame);
+      previouslyFocusedElement?.focus();
+    };
+  }, [isOpen, onClose]);
 
   return (
     <AnimatePresence onExitComplete={onExit}>
-      {isOpen && (
+      {isOpen ? (
         <motion.div
           key="project-overlay"
           className="fixed inset-0 z-[100] flex justify-end"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
         >
-          {/* Backdrop */}
-          <motion.div
-            className="absolute inset-0 bg-black/40 backdrop-blur-sm"
-            variants={backdropVariants}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
+          <button
+            type="button"
+            aria-label="프로젝트 상세 닫기"
+            className="absolute inset-0 cursor-default bg-gray-950/50 backdrop-blur-sm"
             onClick={onClose}
           />
 
-          {/* Side Panel */}
           <motion.div
-            className="relative w-full max-w-2xl bg-background h-full shadow-2xl overflow-y-auto"
-            variants={panelVariants}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby={titleId}
+            className="relative h-full w-full max-w-2xl overflow-y-auto bg-background shadow-2xl"
+            initial={{ x: '100%' }}
+            animate={{ x: 0 }}
+            exit={{ x: '100%' }}
+            transition={{ type: 'spring', damping: 34, stiffness: 330 }}
           >
-            {/* Sticky Header */}
-            <Flex
-              justify="between"
-              align="center"
-              className="sticky top-0 bg-background/80 backdrop-blur-md p-6 border-b border-border z-10"
-            >
-              <Flex
-                align="center"
-                gap={2}
-              >
-                <motion.div
-                  className="w-2 h-2 bg-primary rounded-full"
-                  animate={{ scale: [1, 1.3, 1] }}
-                  transition={{ repeat: Number.POSITIVE_INFINITY, duration: 2 }}
-                />
-                <Text
-                  as="span"
-                  typography="text-xs-bold"
-                  color="muted"
-                  className="font-mono tracking-widest uppercase"
-                >
-                  Project Details
-                </Text>
-              </Flex>
-              <motion.button
+            <header className="sticky top-0 z-10 flex items-center justify-between border-b border-border bg-background/90 px-6 py-4 backdrop-blur-xl sm:px-10">
+              <div className="flex items-center gap-3">
+                <span className="size-2 rounded-full bg-blue-600 dark:bg-blue-400" />
+                <span className="font-mono text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+                  Project case study
+                </span>
+              </div>
+              <button
+                ref={closeButtonRef}
+                type="button"
                 onClick={onClose}
-                className="p-2 hover:bg-muted rounded-full transition-colors"
-                whileHover={{ rotate: 90 }}
-                whileTap={{ scale: 0.9 }}
+                className="flex size-10 items-center justify-center rounded-full border border-border text-muted-foreground transition hover:border-foreground/20 hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
               >
-                <Icon
-                  name="x"
-                  size={24}
+                <X
+                  aria-hidden="true"
+                  size={18}
                 />
-              </motion.button>
-            </Flex>
+                <span className="sr-only">닫기</span>
+              </button>
+            </header>
 
-            <div className="p-8 md:p-12 space-y-12 pb-24">
-              {/* Header */}
-              <motion.section
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.15, duration: 0.4 }}
-              >
-                <Text
-                  typography="text-sm-regular"
-                  color="muted"
-                  className="font-mono mb-2"
-                >
-                  {project.company}
-                </Text>
-                <Text
-                  as="h2"
-                  typography="title-2xl-bold"
-                  className="tracking-tight mb-4 leading-tight"
+            <div className="px-6 pb-24 pt-10 sm:px-10 sm:pt-14">
+              <div className="border-b border-border pb-10">
+                <p className="font-mono text-xs text-blue-600 dark:text-blue-400">
+                  {project.company} · {project.period}
+                </p>
+                <h2
+                  id={titleId}
+                  className="mt-5 text-3xl font-bold leading-tight tracking-[-0.045em] text-foreground sm:text-5xl"
                 >
                   {project.title}
-                </Text>
-                <Flex
-                  align="center"
-                  gap={2}
-                  className="text-xs font-mono text-muted-foreground mb-6"
-                >
-                  <span>{project.period}</span>
-                  <span className="w-1 h-1 bg-muted-foreground rounded-full" />
-                  <span>{project.contribution}</span>
-                </Flex>
-                <Flex
-                  wrap="wrap"
-                  gap={2}
-                >
-                  {project.tech.map((t) => (
-                    <Chip
-                      key={t}
-                      size="sm"
-                    >
-                      {t}
-                    </Chip>
-                  ))}
-                </Flex>
-              </motion.section>
+                </h2>
+                <p className="mt-6 text-lg leading-8 text-muted-foreground">{project.summary}</p>
+              </div>
 
-              {/* Challenges */}
-              {project.challenges.map((challenge, ci) => (
-                <motion.div
-                  key={`challenge-${challenge.problem.slice(0, 20) || ci}`}
-                  className="space-y-6"
-                  custom={ci}
-                  variants={sectionVariants}
-                  initial="hidden"
-                  animate="visible"
-                >
-                  {project.challenges.length > 1 && (
-                    <Text
-                      typography="text-xs-bold"
-                      color="muted"
-                      className="font-mono uppercase tracking-[0.2em]"
+              <dl className="grid gap-7 border-b border-border py-9 sm:grid-cols-[8rem_1fr]">
+                <dt className="font-mono text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+                  담당 역할
+                </dt>
+                <dd className="text-sm font-medium leading-6 text-foreground">{project.role}</dd>
+                <dt className="font-mono text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+                  기술
+                </dt>
+                <dd className="flex flex-wrap gap-2">
+                  {project.tech.map((tech) => (
+                    <span
+                      key={tech}
+                      className="rounded-full border border-border bg-muted/60 px-3 py-1.5 text-xs font-medium text-foreground/80"
                     >
-                      Challenge {ci + 1}
-                    </Text>
-                  )}
-                  {challengeSections.map((section) => (
-                    <div
-                      key={`${ci}-${section.key}`}
-                      className="space-y-3"
-                    >
-                      <Flex
-                        align="center"
-                        gap={3}
-                      >
-                        <motion.div
-                          className="p-2 bg-muted rounded-lg"
-                          whileHover={{ scale: 1.1 }}
-                        >
-                          <Icon
-                            name={section.icon}
-                            size={20}
-                            className={section.color}
-                          />
-                        </motion.div>
-                        <Text
-                          as="h4"
-                          typography="text-sm-bold"
-                          color="muted"
-                          className="uppercase tracking-[0.2em]"
-                        >
-                          {section.title}
-                        </Text>
-                      </Flex>
-                      <div className="pl-12">
-                        <Text
-                          typography="text-lg-regular"
-                          className="leading-relaxed"
-                        >
-                          {challenge[section.key]}
-                        </Text>
-                      </div>
-                    </div>
+                      {tech}
+                    </span>
                   ))}
-                  {ci < project.challenges.length - 1 && <div className="border-b border-border" />}
-                </motion.div>
-              ))}
+                </dd>
+              </dl>
+
+              <div className="space-y-14 pt-12">
+                {project.challenges.map((challenge, challengeIndex) => (
+                  <section key={`${project.id}-${challengeIndex}`}>
+                    {project.challenges.length > 1 ? (
+                      <p className="mb-8 font-mono text-xs font-semibold uppercase tracking-[0.18em] text-blue-600 dark:text-blue-400">
+                        Challenge {String(challengeIndex + 1).padStart(2, '0')}
+                      </p>
+                    ) : null}
+
+                    <div className="space-y-9">
+                      {sections.map(({ key, label, icon: Icon }) => (
+                        <div
+                          key={key}
+                          className="grid gap-4 sm:grid-cols-[8rem_1fr]"
+                        >
+                          <h3 className="flex items-center gap-2 text-sm font-semibold text-foreground">
+                            <Icon
+                              aria-hidden="true"
+                              className="text-blue-600 dark:text-blue-400"
+                              size={16}
+                            />
+                            {label}
+                          </h3>
+                          <p className="text-[15px] leading-7 text-foreground/75">
+                            {challenge[key]}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </section>
+                ))}
+              </div>
             </div>
           </motion.div>
         </motion.div>
-      )}
+      ) : null}
     </AnimatePresence>
   );
 };

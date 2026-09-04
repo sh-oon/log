@@ -1,36 +1,29 @@
-import { Flex, Text } from '@orka-log/ui';
-
 export const Footer = () => (
-  <footer className="border-t border-border py-12">
-    <Flex
-      justify="between"
-      align="center"
-      className="max-w-3xl mx-auto px-6"
-    >
-      <Text
-        as="span"
-        typography="text-sm-regular"
-        color="muted"
-        className="font-mono"
-      >
-        &copy; 2025 Jeong Seong Hun
-      </Text>
-      <Flex gap={6}>
+  <footer className="border-t border-border">
+    <div className="mx-auto flex max-w-6xl flex-col gap-5 px-5 py-10 sm:flex-row sm:items-center sm:justify-between sm:px-8">
+      <div>
+        <p className="text-sm font-semibold text-foreground">정성훈 · Frontend Developer</p>
+        <p className="mt-1 text-xs text-muted-foreground">
+          구조와 프로세스로 오래가는 제품을 만듭니다.
+        </p>
+      </div>
+      <div className="flex items-center gap-5 font-mono text-xs text-muted-foreground">
+        <span>© {new Date().getFullYear()}</span>
         <a
           href="https://github.com/sh-oon"
-          className="text-sm font-mono text-muted-foreground hover:text-foreground transition-colors"
           target="_blank"
           rel="noopener noreferrer"
+          className="transition-colors hover:text-foreground"
         >
-          Github
+          GitHub
         </a>
         <a
           href="mailto:ajcjcjc@gmail.com"
-          className="text-sm font-mono text-muted-foreground hover:text-foreground transition-colors"
+          className="transition-colors hover:text-foreground"
         >
-          Mail
+          Email
         </a>
-      </Flex>
-    </Flex>
+      </div>
+    </div>
   </footer>
 );

@@ -1,7 +1,10 @@
 export interface ResumeIntro {
   name: string;
+  role: string;
   description: string;
   highlight: string;
+  email: string;
+  github: string;
 }
 
 export interface Experience {
@@ -12,8 +15,28 @@ export interface Experience {
   points: string[];
 }
 
+export interface ResumeMetric {
+  value: string;
+  label: string;
+  context: string;
+}
+
+export interface SkillGroup {
+  label: string;
+  skills: string[];
+}
+
+export interface Education {
+  school: string;
+  course: string;
+  status: string;
+  period: string;
+}
+
 export interface ResumeData {
   intro: ResumeIntro;
+  metrics: ResumeMetric[];
   experiences: Experience[];
-  skills: string[];
+  skillGroups: SkillGroup[];
+  education: Education[];
 }

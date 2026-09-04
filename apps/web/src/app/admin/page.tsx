@@ -626,7 +626,17 @@ const ResumeTab = () => {
 
   const handleSkillsSave = async (skills: string[]) => {
     if (!resume) return;
-    await saveResume({ ...resume, skills });
+    const previousSkills = new Set(resume.skillGroups.flatMap((group) => group.skills));
+    const selectedSkills = new Set(skills);
+    const addedSkills = skills.filter((skill) => !previousSkills.has(skill));
+    const skillGroups = resume.skillGroups.map((group, index) => ({
+      ...group,
+      skills: [
+        ...group.skills.filter((skill) => selectedSkills.has(skill)),
+        ...(index === 0 ? addedSkills : []),
+      ],
+    }));
+    await saveResume({ ...resume, skillGroups });
   };
 
   const handleExpSave = async (exp: Experience, isNew: boolean) => {
@@ -774,7 +784,7 @@ const ResumeTab = () => {
 
       {/* Skills */}
       <SkillsEditor
-        skills={resume.skills}
+        skills={resume.skillGroups.flatMap((group) => group.skills)}
         onSave={handleSkillsSave}
       />
     </div>
@@ -1208,7 +1218,7 @@ const ProjectsTab = () => {
     title: '',
     period: '',
     company: '',
-    contribution: '',
+    role: '',
     summary: '',
     tech: [],
     challenges: [{ problem: '', action: '', result: '' }],
@@ -1399,13 +1409,13 @@ const ProjectEditor = ({
               />
             )}
           </Field>
-          <Field label="기여도">
+          <Field label="담당 역할">
             {(fieldProps) => (
               <Input
                 {...fieldProps}
-                value={form.contribution}
-                onChange={(e) => setForm((f) => ({ ...f, contribution: e.target.value }))}
-                placeholder="40% (역할 설명)"
+                value={form.role}
+                onChange={(e) => setForm((f) => ({ ...f, role: e.target.value }))}
+                placeholder="아키텍처 설계 및 프론트엔드 구현"
               />
             )}
           </Field>
