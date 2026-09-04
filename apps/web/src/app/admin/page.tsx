@@ -1279,6 +1279,7 @@ const ProjectsTab = () => {
   };
 
   const emptyProject: Project = {
+    contentVersion: 1,
     id: '',
     title: '',
     period: '',

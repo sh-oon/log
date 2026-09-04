@@ -34,6 +34,7 @@ export interface Education {
 }
 
 export interface ResumeData {
+  schemaVersion: number;
   intro: ResumeIntro;
   metrics: ResumeMetric[];
   experiences: Experience[];

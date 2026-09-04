@@ -5,6 +5,7 @@ export interface Challenge {
 }
 
 export interface Project {
+  contentVersion: number;
   id: string;
   title: string;
   period: string;
