@@ -44,6 +44,22 @@ const type = {
   label: 7,
 };
 
+/**
+ * 행간 배율.
+ *
+ * 주의: react-pdf는 lineHeight 비율을 "같은 스타일에 선언된 fontSize"에 곱한다.
+ * fontSize 를 상속에 맡긴 채 lineHeight 만 주면 상속값이 아니라 기본 크기(18pt)에
+ * 곱해져 행간이 두 배 이상 벌어진다(실측: 8.5pt 본문에 1.6 지정 시 28.8pt).
+ * 그래서 lineHeight 를 선언하는 스타일에는 fontSize 도 반드시 함께 선언한다.
+ */
+const leading = {
+  tight: 1.15,
+  snug: 1.3,
+  normal: 1.45,
+  relaxed: 1.6,
+  loose: 1.7,
+};
+
 /** 4pt 배수 스페이싱 스케일. 세로 리듬을 이 값들로만 만든다. */
 const space = {
   xs: 4,
@@ -66,7 +82,7 @@ const styles = StyleSheet.create({
     paddingTop: 44,
     paddingBottom: 52,
     paddingHorizontal: PAGE_MARGIN,
-    lineHeight: 1.45,
+    lineHeight: leading.relaxed,
   },
   // Shared
   eyebrow: {
@@ -74,6 +90,7 @@ const styles = StyleSheet.create({
     fontWeight: 700,
     color: colors.accent,
     letterSpacing: 1.6,
+    lineHeight: leading.snug,
     textTransform: 'uppercase',
   },
   row: {
@@ -89,7 +106,8 @@ const styles = StyleSheet.create({
     fontSize: type.label,
     fontWeight: 700,
     color: colors.accent,
-    paddingTop: 3,
+    lineHeight: leading.snug,
+    paddingTop: 4,
   },
   itemBody: {
     flex: 1,
@@ -99,7 +117,7 @@ const styles = StyleSheet.create({
     fontSize: type.display,
     fontWeight: 700,
     letterSpacing: -1,
-    lineHeight: 1.2,
+    lineHeight: leading.tight,
     marginTop: space.xs,
   },
   headerAccent: {
@@ -109,13 +127,13 @@ const styles = StyleSheet.create({
     fontSize: type.meta,
     color: colors.muted,
     textAlign: 'right',
-    lineHeight: 1.7,
+    lineHeight: leading.loose,
     paddingBottom: space.xs,
   },
   intro: {
     fontSize: type.lead,
     color: colors.muted,
-    lineHeight: 1.6,
+    lineHeight: leading.loose,
     marginTop: space.md,
   },
   introHighlight: {
@@ -147,16 +165,18 @@ const styles = StyleSheet.create({
     fontSize: type.metric,
     fontWeight: 700,
     letterSpacing: -0.4,
-    lineHeight: 1.25,
+    lineHeight: leading.snug,
   },
   metricLabel: {
     fontSize: type.body,
     color: colors.muted,
+    lineHeight: leading.normal,
     marginTop: space.xs,
   },
   metricContext: {
     fontSize: type.label,
     color: colors.light,
+    lineHeight: leading.normal,
   },
   // Section
   section: {
@@ -174,15 +194,17 @@ const styles = StyleSheet.create({
   entryTitle: {
     fontSize: type.title,
     fontWeight: 700,
-    lineHeight: 1.3,
+    lineHeight: leading.snug,
   },
   entryMeta: {
     fontSize: type.meta,
     color: colors.light,
+    lineHeight: leading.normal,
   },
   entrySubtitle: {
     fontSize: type.meta,
     color: colors.accent,
+    lineHeight: leading.normal,
     marginBottom: space.xs,
   },
   // Experience
@@ -191,24 +213,33 @@ const styles = StyleSheet.create({
   },
   bullet: {
     width: 10,
+    fontSize: type.body,
     color: colors.light,
+    lineHeight: leading.relaxed,
   },
   pointText: {
     flex: 1,
+    fontSize: type.body,
     color: colors.muted,
+    lineHeight: leading.relaxed,
   },
   // Project
   projectTech: {
     fontSize: type.label,
     color: colors.light,
     letterSpacing: 0.2,
+    lineHeight: leading.normal,
   },
   projectRole: {
+    fontSize: type.body,
     fontWeight: 700,
+    lineHeight: leading.relaxed,
     marginTop: space.xs,
   },
   projectSummary: {
+    fontSize: type.body,
     color: colors.muted,
+    lineHeight: leading.relaxed,
   },
   resultRow: {
     flexDirection: 'row',
@@ -220,11 +251,14 @@ const styles = StyleSheet.create({
     fontWeight: 700,
     color: colors.accent,
     letterSpacing: 0.8,
+    lineHeight: leading.normal,
     paddingTop: 2,
   },
   resultText: {
     flex: 1,
+    fontSize: type.body,
     color: colors.muted,
+    lineHeight: leading.relaxed,
   },
   // Skills
   skillGroup: {
@@ -236,10 +270,13 @@ const styles = StyleSheet.create({
     fontSize: type.meta,
     fontWeight: 700,
     color: colors.accent,
+    lineHeight: leading.loose,
   },
   skillGroupList: {
     flex: 1,
+    fontSize: type.body,
     color: colors.muted,
+    lineHeight: leading.relaxed,
   },
   // Education
   eduItem: {
@@ -248,10 +285,14 @@ const styles = StyleSheet.create({
     marginBottom: space.xs,
   },
   eduSchool: {
+    fontSize: type.body,
     fontWeight: 700,
+    lineHeight: leading.relaxed,
   },
   eduCourse: {
+    fontSize: type.body,
     color: colors.muted,
+    lineHeight: leading.relaxed,
   },
   // Footer
   // A4 높이 기준 상단 오프셋으로 배치한다. bottom 오프셋은 fixed 요소에서 화면 밖으로 밀린다.
@@ -262,6 +303,7 @@ const styles = StyleSheet.create({
     right: PAGE_MARGIN,
     fontSize: type.label,
     color: colors.light,
+    lineHeight: leading.normal,
     textAlign: 'right',
   },
 });
