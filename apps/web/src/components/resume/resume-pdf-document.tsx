@@ -30,20 +30,47 @@ const colors = {
   white: '#ffffff',
 };
 
+/**
+ * 인접한 등급이 눈에 띄게 구분되도록 6단계만 쓴다.
+ * 같은 등급 안에서의 차이는 크기가 아니라 굵기와 색으로 표현한다.
+ */
+const type = {
+  display: 25,
+  metric: 14,
+  title: 10.5,
+  lead: 9.5,
+  body: 8.5,
+  meta: 8,
+  label: 7,
+};
+
+/** 4pt 배수 스페이싱 스케일. 세로 리듬을 이 값들로만 만든다. */
+const space = {
+  xs: 4,
+  sm: 8,
+  md: 12,
+  lg: 16,
+  xl: 24,
+};
+
+const PAGE_MARGIN = 46;
+// 모든 섹션 본문이 공유하는 좌측 레일. 경력·프로젝트 번호가 이 폭 안에 들어간다.
+const RAIL = 22;
+
 const styles = StyleSheet.create({
   page: {
     fontFamily: 'Pretendard',
-    fontSize: 9,
+    fontSize: type.body,
     color: colors.text,
     backgroundColor: colors.white,
     paddingTop: 44,
-    paddingBottom: 48,
-    paddingHorizontal: 46,
+    paddingBottom: 52,
+    paddingHorizontal: PAGE_MARGIN,
     lineHeight: 1.45,
   },
   // Shared
   eyebrow: {
-    fontSize: 7.5,
+    fontSize: type.label,
     fontWeight: 700,
     color: colors.accent,
     letterSpacing: 1.6,
@@ -54,28 +81,42 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'flex-end',
   },
+  item: {
+    flexDirection: 'row',
+  },
+  rail: {
+    width: RAIL,
+    fontSize: type.label,
+    fontWeight: 700,
+    color: colors.accent,
+    paddingTop: 3,
+  },
+  itemBody: {
+    flex: 1,
+  },
   // Header
   headerName: {
-    fontSize: 27,
+    fontSize: type.display,
     fontWeight: 700,
     letterSpacing: -1,
     lineHeight: 1.2,
-    marginTop: 6,
+    marginTop: space.xs,
   },
   headerAccent: {
     color: colors.accent,
   },
   headerContact: {
-    fontSize: 8.5,
+    fontSize: type.meta,
     color: colors.muted,
     textAlign: 'right',
-    lineHeight: 1.6,
+    lineHeight: 1.7,
+    paddingBottom: space.xs,
   },
   intro: {
-    fontSize: 9.5,
+    fontSize: type.lead,
     color: colors.muted,
-    lineHeight: 1.65,
-    marginTop: 14,
+    lineHeight: 1.6,
+    marginTop: space.md,
   },
   introHighlight: {
     fontWeight: 700,
@@ -84,183 +125,142 @@ const styles = StyleSheet.create({
   // Metrics
   metrics: {
     flexDirection: 'row',
-    marginTop: 18,
-    paddingVertical: 12,
+    marginTop: space.lg,
+    paddingTop: space.md,
     borderTopWidth: 1,
     borderTopColor: colors.border,
-    borderBottomWidth: 1,
-    borderBottomColor: colors.border,
   },
   metricItem: {
     flex: 1,
-    paddingRight: 14,
+    paddingHorizontal: space.lg,
     borderRightWidth: 1,
     borderRightColor: colors.border,
   },
+  metricItemFirst: {
+    paddingLeft: 0,
+  },
   metricItemLast: {
-    borderRightWidth: 0,
     paddingRight: 0,
+    borderRightWidth: 0,
   },
   metricValue: {
-    fontSize: 15,
+    fontSize: type.metric,
     fontWeight: 700,
     letterSpacing: -0.4,
     lineHeight: 1.25,
   },
   metricLabel: {
-    fontSize: 8.5,
+    fontSize: type.body,
     color: colors.muted,
-    marginTop: 2,
+    marginTop: space.xs,
   },
   metricContext: {
-    fontSize: 7.5,
+    fontSize: type.label,
     color: colors.light,
-    marginTop: 1,
   },
   // Section
   section: {
-    marginTop: 20,
-    paddingTop: 14,
+    marginTop: space.lg,
+    paddingTop: space.md,
     borderTopWidth: 1,
     borderTopColor: colors.border,
   },
   sectionEyebrow: {
-    marginBottom: 10,
+    marginBottom: space.sm,
   },
-  // Experience
-  expItem: {
-    flexDirection: 'row',
-    marginBottom: 11,
+  entry: {
+    marginBottom: space.md,
   },
-  expIndex: {
-    width: 20,
-    fontSize: 7.5,
-    fontWeight: 700,
-    color: colors.accent,
-    paddingTop: 2,
-  },
-  expBody: {
-    flex: 1,
-  },
-  expCompany: {
-    fontSize: 10.5,
+  entryTitle: {
+    fontSize: type.title,
     fontWeight: 700,
     lineHeight: 1.3,
   },
-  expPeriod: {
-    fontSize: 8,
+  entryMeta: {
+    fontSize: type.meta,
     color: colors.light,
   },
-  expRole: {
-    fontSize: 8.5,
+  entrySubtitle: {
+    fontSize: type.meta,
     color: colors.accent,
-    marginTop: 1,
-    marginBottom: 4,
+    marginBottom: space.xs,
   },
-  expPoint: {
+  // Experience
+  point: {
     flexDirection: 'row',
-    marginBottom: 1.5,
   },
   bullet: {
-    width: 9,
-    fontSize: 8.5,
+    width: 10,
     color: colors.light,
   },
-  expPointText: {
+  pointText: {
     flex: 1,
-    fontSize: 8.5,
     color: colors.muted,
   },
   // Project
-  projectItem: {
-    marginBottom: 10,
-  },
-  projectTitle: {
-    fontSize: 10,
-    fontWeight: 700,
-    lineHeight: 1.3,
-  },
-  projectMeta: {
-    fontSize: 8,
-    color: colors.light,
-  },
   projectTech: {
-    fontSize: 7.5,
+    fontSize: type.label,
     color: colors.light,
     letterSpacing: 0.2,
-    marginTop: 1,
   },
   projectRole: {
-    fontSize: 8.5,
-    color: colors.text,
-    marginTop: 3,
+    fontWeight: 700,
+    marginTop: space.xs,
   },
   projectSummary: {
-    fontSize: 8.5,
     color: colors.muted,
   },
   resultRow: {
     flexDirection: 'row',
-    marginTop: 3,
+    marginTop: space.xs,
   },
   resultLabel: {
-    width: 38,
-    fontSize: 7,
+    width: 42,
+    fontSize: type.label,
     fontWeight: 700,
     color: colors.accent,
     letterSpacing: 0.8,
-    paddingTop: 1.5,
+    paddingTop: 2,
   },
   resultText: {
     flex: 1,
-    fontSize: 8.5,
     color: colors.muted,
   },
   // Skills
   skillGroup: {
     flexDirection: 'row',
-    marginBottom: 5,
+    marginBottom: space.sm,
   },
   skillGroupLabel: {
-    width: 84,
-    fontSize: 8,
+    width: 80,
+    fontSize: type.meta,
     fontWeight: 700,
     color: colors.accent,
-    letterSpacing: 0.4,
-    paddingTop: 0.5,
   },
   skillGroupList: {
     flex: 1,
-    fontSize: 8.5,
     color: colors.muted,
   },
   // Education
   eduItem: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'flex-end',
-    marginBottom: 4,
+    marginBottom: space.xs,
   },
   eduSchool: {
-    fontSize: 9,
     fontWeight: 700,
   },
   eduCourse: {
-    fontSize: 8.5,
     color: colors.muted,
-  },
-  eduPeriod: {
-    fontSize: 8,
-    color: colors.light,
   },
   // Footer
   // A4 높이 기준 상단 오프셋으로 배치한다. bottom 오프셋은 fixed 요소에서 화면 밖으로 밀린다.
   pageNumber: {
     position: 'absolute',
     top: 800,
-    left: 46,
-    right: 46,
-    fontSize: 7.5,
+    left: PAGE_MARGIN,
+    right: PAGE_MARGIN,
+    fontSize: type.label,
     color: colors.light,
     textAlign: 'right',
   },
@@ -290,6 +290,22 @@ const Section = ({ eyebrow, children }: SectionProps) => {
     </View>
   );
 };
+
+interface EntryProps {
+  index?: number;
+  children: ReactNode;
+}
+
+/** 모든 섹션 본문이 같은 좌측 레일에서 시작하도록 감싼다. */
+const Entry = ({ index, children }: EntryProps) => (
+  <View
+    style={[styles.item, styles.entry]}
+    wrap={false}
+  >
+    <Text style={styles.rail}>{index === undefined ? '' : String(index + 1).padStart(2, '0')}</Text>
+    <View style={styles.itemBody}>{children}</View>
+  </View>
+);
 
 interface IntroProps {
   description: string;
@@ -351,6 +367,7 @@ export const ResumePdfDocument = ({ resume, projects }: ResumePdfDocumentProps) 
               key={metric.label}
               style={[
                 styles.metricItem,
+                index === 0 ? styles.metricItemFirst : {},
                 index === resume.metrics.length - 1 ? styles.metricItemLast : {},
               ]}
             >
@@ -366,28 +383,25 @@ export const ResumePdfDocument = ({ resume, projects }: ResumePdfDocumentProps) 
       {resume.experiences.length > 0 && (
         <Section eyebrow="01 · Experience">
           {resume.experiences.map((exp, index) => (
-            <View
+            <Entry
               key={exp.id}
-              style={styles.expItem}
+              index={index}
             >
-              <Text style={styles.expIndex}>{String(index + 1).padStart(2, '0')}</Text>
-              <View style={styles.expBody}>
-                <View style={styles.row}>
-                  <Text style={styles.expCompany}>{exp.company}</Text>
-                  <Text style={styles.expPeriod}>{exp.period}</Text>
-                </View>
-                <Text style={styles.expRole}>{exp.role}</Text>
-                {exp.points.map((point) => (
-                  <View
-                    key={point}
-                    style={styles.expPoint}
-                  >
-                    <Text style={styles.bullet}>•</Text>
-                    <Text style={styles.expPointText}>{point}</Text>
-                  </View>
-                ))}
+              <View style={styles.row}>
+                <Text style={styles.entryTitle}>{exp.company}</Text>
+                <Text style={styles.entryMeta}>{exp.period}</Text>
               </View>
-            </View>
+              <Text style={styles.entrySubtitle}>{exp.role}</Text>
+              {exp.points.map((point) => (
+                <View
+                  key={point}
+                  style={styles.point}
+                >
+                  <Text style={styles.bullet}>•</Text>
+                  <Text style={styles.pointText}>{point}</Text>
+                </View>
+              ))}
+            </Entry>
           ))}
         </Section>
       )}
@@ -395,15 +409,14 @@ export const ResumePdfDocument = ({ resume, projects }: ResumePdfDocumentProps) 
       {/* Projects — 성과 중심 요약. 전체 Problem/Action 서술은 웹에서 확인한다. */}
       {projects.length > 0 && (
         <Section eyebrow="02 · Selected work">
-          {projects.map((proj) => (
-            <View
+          {projects.map((proj, index) => (
+            <Entry
               key={proj.id}
-              style={styles.projectItem}
-              wrap={false}
+              index={index}
             >
               <View style={styles.row}>
-                <Text style={styles.projectTitle}>{proj.title}</Text>
-                <Text style={styles.projectMeta}>
+                <Text style={styles.entryTitle}>{proj.title}</Text>
+                <Text style={styles.entryMeta}>
                   {proj.company} | {proj.period}
                 </Text>
               </View>
@@ -412,10 +425,10 @@ export const ResumePdfDocument = ({ resume, projects }: ResumePdfDocumentProps) 
               )}
               {proj.role && <Text style={styles.projectRole}>{proj.role}</Text>}
               {proj.summary && <Text style={styles.projectSummary}>{proj.summary}</Text>}
-              {proj.challenges.map((challenge, index) =>
+              {proj.challenges.map((challenge, challengeIndex) =>
                 challenge.result ? (
                   <View
-                    key={`${proj.id}-result-${index}`}
+                    key={`${proj.id}-result-${challengeIndex}`}
                     style={styles.resultRow}
                   >
                     <Text style={styles.resultLabel}>RESULT</Text>
@@ -423,7 +436,7 @@ export const ResumePdfDocument = ({ resume, projects }: ResumePdfDocumentProps) 
                   </View>
                 ) : null
               )}
-            </View>
+            </Entry>
           ))}
         </Section>
       )}
@@ -431,37 +444,39 @@ export const ResumePdfDocument = ({ resume, projects }: ResumePdfDocumentProps) 
       {/* Skills */}
       {resume.skillGroups.length > 0 && (
         <Section eyebrow="03 · Capabilities">
-          {resume.skillGroups.map((group) => (
-            <View
-              key={group.label}
-              style={styles.skillGroup}
-              wrap={false}
-            >
-              <Text style={styles.skillGroupLabel}>{group.label}</Text>
-              <Text style={styles.skillGroupList}>{group.skills.join(' · ')}</Text>
-            </View>
-          ))}
+          <Entry>
+            {resume.skillGroups.map((group) => (
+              <View
+                key={group.label}
+                style={styles.skillGroup}
+              >
+                <Text style={styles.skillGroupLabel}>{group.label}</Text>
+                <Text style={styles.skillGroupList}>{group.skills.join(' · ')}</Text>
+              </View>
+            ))}
+          </Entry>
         </Section>
       )}
 
       {/* Education */}
       {resume.education.length > 0 && (
         <Section eyebrow="04 · Education">
-          {resume.education.map((item) => (
-            <View
-              key={`${item.school}-${item.period}`}
-              style={styles.eduItem}
-              wrap={false}
-            >
-              <View>
-                <Text style={styles.eduSchool}>{item.school}</Text>
-                <Text style={styles.eduCourse}>
-                  {[item.course, item.status].filter(Boolean).join(' · ')}
+          <Entry>
+            {resume.education.map((item) => (
+              <View
+                key={`${item.school}-${item.period}`}
+                style={styles.eduItem}
+              >
+                <Text>
+                  <Text style={styles.eduSchool}>{item.school}</Text>
+                  <Text style={styles.eduCourse}>
+                    {`  ${[item.course, item.status].filter(Boolean).join(' · ')}`}
+                  </Text>
                 </Text>
+                <Text style={styles.entryMeta}>{item.period}</Text>
               </View>
-              <Text style={styles.eduPeriod}>{item.period}</Text>
-            </View>
-          ))}
+            ))}
+          </Entry>
         </Section>
       )}
 
