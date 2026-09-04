@@ -127,17 +127,12 @@ const AdminPage = () => {
 
 const ResumeTab = () => {
   const [resume, setResume] = useState<ResumeData | null>(null);
-  const [projects, setProjects] = useState<Project[]>([]);
   const [editingExpId, setEditingExpId] = useState<string | null>(null);
   const [isAddingExp, setIsAddingExp] = useState(false);
 
   const fetchResume = useCallback(async () => {
-    const [resumeRes, projectsRes] = await Promise.all([
-      fetch('/api/resume'),
-      fetch('/api/projects'),
-    ]);
-    if (resumeRes.ok) setResume(await resumeRes.json());
-    if (projectsRes.ok) setProjects(await projectsRes.json());
+    const res = await fetch('/api/resume');
+    if (res.ok) setResume(await res.json());
   }, []);
 
   useEffect(() => {
@@ -218,10 +213,7 @@ const ResumeTab = () => {
         >
           Resume
         </Text>
-        <ResumePdfButton
-          resume={resume}
-          projects={projects}
-        />
+        <ResumePdfButton fileName={`${resume.intro.name || 'resume'}_이력서.pdf`} />
       </Flex>
 
       {/* Intro */}

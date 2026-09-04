@@ -2,36 +2,25 @@
 
 import { useState } from 'react';
 import { Button, Icon } from '@orka-log/ui';
-import type { Project } from '@/data/projects';
-import type { ResumeData } from '@/types/resume';
 
 interface ResumePdfButtonProps {
-  resume: ResumeData | null;
-  projects: Project[];
+  fileName?: string;
 }
 
-export const ResumePdfButton = ({ resume, projects }: ResumePdfButtonProps) => {
+export const ResumePdfButton = ({ fileName = 'resume.pdf' }: ResumePdfButtonProps) => {
   const [isGenerating, setIsGenerating] = useState(false);
 
   const handleDownload = async () => {
-    if (!resume) return;
-
     setIsGenerating(true);
     try {
-      const { pdf } = await import('@react-pdf/renderer');
-      const { ResumePdfDocument } = await import('./resume-pdf-document');
+      const response = await fetch('/api/resume/pdf');
+      if (!response.ok) throw new Error('Failed to generate PDF');
 
-      const blob = await pdf(
-        <ResumePdfDocument
-          resume={resume}
-          projects={projects}
-        />
-      ).toBlob();
-
+      const blob = await response.blob();
       const url = URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = url;
-      link.download = `${resume.intro.name || 'resume'}_이력서.pdf`;
+      link.download = fileName;
       link.click();
       URL.revokeObjectURL(url);
     } catch {
@@ -47,7 +36,7 @@ export const ResumePdfButton = ({ resume, projects }: ResumePdfButtonProps) => {
       size="sm"
       variant="outline"
       onClick={handleDownload}
-      disabled={!resume || isGenerating}
+      disabled={isGenerating}
     >
       <Icon
         name="download"

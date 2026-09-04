@@ -1,4 +1,4 @@
-import { ArrowDownRight, Github, Mail } from 'lucide-react';
+import { ArrowDownRight, Download, Github, Mail } from 'lucide-react';
 import { getProjects, getResume } from '@/lib/resume';
 import { ProjectRow } from './project-row';
 import { SectionHeading } from './section-heading';
@@ -71,6 +71,18 @@ export const ResumeView = async () => {
                   size={16}
                 />
                 GitHub
+              </a>
+              <a
+                href="/api/resume/pdf"
+                download
+                data-testid="resume-pdf-download"
+                className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-5 py-3 text-sm font-semibold text-foreground transition hover:-translate-y-0.5 hover:border-foreground/30 hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-4 focus-visible:ring-offset-background"
+              >
+                <Download
+                  aria-hidden="true"
+                  size={16}
+                />
+                PDF 다운로드
               </a>
             </div>
           </div>
