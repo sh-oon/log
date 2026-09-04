@@ -38,7 +38,8 @@ export const ResumeView = async () => {
               id="intro-heading"
               className="text-5xl font-bold tracking-[-0.055em] text-foreground sm:text-7xl lg:text-[5.5rem] lg:leading-[0.95]"
             >
-              정성훈<span className="text-blue-600 dark:text-blue-400">.</span>
+              {resume.intro.name}
+              <span className="text-blue-600 dark:text-blue-400">.</span>
             </h1>
 
             <p className="mt-8 max-w-3xl text-lg leading-8 text-muted-foreground sm:text-xl sm:leading-9">
