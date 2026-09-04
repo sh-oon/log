@@ -8,9 +8,11 @@ const PROJECTS_FILE = 'src/data/projects.json';
 const PROJECTS_BLOB = 'data/projects.json';
 
 const DEFAULT_RESUME: ResumeData = {
-  intro: { name: '', description: '', highlight: '' },
+  intro: { name: '', role: '', description: '', highlight: '', email: '', github: '' },
+  metrics: [],
   experiences: [],
-  skills: [],
+  skillGroups: [],
+  education: [],
 };
 
 // Migrate legacy project format (problem/action/result strings) to challenges array
@@ -19,7 +21,8 @@ interface LegacyProject {
   title: string;
   period: string;
   company: string;
-  contribution: string;
+  contribution?: string;
+  role?: string;
   summary: string;
   tech: string[];
   problem?: string;
@@ -29,7 +32,7 @@ interface LegacyProject {
 }
 
 const migrateProject = (raw: LegacyProject): Project => {
-  if (raw.challenges && raw.challenges.length > 0) {
+  if (raw.challenges && raw.challenges.length > 0 && raw.role) {
     return raw as Project;
   }
   return {
@@ -37,7 +40,7 @@ const migrateProject = (raw: LegacyProject): Project => {
     title: raw.title,
     period: raw.period,
     company: raw.company,
-    contribution: raw.contribution,
+    role: raw.role ?? raw.contribution ?? '',
     summary: raw.summary,
     tech: raw.tech,
     challenges: [
@@ -62,7 +65,9 @@ export const updateResume = async (data: ResumeData): Promise<ResumeData> => {
 // Projects
 export const getProjects = async (): Promise<Project[]> => {
   const raw = await readJson<LegacyProject[]>(PROJECTS_FILE, PROJECTS_BLOB, []);
-  const needsMigration = raw.some((p) => !p.challenges || p.challenges.length === 0);
+  const needsMigration = raw.some((project) =>
+    Boolean(!project.role || !project.challenges || project.challenges.length === 0)
+  );
   const migrated = raw.map(migrateProject);
 
   if (needsMigration) {
