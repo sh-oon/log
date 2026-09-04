@@ -8,7 +8,10 @@ import type { Post, PostMeta } from '@/types/post';
 type StatusFilter = 'all' | 'published' | 'draft';
 type EditorView = 'write' | 'split' | 'preview';
 type FormErrors = Partial<
-  Record<'slug' | 'title' | 'excerpt' | 'category' | 'date' | 'content', string>
+  Record<
+    'slug' | 'title' | 'excerpt' | 'category' | 'date' | 'content' | 'tags' | 'seriesOrder',
+    string
+  >
 >;
 
 const EMPTY_POST = (): Post => {
@@ -25,6 +28,7 @@ const EMPTY_POST = (): Post => {
     category: '',
     date: localDate,
     published: false,
+    tags: [],
   };
 };
 
@@ -49,6 +53,12 @@ const slugify = (value: string) =>
     .replace(/[^\p{Letter}\p{Number}]+/gu, '-')
     .replace(/^-+|-+$/g, '');
 
+const parseTags = (value: string) =>
+  value
+    .split(',')
+    .map((tag) => tag.trim())
+    .filter(Boolean);
+
 const validatePost = (post: Post): FormErrors => {
   const errors: FormErrors = {};
 
@@ -62,6 +72,14 @@ const validatePost = (post: Post): FormErrors => {
   if (!post.date) errors.date = '작성일을 선택해 주세요.';
   if (!post.content.trim()) errors.content = '본문을 입력해 주세요.';
   if (post.excerpt.length > 200) errors.excerpt = '요약은 200자 이내로 작성해 주세요.';
+  if ((post.tags?.length ?? 0) > 10) errors.tags = '태그는 최대 10개까지 입력할 수 있습니다.';
+  if (post.tags?.some((tag) => tag.length > 30)) errors.tags = '각 태그는 30자 이내여야 합니다.';
+  if (
+    post.seriesOrder !== undefined &&
+    (!Number.isInteger(post.seriesOrder) || post.seriesOrder < 1)
+  ) {
+    errors.seriesOrder = '순서는 1 이상의 정수여야 합니다.';
+  }
 
   return errors;
 };
@@ -118,8 +136,16 @@ export const PostManager = () => {
         const matchesStatus =
           statusFilter === 'all' ||
           (statusFilter === 'published' ? post.published : !post.published);
-        const haystack =
-          `${post.title} ${post.excerpt} ${post.category} ${post.slug}`.toLocaleLowerCase();
+        const haystack = [
+          post.title,
+          post.excerpt,
+          post.category,
+          post.slug,
+          post.series,
+          ...(post.tags ?? []),
+        ]
+          .join(' ')
+          .toLocaleLowerCase();
         return matchesStatus && (!deferredQuery || haystack.includes(deferredQuery));
       }),
     [deferredQuery, posts, statusFilter]
@@ -292,7 +318,7 @@ export const PostManager = () => {
             <Input
               value={query}
               onChange={(event) => setQuery(event.target.value)}
-              placeholder="제목, 카테고리, slug 검색"
+              placeholder="제목, 카테고리, 태그 검색"
               aria-label="글 검색"
               className="pl-9"
             />
@@ -345,6 +371,12 @@ export const PostManager = () => {
                         {post.published ? '발행됨' : '임시 글'}
                       </Badge>
                       {post.category ? <Badge>{post.category}</Badge> : null}
+                      {post.series ? (
+                        <Badge>
+                          {post.series}
+                          {post.seriesOrder ? ` #${post.seriesOrder}` : ''}
+                        </Badge>
+                      ) : null}
                       <span className="font-mono text-xs text-muted-foreground">{post.date}</span>
                     </div>
                     <Text
@@ -440,6 +472,7 @@ interface PostEditorProps {
 
 const PostEditor = ({ post, isNew, onSave, onCancel }: PostEditorProps) => {
   const [form, setForm] = useState<Post>(post);
+  const [tagsInput, setTagsInput] = useState((post.tags ?? []).join(', '));
   const [view, setView] = useState<EditorView>('split');
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSaving, setIsSaving] = useState(false);
@@ -559,6 +592,9 @@ const PostEditor = ({ post, isNew, onSave, onCancel }: PostEditorProps) => {
       excerpt: form.excerpt.trim(),
       category: form.category.trim(),
       content: form.content.trim(),
+      tags: parseTags(tagsInput),
+      series: form.series?.trim() || undefined,
+      seriesOrder: form.series?.trim() ? form.seriesOrder : undefined,
     };
     const nextErrors = validatePost(nextForm);
     setErrors(nextErrors);
@@ -572,7 +608,7 @@ const PostEditor = ({ post, isNew, onSave, onCancel }: PostEditorProps) => {
     const saved = await onSave(nextForm);
     setIsSaving(false);
     if (saved) window.localStorage.removeItem(draftKey);
-  }, [draftKey, form, onSave]);
+  }, [draftKey, form, onSave, tagsInput]);
 
   useEffect(() => {
     const saveWithShortcut = (event: KeyboardEvent) => {
@@ -653,6 +689,7 @@ const PostEditor = ({ post, isNew, onSave, onCancel }: PostEditorProps) => {
               size="sm"
               onClick={() => {
                 setForm(recoverableDraft);
+                setTagsInput((recoverableDraft.tags ?? []).join(', '));
                 setRecoverableDraft(null);
                 toast.success('임시 저장 내용을 복구했습니다.');
               }}
@@ -750,6 +787,74 @@ const PostEditor = ({ post, isNew, onSave, onCancel }: PostEditorProps) => {
               />
             )}
           </Field>
+        </div>
+
+        <div className="rounded-xl border border-border bg-muted/20 p-4">
+          <div className="mb-4 flex items-center gap-2">
+            <Icon
+              name="tags"
+              size={16}
+              className="text-muted-foreground"
+            />
+            <Text typography="text-sm-bold">글 분류</Text>
+          </div>
+          <div className="space-y-4">
+            <Field
+              label="태그"
+              helperText="쉼표로 구분합니다. 태그별 묶어보기에 사용됩니다."
+              errorMessage={errors.tags}
+            >
+              {(fieldProps) => (
+                <Input
+                  {...fieldProps}
+                  value={tagsInput}
+                  onChange={(event) => {
+                    const value = event.target.value;
+                    setTagsInput(value);
+                    updateForm('tags', parseTags(value));
+                  }}
+                  placeholder="예: react, monorepo, dx"
+                />
+              )}
+            </Field>
+            <div className="grid gap-4 md:grid-cols-[1fr_160px]">
+              <Field
+                label="시리즈"
+                helperText="연재 글이 아니라면 비워두세요."
+              >
+                {(fieldProps) => (
+                  <Input
+                    {...fieldProps}
+                    value={form.series ?? ''}
+                    onChange={(event) => updateForm('series', event.target.value || undefined)}
+                    placeholder="예: 모노레포 구축기"
+                  />
+                )}
+              </Field>
+              <Field
+                label="시리즈 순서"
+                errorMessage={errors.seriesOrder}
+              >
+                {(fieldProps) => (
+                  <Input
+                    {...fieldProps}
+                    type="number"
+                    min={1}
+                    step={1}
+                    value={form.seriesOrder ?? ''}
+                    onChange={(event) =>
+                      updateForm(
+                        'seriesOrder',
+                        event.target.value ? Number(event.target.value) : undefined
+                      )
+                    }
+                    disabled={!form.series}
+                    placeholder="1"
+                  />
+                )}
+              </Field>
+            </div>
+          </div>
         </div>
 
         <div>
@@ -864,6 +969,12 @@ const PostEditor = ({ post, isNew, onSave, onCancel }: PostEditorProps) => {
                     <header className="mb-8 border-b border-border pb-6">
                       <div className="mb-3 flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
                         {form.category ? <Badge>{form.category}</Badge> : null}
+                        {form.series ? (
+                          <Badge>
+                            {form.series}
+                            {form.seriesOrder ? ` #${form.seriesOrder}` : ''}
+                          </Badge>
+                        ) : null}
                         <span>{form.date}</span>
                       </div>
                       <Text
@@ -880,6 +991,18 @@ const PostEditor = ({ post, isNew, onSave, onCancel }: PostEditorProps) => {
                         >
                           {form.excerpt}
                         </Text>
+                      ) : null}
+                      {form.tags?.length ? (
+                        <div className="mt-4 flex flex-wrap gap-1.5">
+                          {form.tags.map((tag) => (
+                            <span
+                              key={tag}
+                              className="rounded-full bg-muted px-2 py-1 text-xs text-muted-foreground"
+                            >
+                              #{tag}
+                            </span>
+                          ))}
+                        </div>
                       ) : null}
                     </header>
                   ) : null}

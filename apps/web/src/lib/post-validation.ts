@@ -16,7 +16,7 @@ const hasValidDate = (value: string) => {
 
 const validateFields = (input: Record<string, unknown>, partial: boolean): string | null => {
   const requiredTextFields = ['slug', 'title', 'category', 'date', 'content'] as const;
-  const textFields = [...requiredTextFields, 'excerpt'] as const;
+  const textFields = [...requiredTextFields, 'excerpt', 'series'] as const;
 
   for (const field of textFields) {
     const value = input[field];
@@ -30,6 +30,26 @@ const validateFields = (input: Record<string, unknown>, partial: boolean): strin
     return 'published must be a boolean';
   }
   if (!partial && typeof input.published !== 'boolean') return 'published is required';
+
+  if (
+    input.tags !== undefined &&
+    (!Array.isArray(input.tags) || input.tags.some((tag) => typeof tag !== 'string'))
+  ) {
+    return 'tags must be an array of strings';
+  }
+  if (Array.isArray(input.tags)) {
+    const tags = input.tags.map((tag) => (tag as string).trim()).filter(Boolean);
+    if (tags.length > 10) return 'tags must contain 10 items or fewer';
+    if (tags.some((tag) => tag.length > 30)) return 'each tag must be 30 characters or fewer';
+  }
+  if (
+    input.seriesOrder !== undefined &&
+    (typeof input.seriesOrder !== 'number' ||
+      !Number.isInteger(input.seriesOrder) ||
+      input.seriesOrder < 1)
+  ) {
+    return 'seriesOrder must be a positive integer';
+  }
 
   if (typeof input.slug === 'string' && !SLUG_PATTERN.test(input.slug)) {
     return 'slug may only contain letters, numbers, and hyphens';
@@ -64,6 +84,15 @@ export const validateNewPost = (value: unknown): ValidationResult<Post> => {
       date: value.date as string,
       content: (value.content as string).trim(),
       published: value.published as boolean,
+      tags: Array.isArray(value.tags)
+        ? value.tags.map((tag) => (tag as string).trim()).filter(Boolean)
+        : [],
+      series:
+        typeof value.series === 'string' && value.series.trim() ? value.series.trim() : undefined,
+      seriesOrder:
+        typeof value.series === 'string' && value.series.trim()
+          ? (value.seriesOrder as number | undefined)
+          : undefined,
     },
   };
 };
@@ -81,6 +110,9 @@ export const validatePostUpdates = (
     'date',
     'content',
     'published',
+    'tags',
+    'series',
+    'seriesOrder',
   ]);
   const updates = Object.fromEntries(
     Object.entries(value).filter(([key]) => allowedFields.has(key as keyof Post))
@@ -94,5 +126,18 @@ export const validatePostUpdates = (
   const error = validateFields(updates as Record<string, unknown>, true);
   if (error) return { error };
 
-  return { data: updates };
+  const normalizedUpdates: Partial<Post> = { ...updates };
+  if (updates.title !== undefined) normalizedUpdates.title = updates.title.trim();
+  if (updates.excerpt !== undefined) normalizedUpdates.excerpt = updates.excerpt.trim();
+  if (updates.category !== undefined) normalizedUpdates.category = updates.category.trim();
+  if (updates.content !== undefined) normalizedUpdates.content = updates.content.trim();
+  if (updates.tags !== undefined) {
+    normalizedUpdates.tags = updates.tags.map((tag) => tag.trim()).filter(Boolean);
+  }
+  if (updates.series !== undefined) {
+    normalizedUpdates.series = updates.series.trim() || undefined;
+    if (!normalizedUpdates.series) normalizedUpdates.seriesOrder = undefined;
+  }
+
+  return { data: normalizedUpdates };
 };

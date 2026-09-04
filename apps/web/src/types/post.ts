@@ -6,6 +6,9 @@ export interface Post {
   category: string;
   date: string;
   published: boolean;
+  tags?: string[];
+  series?: string;
+  seriesOrder?: number;
 }
 
 export interface PostMeta {
@@ -15,4 +18,7 @@ export interface PostMeta {
   category: string;
   date: string;
   published: boolean;
+  tags?: string[];
+  series?: string;
+  seriesOrder?: number;
 }
