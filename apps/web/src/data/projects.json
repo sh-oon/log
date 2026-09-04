@@ -1,5 +1,6 @@
 [
   {
+    "contentVersion": 1,
     "id": "smds",
     "title": "SMDS 디자인 시스템",
     "period": "2025.03 — 진행 중",
@@ -16,6 +17,7 @@
     ]
   },
   {
+    "contentVersion": 1,
     "id": "agentic-rag",
     "title": "Agentic RAG 기반 지능형 챗봇",
     "period": "2026.04 — 진행 중",
@@ -32,6 +34,7 @@
     ]
   },
   {
+    "contentVersion": 1,
     "id": "mes",
     "title": "제조 실행 시스템(MES) 고도화",
     "period": "2023.10 — 2024.05",
@@ -48,6 +51,7 @@
     ]
   },
   {
+    "contentVersion": 1,
     "id": "build-simply",
     "title": "3D 건축 설계 플랫폼 빌드심플리",
     "period": "2023.05 — 2023.10",
@@ -64,6 +68,7 @@
     ]
   },
   {
+    "contentVersion": 1,
     "id": "missing-child",
     "title": "개인정보 비저장형 실시간 미아 찾기",
     "period": "2023.01 — 2023.03",
@@ -80,6 +85,7 @@
     ]
   },
   {
+    "contentVersion": 1,
     "id": "custom-pendant",
     "title": "커스텀 펜던트 플랫폼 레거시 개선",
     "period": "2021.10 — 2023.01",
