@@ -17,10 +17,15 @@ Font.register({
   ],
 });
 
+// 한글은 단어 내부에 공백이 없어 기본 하이픈 분절이 어색하다. 어디서든 줄바꿈되도록 둔다.
+Font.registerHyphenationCallback((word) => [word]);
+
+// 웹 팔레트와 동일하게 blue-600 액센트 + 중립 그레이 스케일을 사용한다.
 const colors = {
-  text: '#333333',
-  muted: '#666666',
-  light: '#999999',
+  accent: '#2563eb',
+  text: '#171717',
+  muted: '#525252',
+  light: '#a3a3a3',
   border: '#e5e5e5',
   white: '#ffffff',
 };
@@ -28,178 +33,236 @@ const colors = {
 const styles = StyleSheet.create({
   page: {
     fontFamily: 'Pretendard',
-    fontSize: 10,
+    fontSize: 9,
     color: colors.text,
     backgroundColor: colors.white,
-    paddingTop: 40,
-    paddingBottom: 40,
-    paddingHorizontal: 40,
-    lineHeight: 1.5,
+    paddingTop: 44,
+    paddingBottom: 48,
+    paddingHorizontal: 46,
+    lineHeight: 1.45,
+  },
+  // Shared
+  eyebrow: {
+    fontSize: 7.5,
+    fontWeight: 700,
+    color: colors.accent,
+    letterSpacing: 1.6,
+    textTransform: 'uppercase',
+  },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-end',
   },
   // Header
   headerName: {
-    fontSize: 22,
+    fontSize: 27,
     fontWeight: 700,
-    marginBottom: 4,
+    letterSpacing: -1,
+    lineHeight: 1.2,
+    marginTop: 6,
   },
-  headerRole: {
-    fontSize: 12,
-    color: colors.muted,
-    marginBottom: 4,
+  headerAccent: {
+    color: colors.accent,
   },
   headerContact: {
-    fontSize: 9,
+    fontSize: 8.5,
+    color: colors.muted,
+    textAlign: 'right',
+    lineHeight: 1.6,
+  },
+  intro: {
+    fontSize: 9.5,
+    color: colors.muted,
+    lineHeight: 1.65,
+    marginTop: 14,
+  },
+  introHighlight: {
+    fontWeight: 700,
+    color: colors.text,
+  },
+  // Metrics
+  metrics: {
+    flexDirection: 'row',
+    marginTop: 18,
+    paddingVertical: 12,
+    borderTopWidth: 1,
+    borderTopColor: colors.border,
+    borderBottomWidth: 1,
+    borderBottomColor: colors.border,
+  },
+  metricItem: {
+    flex: 1,
+    paddingRight: 14,
+    borderRightWidth: 1,
+    borderRightColor: colors.border,
+  },
+  metricItemLast: {
+    borderRightWidth: 0,
+    paddingRight: 0,
+  },
+  metricValue: {
+    fontSize: 15,
+    fontWeight: 700,
+    letterSpacing: -0.4,
+    lineHeight: 1.25,
+  },
+  metricLabel: {
+    fontSize: 8.5,
+    color: colors.muted,
+    marginTop: 2,
+  },
+  metricContext: {
+    fontSize: 7.5,
     color: colors.light,
+    marginTop: 1,
   },
   // Section
   section: {
     marginTop: 20,
+    paddingTop: 14,
+    borderTopWidth: 1,
+    borderTopColor: colors.border,
   },
-  sectionTitle: {
-    fontSize: 11,
-    fontWeight: 700,
-    textTransform: 'uppercase',
-    letterSpacing: 1.5,
-    color: colors.muted,
-    paddingBottom: 6,
-    borderBottomWidth: 1,
-    borderBottomColor: colors.border,
+  sectionEyebrow: {
     marginBottom: 10,
-  },
-  // About
-  aboutText: {
-    fontSize: 10,
-    lineHeight: 1.6,
-    color: colors.text,
-  },
-  // Metrics
-  metricsRow: {
-    flexDirection: 'row',
-    gap: 12,
-  },
-  metricItem: {
-    flex: 1,
-  },
-  metricValue: {
-    fontSize: 14,
-    fontWeight: 700,
-    marginBottom: 2,
-  },
-  metricLabel: {
-    fontSize: 9,
-    color: colors.muted,
-  },
-  metricContext: {
-    fontSize: 8,
-    color: colors.light,
   },
   // Experience
   expItem: {
-    marginBottom: 12,
-  },
-  expHeader: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 2,
+    marginBottom: 11,
+  },
+  expIndex: {
+    width: 20,
+    fontSize: 7.5,
+    fontWeight: 700,
+    color: colors.accent,
+    paddingTop: 2,
+  },
+  expBody: {
+    flex: 1,
   },
   expCompany: {
-    fontSize: 11,
+    fontSize: 10.5,
     fontWeight: 700,
+    lineHeight: 1.3,
   },
   expPeriod: {
-    fontSize: 9,
+    fontSize: 8,
     color: colors.light,
   },
   expRole: {
-    fontSize: 9,
-    color: colors.muted,
+    fontSize: 8.5,
+    color: colors.accent,
+    marginTop: 1,
     marginBottom: 4,
   },
   expPoint: {
-    fontSize: 9,
+    flexDirection: 'row',
+    marginBottom: 1.5,
+  },
+  bullet: {
+    width: 9,
+    fontSize: 8.5,
+    color: colors.light,
+  },
+  expPointText: {
+    flex: 1,
+    fontSize: 8.5,
     color: colors.muted,
-    marginBottom: 2,
-    paddingLeft: 8,
   },
   // Project
   projectItem: {
-    marginBottom: 14,
-  },
-  projectHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 2,
+    marginBottom: 10,
   },
   projectTitle: {
-    fontSize: 11,
+    fontSize: 10,
     fontWeight: 700,
+    lineHeight: 1.3,
   },
   projectMeta: {
-    fontSize: 9,
+    fontSize: 8,
     color: colors.light,
   },
   projectTech: {
-    fontSize: 8,
-    color: colors.muted,
-    marginBottom: 4,
+    fontSize: 7.5,
+    color: colors.light,
+    letterSpacing: 0.2,
+    marginTop: 1,
   },
-  projectLabel: {
-    fontSize: 9,
-    fontWeight: 700,
+  projectRole: {
+    fontSize: 8.5,
     color: colors.text,
     marginTop: 3,
   },
-  projectDesc: {
-    fontSize: 9,
+  projectSummary: {
+    fontSize: 8.5,
     color: colors.muted,
-    lineHeight: 1.5,
   },
-  challengeIndex: {
-    fontSize: 8,
+  resultRow: {
+    flexDirection: 'row',
+    marginTop: 3,
+  },
+  resultLabel: {
+    width: 38,
+    fontSize: 7,
     fontWeight: 700,
-    color: colors.light,
-    marginTop: 6,
-    marginBottom: 2,
+    color: colors.accent,
+    letterSpacing: 0.8,
+    paddingTop: 1.5,
+  },
+  resultText: {
+    flex: 1,
+    fontSize: 8.5,
+    color: colors.muted,
   },
   // Skills
   skillGroup: {
     flexDirection: 'row',
-    marginBottom: 6,
+    marginBottom: 5,
   },
   skillGroupLabel: {
-    fontSize: 9,
+    width: 84,
+    fontSize: 8,
     fontWeight: 700,
-    color: colors.text,
-    width: 90,
+    color: colors.accent,
+    letterSpacing: 0.4,
+    paddingTop: 0.5,
   },
   skillGroupList: {
     flex: 1,
-    fontSize: 9,
+    fontSize: 8.5,
     color: colors.muted,
-    lineHeight: 1.5,
   },
   // Education
   eduItem: {
-    marginBottom: 8,
-  },
-  eduHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
+    alignItems: 'flex-end',
+    marginBottom: 4,
   },
   eduSchool: {
-    fontSize: 10,
+    fontSize: 9,
     fontWeight: 700,
   },
+  eduCourse: {
+    fontSize: 8.5,
+    color: colors.muted,
+  },
   eduPeriod: {
-    fontSize: 9,
+    fontSize: 8,
     color: colors.light,
   },
-  eduCourse: {
-    fontSize: 9,
-    color: colors.muted,
+  // Footer
+  // A4 높이 기준 상단 오프셋으로 배치한다. bottom 오프셋은 fixed 요소에서 화면 밖으로 밀린다.
+  pageNumber: {
+    position: 'absolute',
+    top: 800,
+    left: 46,
+    right: 46,
+    fontSize: 7.5,
+    color: colors.light,
+    textAlign: 'right',
   },
 });
 
@@ -209,22 +272,42 @@ interface ResumePdfDocumentProps {
 }
 
 interface SectionProps {
-  title: string;
+  eyebrow: string;
   children: ReactNode;
 }
 
-const Section = ({ title, children }: SectionProps) => {
+const Section = ({ eyebrow, children }: SectionProps) => {
   const [firstItem, ...restItems] = Children.toArray(children);
 
   return (
     <View style={styles.section}>
-      {/* Keeping the title with its first item prevents an orphaned heading at a page break. */}
+      {/* 제목과 첫 항목을 묶어 섹션 제목이 페이지 하단에 홀로 남지 않게 한다. */}
       <View wrap={false}>
-        <Text style={styles.sectionTitle}>{title}</Text>
+        <Text style={[styles.eyebrow, styles.sectionEyebrow]}>{eyebrow}</Text>
         {firstItem}
       </View>
       {restItems}
     </View>
+  );
+};
+
+interface IntroProps {
+  description: string;
+  highlight: string;
+}
+
+/** 웹 페이지와 동일하게 강조 문구만 굵게 표시한다. */
+const Intro = ({ description, highlight }: IntroProps) => {
+  const index = highlight ? description.indexOf(highlight) : -1;
+
+  if (index < 0) return <Text style={styles.intro}>{description}</Text>;
+
+  return (
+    <Text style={styles.intro}>
+      {description.slice(0, index)}
+      <Text style={styles.introHighlight}>{highlight}</Text>
+      {description.slice(index + highlight.length)}
+    </Text>
   );
 };
 
@@ -239,112 +322,107 @@ export const ResumePdfDocument = ({ resume, projects }: ResumePdfDocumentProps) 
     >
       {/* Header */}
       <View>
-        <Text style={styles.headerName}>{resume.intro.name}</Text>
-        <Text style={styles.headerRole}>{resume.intro.role || 'Frontend Developer'}</Text>
-        <Text style={styles.headerContact}>
-          {[resume.intro.email, resume.intro.github].filter(Boolean).join(' | ')}
-        </Text>
+        <Text style={styles.eyebrow}>{resume.intro.role || 'Frontend Developer'}</Text>
+        <View style={styles.row}>
+          <Text style={styles.headerName}>
+            {resume.intro.name}
+            <Text style={styles.headerAccent}>.</Text>
+          </Text>
+          <Text style={styles.headerContact}>
+            {resume.intro.email}
+            {'\n'}
+            {resume.intro.github.replace(/^https?:\/\//, '')}
+          </Text>
+        </View>
+        <Intro
+          description={resume.intro.description}
+          highlight={resume.intro.highlight}
+        />
       </View>
-
-      {/* About */}
-      {resume.intro.description && (
-        <Section title="About">
-          <Text style={styles.aboutText}>{resume.intro.description}</Text>
-        </Section>
-      )}
 
       {/* Highlights */}
       {resume.metrics.length > 0 && (
-        <Section title="Highlights">
-          <View
-            style={styles.metricsRow}
-            wrap={false}
-          >
-            {resume.metrics.map((metric) => (
-              <View
-                key={metric.label}
-                style={styles.metricItem}
-              >
-                <Text style={styles.metricValue}>{metric.value}</Text>
-                <Text style={styles.metricLabel}>{metric.label}</Text>
-                <Text style={styles.metricContext}>{metric.context}</Text>
-              </View>
-            ))}
-          </View>
-        </Section>
+        <View
+          style={styles.metrics}
+          wrap={false}
+        >
+          {resume.metrics.map((metric, index) => (
+            <View
+              key={metric.label}
+              style={[
+                styles.metricItem,
+                index === resume.metrics.length - 1 ? styles.metricItemLast : {},
+              ]}
+            >
+              <Text style={styles.metricValue}>{metric.value}</Text>
+              <Text style={styles.metricLabel}>{metric.label}</Text>
+              <Text style={styles.metricContext}>{metric.context}</Text>
+            </View>
+          ))}
+        </View>
       )}
 
       {/* Experience */}
       {resume.experiences.length > 0 && (
-        <Section title="Experience">
-          {resume.experiences.map((exp) => (
+        <Section eyebrow="01 · Experience">
+          {resume.experiences.map((exp, index) => (
             <View
               key={exp.id}
               style={styles.expItem}
             >
-              <View style={styles.expHeader}>
-                <Text style={styles.expCompany}>{exp.company}</Text>
-                <Text style={styles.expPeriod}>{exp.period}</Text>
+              <Text style={styles.expIndex}>{String(index + 1).padStart(2, '0')}</Text>
+              <View style={styles.expBody}>
+                <View style={styles.row}>
+                  <Text style={styles.expCompany}>{exp.company}</Text>
+                  <Text style={styles.expPeriod}>{exp.period}</Text>
+                </View>
+                <Text style={styles.expRole}>{exp.role}</Text>
+                {exp.points.map((point) => (
+                  <View
+                    key={point}
+                    style={styles.expPoint}
+                  >
+                    <Text style={styles.bullet}>•</Text>
+                    <Text style={styles.expPointText}>{point}</Text>
+                  </View>
+                ))}
               </View>
-              <Text style={styles.expRole}>{exp.role}</Text>
-              {exp.points.map((point) => (
-                <Text
-                  key={point}
-                  style={styles.expPoint}
-                >
-                  {`•  ${point}`}
-                </Text>
-              ))}
             </View>
           ))}
         </Section>
       )}
 
-      {/* Projects */}
+      {/* Projects — 성과 중심 요약. 전체 Problem/Action 서술은 웹에서 확인한다. */}
       {projects.length > 0 && (
-        <Section title="Projects">
+        <Section eyebrow="02 · Selected work">
           {projects.map((proj) => (
             <View
               key={proj.id}
               style={styles.projectItem}
               wrap={false}
             >
-              <View style={styles.projectHeader}>
+              <View style={styles.row}>
                 <Text style={styles.projectTitle}>{proj.title}</Text>
                 <Text style={styles.projectMeta}>
                   {proj.company} | {proj.period}
                 </Text>
               </View>
               {proj.tech.length > 0 && (
-                <Text style={styles.projectTech}>Tech: {proj.tech.join(', ')}</Text>
+                <Text style={styles.projectTech}>{proj.tech.join(' · ')}</Text>
               )}
-              <Text style={styles.projectDesc}>{proj.role}</Text>
-              {proj.summary && <Text style={styles.projectDesc}>{proj.summary}</Text>}
-              {proj.challenges.map((ch, ci) => (
-                <View key={`${proj.id}-ch-${ci}`}>
-                  {proj.challenges.length > 1 && (
-                    <Text style={styles.challengeIndex}>Challenge {ci + 1}</Text>
-                  )}
-                  {ch.problem && (
-                    <>
-                      <Text style={styles.projectLabel}>Problem</Text>
-                      <Text style={styles.projectDesc}>{ch.problem}</Text>
-                    </>
-                  )}
-                  {ch.action && (
-                    <>
-                      <Text style={styles.projectLabel}>Action</Text>
-                      <Text style={styles.projectDesc}>{ch.action}</Text>
-                    </>
-                  )}
-                  {ch.result && (
-                    <>
-                      <Text style={styles.projectLabel}>Result</Text>
-                      <Text style={styles.projectDesc}>{ch.result}</Text>
-                    </>
-                  )}
-                </View>
-              ))}
+              {proj.role && <Text style={styles.projectRole}>{proj.role}</Text>}
+              {proj.summary && <Text style={styles.projectSummary}>{proj.summary}</Text>}
+              {proj.challenges.map((challenge, index) =>
+                challenge.result ? (
+                  <View
+                    key={`${proj.id}-result-${index}`}
+                    style={styles.resultRow}
+                  >
+                    <Text style={styles.resultLabel}>RESULT</Text>
+                    <Text style={styles.resultText}>{challenge.result}</Text>
+                  </View>
+                ) : null
+              )}
             </View>
           ))}
         </Section>
@@ -352,7 +430,7 @@ export const ResumePdfDocument = ({ resume, projects }: ResumePdfDocumentProps) 
 
       {/* Skills */}
       {resume.skillGroups.length > 0 && (
-        <Section title="Skills">
+        <Section eyebrow="03 · Capabilities">
           {resume.skillGroups.map((group) => (
             <View
               key={group.label}
@@ -368,24 +446,30 @@ export const ResumePdfDocument = ({ resume, projects }: ResumePdfDocumentProps) 
 
       {/* Education */}
       {resume.education.length > 0 && (
-        <Section title="Education">
+        <Section eyebrow="04 · Education">
           {resume.education.map((item) => (
             <View
               key={`${item.school}-${item.period}`}
               style={styles.eduItem}
               wrap={false}
             >
-              <View style={styles.eduHeader}>
+              <View>
                 <Text style={styles.eduSchool}>{item.school}</Text>
-                <Text style={styles.eduPeriod}>{item.period}</Text>
+                <Text style={styles.eduCourse}>
+                  {[item.course, item.status].filter(Boolean).join(' · ')}
+                </Text>
               </View>
-              <Text style={styles.eduCourse}>
-                {[item.course, item.status].filter(Boolean).join(' · ')}
-              </Text>
+              <Text style={styles.eduPeriod}>{item.period}</Text>
             </View>
           ))}
         </Section>
       )}
+
+      <Text
+        fixed
+        style={styles.pageNumber}
+        render={({ pageNumber, totalPages }) => `${pageNumber} / ${totalPages}`}
+      />
     </Page>
   </Document>
 );
