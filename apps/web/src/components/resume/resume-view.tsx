@@ -158,9 +158,9 @@ export const ResumeView = async () => {
           id="projects-heading"
           eyebrow="02 · Selected work"
           title="복잡한 문제를 실제 서비스의 변화로 연결했습니다."
-          description="카드를 선택하면 문제, 접근 방식, 결과를 프로젝트 단위로 확인할 수 있습니다."
+          description="최근 프로젝트부터 순서대로 정리했습니다. 항목을 선택하면 문제, 접근 방식, 결과를 프로젝트 단위로 확인할 수 있습니다."
         />
-        <div className="grid gap-5 md:grid-cols-2">
+        <ol>
           {projects.map((project, index) => (
             <ProjectRow
               key={project.id}
@@ -168,7 +168,7 @@ export const ResumeView = async () => {
               index={index}
             />
           ))}
-        </div>
+        </ol>
       </section>
 
       <div className="grid gap-20 border-t border-border py-20 lg:grid-cols-[1.35fr_0.65fr] lg:gap-20 lg:py-28">
