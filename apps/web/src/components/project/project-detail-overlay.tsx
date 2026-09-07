@@ -2,7 +2,7 @@
 
 import { useEffect, useId, useRef } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { CheckCircle2, Target, Wrench, X } from 'lucide-react';
+import { X } from 'lucide-react';
 import type { Project } from '@/data/projects';
 
 interface ProjectDetailOverlayProps {
@@ -11,12 +11,6 @@ interface ProjectDetailOverlayProps {
   onClose: () => void;
   onExit: () => void;
 }
-
-const sections = [
-  { key: 'problem' as const, label: '문제', icon: Target },
-  { key: 'action' as const, label: '접근', icon: Wrench },
-  { key: 'result' as const, label: '결과', icon: CheckCircle2 },
-];
 
 export const ProjectDetailOverlay = ({
   project,
@@ -114,7 +108,14 @@ export const ProjectDetailOverlay = ({
                 <dt className="font-mono text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
                   담당 역할
                 </dt>
-                <dd className="text-sm font-medium leading-6 text-foreground">{project.role}</dd>
+                <dd className="text-sm font-medium leading-6 text-foreground">
+                  {project.role}
+                  {project.contribution ? (
+                    <span className="ml-2 font-mono text-xs text-muted-foreground">
+                      {project.contribution}
+                    </span>
+                  ) : null}
+                </dd>
                 <dt className="font-mono text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
                   기술
                 </dt>
@@ -130,37 +131,68 @@ export const ProjectDetailOverlay = ({
                 </dd>
               </dl>
 
-              <div className="space-y-14 pt-12">
-                {project.challenges.map((challenge, challengeIndex) => (
-                  <section key={`${project.id}-${challengeIndex}`}>
-                    {project.challenges.length > 1 ? (
-                      <p className="mb-8 font-mono text-xs font-semibold uppercase tracking-[0.18em] text-blue-600 dark:text-blue-400">
-                        Challenge {String(challengeIndex + 1).padStart(2, '0')}
-                      </p>
-                    ) : null}
-
-                    <div className="space-y-9">
-                      {sections.map(({ key, label, icon: Icon }) => (
-                        <div
-                          key={key}
-                          className="grid gap-4 sm:grid-cols-[8rem_1fr]"
+              <div className="space-y-12 pt-12">
+                {project.responsibilities.length > 0 ? (
+                  <section>
+                    <h3 className="mb-6 font-mono text-xs font-semibold uppercase tracking-[0.18em] text-blue-600 dark:text-blue-400">
+                      담당 업무
+                    </h3>
+                    <ul className="space-y-3">
+                      {project.responsibilities.map((item) => (
+                        <li
+                          key={item}
+                          className="flex gap-3 text-[15px] leading-7 text-foreground/80"
                         >
-                          <h3 className="flex items-center gap-2 text-sm font-semibold text-foreground">
-                            <Icon
-                              aria-hidden="true"
-                              className="text-blue-600 dark:text-blue-400"
-                              size={16}
-                            />
-                            {label}
-                          </h3>
-                          <p className="text-[15px] leading-7 text-foreground/75">
-                            {challenge[key]}
-                          </p>
-                        </div>
+                          <span
+                            aria-hidden="true"
+                            className="mt-3 size-1 shrink-0 rounded-full bg-blue-600 dark:bg-blue-400"
+                          />
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </section>
+                ) : null}
+
+                {project.outcomes.length > 0 ? (
+                  <section className="rounded-2xl border border-border bg-muted/40 p-6 sm:p-7">
+                    <h3 className="mb-5 font-mono text-xs font-semibold uppercase tracking-[0.18em] text-blue-600 dark:text-blue-400">
+                      성과
+                    </h3>
+                    <ul className="space-y-3">
+                      {project.outcomes.map((item) => (
+                        <li
+                          key={item}
+                          className="flex gap-3 text-[15px] font-medium leading-7 text-foreground"
+                        >
+                          <span
+                            aria-hidden="true"
+                            className="mt-3 size-1 shrink-0 rounded-full bg-blue-600 dark:bg-blue-400"
+                          />
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </section>
+                ) : null}
+
+                {project.narrative.length > 0 ? (
+                  <section className="border-t border-border pt-10">
+                    <h3 className="mb-6 font-mono text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+                      상세
+                    </h3>
+                    <div className="space-y-6">
+                      {project.narrative.map((paragraph) => (
+                        <p
+                          key={paragraph}
+                          className="text-[15px] leading-8 text-foreground/75"
+                        >
+                          {paragraph}
+                        </p>
                       ))}
                     </div>
                   </section>
-                ))}
+                ) : null}
               </div>
             </div>
           </motion.div>
