@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
   headerName: {
     fontSize: type.display,
     fontWeight: 700,
-    letterSpacing: -1,
+    letterSpacing: -0.4,
     lineHeight: leading.tight,
     marginTop: space.xs,
   },
@@ -194,7 +194,7 @@ const styles = StyleSheet.create({
   entryTitle: {
     fontSize: type.title,
     fontWeight: 700,
-    lineHeight: leading.snug,
+    lineHeight: leading.tight,
   },
   entryMeta: {
     fontSize: type.meta,
@@ -204,8 +204,8 @@ const styles = StyleSheet.create({
   entrySubtitle: {
     fontSize: type.meta,
     color: colors.accent,
-    lineHeight: leading.normal,
-    marginBottom: space.xs,
+    lineHeight: leading.snug,
+    marginBottom: space.sm,
   },
   // Experience
   point: {
