@@ -156,12 +156,20 @@ const styles = StyleSheet.create({
     color: colors.muted,
     lineHeight: 1.5,
   },
-  challengeIndex: {
-    fontSize: 8,
-    fontWeight: 700,
-    color: colors.light,
-    marginTop: 6,
+  projectPoint: {
+    fontSize: 9,
+    color: colors.muted,
+    lineHeight: 1.5,
     marginBottom: 2,
+    paddingLeft: 8,
+  },
+  projectOutcome: {
+    fontSize: 9,
+    fontWeight: 700,
+    color: colors.text,
+    lineHeight: 1.5,
+    marginBottom: 2,
+    paddingLeft: 8,
   },
   // Skills
   skillGroup: {
@@ -318,33 +326,36 @@ export const ResumePdfDocument = ({ resume, projects }: ResumePdfDocumentProps) 
               {proj.tech.length > 0 && (
                 <Text style={styles.projectTech}>Tech: {proj.tech.join(', ')}</Text>
               )}
-              <Text style={styles.projectDesc}>{proj.role}</Text>
+              <Text style={styles.projectDesc}>
+                {proj.contribution ? `${proj.role} | ${proj.contribution}` : proj.role}
+              </Text>
               {proj.summary && <Text style={styles.projectDesc}>{proj.summary}</Text>}
-              {proj.challenges.map((ch, ci) => (
-                <View key={`${proj.id}-ch-${ci}`}>
-                  {proj.challenges.length > 1 && (
-                    <Text style={styles.challengeIndex}>Challenge {ci + 1}</Text>
-                  )}
-                  {ch.problem && (
-                    <>
-                      <Text style={styles.projectLabel}>Problem</Text>
-                      <Text style={styles.projectDesc}>{ch.problem}</Text>
-                    </>
-                  )}
-                  {ch.action && (
-                    <>
-                      <Text style={styles.projectLabel}>Action</Text>
-                      <Text style={styles.projectDesc}>{ch.action}</Text>
-                    </>
-                  )}
-                  {ch.result && (
-                    <>
-                      <Text style={styles.projectLabel}>Result</Text>
-                      <Text style={styles.projectDesc}>{ch.result}</Text>
-                    </>
-                  )}
-                </View>
-              ))}
+              {proj.responsibilities.length > 0 && (
+                <>
+                  <Text style={styles.projectLabel}>담당 업무</Text>
+                  {proj.responsibilities.map((item) => (
+                    <Text
+                      key={item}
+                      style={styles.projectPoint}
+                    >
+                      {`•  ${item}`}
+                    </Text>
+                  ))}
+                </>
+              )}
+              {proj.outcomes.length > 0 && (
+                <>
+                  <Text style={styles.projectLabel}>성과</Text>
+                  {proj.outcomes.map((item) => (
+                    <Text
+                      key={item}
+                      style={styles.projectOutcome}
+                    >
+                      {`•  ${item}`}
+                    </Text>
+                  ))}
+                </>
+              )}
             </View>
           ))}
         </Section>

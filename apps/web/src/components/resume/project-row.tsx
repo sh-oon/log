@@ -61,7 +61,10 @@ export const ProjectRow = ({ project, index }: ProjectRowProps) => {
       </span>
 
       <span className="relative mt-auto block pt-8">
-        <span className="mb-4 block font-mono text-xs text-muted-foreground">{project.period}</span>
+        <span className="mb-4 block font-mono text-xs text-muted-foreground">
+          {project.period}
+          {project.contribution ? ` · ${project.contribution}` : ''}
+        </span>
         <span className="flex flex-wrap gap-2">
           {visibleTech.map((tech) => (
             <span

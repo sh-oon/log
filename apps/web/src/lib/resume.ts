@@ -9,7 +9,7 @@ const RESUME_BLOB = 'data/resume.json';
 const PROJECTS_FILE = 'src/data/projects.json';
 const PROJECTS_BLOB = 'data/projects.json';
 const RESUME_SCHEMA_VERSION = 1;
-const PROJECT_CONTENT_VERSION = 1;
+const PROJECT_CONTENT_VERSION = 2;
 
 const DEFAULT_RESUME = defaultResume satisfies ResumeData;
 const DEFAULT_PROJECTS = defaultProjects satisfies Project[];
@@ -34,8 +34,11 @@ const isCurrentProject = (project: unknown): project is Project =>
   isRecord(project) &&
   project.contentVersion === PROJECT_CONTENT_VERSION &&
   typeof project.role === 'string' &&
+  typeof project.contribution === 'string' &&
   Array.isArray(project.tech) &&
-  Array.isArray(project.challenges);
+  Array.isArray(project.responsibilities) &&
+  Array.isArray(project.outcomes) &&
+  Array.isArray(project.narrative);
 
 const isCurrentProjects = (projects: unknown): projects is Project[] =>
   Array.isArray(projects) && projects.every(isCurrentProject);

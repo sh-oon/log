@@ -55,15 +55,18 @@ export const ProjectManager = () => {
   };
 
   const emptyProject: Project = {
-    contentVersion: 1,
+    contentVersion: 2,
     id: '',
     title: '',
     period: '',
     company: '',
     role: '',
+    contribution: '',
     summary: '',
     tech: [],
-    challenges: [{ problem: '', action: '', result: '' }],
+    responsibilities: [''],
+    outcomes: [''],
+    narrative: [''],
   };
 
   return (
@@ -262,6 +265,16 @@ const ProjectEditor = ({
             )}
           </Field>
         </div>
+        <Field label="기여도">
+          {(fieldProps) => (
+            <Input
+              {...fieldProps}
+              value={form.contribution}
+              onChange={(e) => setForm((f) => ({ ...f, contribution: e.target.value }))}
+              placeholder="기여도 40%"
+            />
+          )}
+        </Field>
         <Field label="요약">
           {(fieldProps) => (
             <Textarea
@@ -306,118 +319,27 @@ const ProjectEditor = ({
             placeholder="기술 입력 후 Enter"
           />
         </div>
-        {/* Challenges */}
-        <div className="space-y-4">
-          <Flex
-            justify="between"
-            align="center"
-          >
-            <Text typography="text-sm-bold">Challenges (Problem → Action → Result)</Text>
-            <Button
-              size="sm"
-              variant="outline"
-              onClick={() =>
-                setForm((f) => ({
-                  ...f,
-                  challenges: [...f.challenges, { problem: '', action: '', result: '' }],
-                }))
-              }
-            >
-              <Icon
-                name="plus"
-                size={14}
-              />
-              Add Challenge
-            </Button>
-          </Flex>
-          {form.challenges.map((ch, ci) => (
-            <div
-              // biome-ignore lint/suspicious/noArrayIndexKey: challenges have no stable id, order is user-controlled
-              key={ci}
-              className="p-4 border border-border rounded-lg space-y-3"
-            >
-              <Flex
-                justify="between"
-                align="center"
-              >
-                <Text
-                  typography="text-xs-bold"
-                  color="muted"
-                >
-                  Challenge {ci + 1}
-                </Text>
-                {form.challenges.length > 1 && (
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() =>
-                      setForm((f) => ({
-                        ...f,
-                        challenges: f.challenges.filter((_, i) => i !== ci),
-                      }))
-                    }
-                  >
-                    <Icon
-                      name="trash-2"
-                      size={14}
-                    />
-                  </Button>
-                )}
-              </Flex>
-              <Field label="Problem">
-                {(fieldProps) => (
-                  <Textarea
-                    {...fieldProps}
-                    value={ch.problem}
-                    onChange={(e) =>
-                      setForm((f) => ({
-                        ...f,
-                        challenges: f.challenges.map((c, i) =>
-                          i === ci ? { ...c, problem: e.target.value } : c
-                        ),
-                      }))
-                    }
-                    rows={3}
-                  />
-                )}
-              </Field>
-              <Field label="Action">
-                {(fieldProps) => (
-                  <Textarea
-                    {...fieldProps}
-                    value={ch.action}
-                    onChange={(e) =>
-                      setForm((f) => ({
-                        ...f,
-                        challenges: f.challenges.map((c, i) =>
-                          i === ci ? { ...c, action: e.target.value } : c
-                        ),
-                      }))
-                    }
-                    rows={3}
-                  />
-                )}
-              </Field>
-              <Field label="Result">
-                {(fieldProps) => (
-                  <Textarea
-                    {...fieldProps}
-                    value={ch.result}
-                    onChange={(e) =>
-                      setForm((f) => ({
-                        ...f,
-                        challenges: f.challenges.map((c, i) =>
-                          i === ci ? { ...c, result: e.target.value } : c
-                        ),
-                      }))
-                    }
-                    rows={3}
-                  />
-                )}
-              </Field>
-            </div>
-          ))}
-        </div>
+        <TextListField
+          label="담당 업무"
+          hint="수행 내역이 아니라 어떤 문제를 어떻게 풀었는지가 드러나게 씁니다."
+          items={form.responsibilities}
+          onChange={(responsibilities) => setForm((f) => ({ ...f, responsibilities }))}
+          rows={2}
+        />
+        <TextListField
+          label="성과"
+          hint="가능하면 시간·건수·비율로. 예) 빌드 시간 15분 → 5분"
+          items={form.outcomes}
+          onChange={(outcomes) => setForm((f) => ({ ...f, outcomes }))}
+          rows={2}
+        />
+        <TextListField
+          label="상세 서술"
+          hint="이력서에 실리는 흐르는 문장입니다. 한 칸이 한 문단입니다."
+          items={form.narrative}
+          onChange={(narrative) => setForm((f) => ({ ...f, narrative }))}
+          rows={5}
+        />
         <Button
           onClick={() => {
             if (!form.id || !form.title) {
@@ -437,3 +359,82 @@ const ProjectEditor = ({
     </div>
   );
 };
+
+// ─── Text List Field ───
+
+/**
+ * Ordered list of free-text entries — 담당 업무, 성과, 서술 문단이 모두 같은 모양이다.
+ * 순서가 곧 출력 순서라 항목은 index 를 key 로 쓴다.
+ *
+ * @example
+ * <TextListField label="성과" items={outcomes} onChange={setOutcomes} rows={2} />
+ */
+const TextListField = ({
+  label,
+  hint,
+  items,
+  onChange,
+  rows,
+}: {
+  label: string;
+  hint: string;
+  items: string[];
+  onChange: (items: string[]) => void;
+  rows: number;
+}) => (
+  <div>
+    <Flex
+      justify="between"
+      align="center"
+      className="mb-1"
+    >
+      <Text typography="text-sm-bold">{label}</Text>
+      <Button
+        variant="ghost"
+        size="sm"
+        onClick={() => onChange([...items, ''])}
+      >
+        <Icon
+          name="plus"
+          size={14}
+        />
+      </Button>
+    </Flex>
+    <Text
+      typography="text-xs-regular"
+      color="muted"
+      className="mb-2"
+    >
+      {hint}
+    </Text>
+    <div className="space-y-2">
+      {items.map((item, index) => (
+        <Flex
+          // biome-ignore lint/suspicious/noArrayIndexKey: entries have no stable id, order is user-controlled
+          key={index}
+          gap={2}
+          align="start"
+        >
+          <Textarea
+            value={item}
+            onChange={(e) =>
+              onChange(items.map((current, i) => (i === index ? e.target.value : current)))
+            }
+            rows={rows}
+            className="flex-1"
+          />
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => onChange(items.filter((_, i) => i !== index))}
+          >
+            <Icon
+              name="x"
+              size={14}
+            />
+          </Button>
+        </Flex>
+      ))}
+    </div>
+  </div>
+);
