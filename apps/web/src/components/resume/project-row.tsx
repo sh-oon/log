@@ -2,7 +2,7 @@
 
 import { ArrowUpRight } from 'lucide-react';
 import { overlay } from 'overlay-kit';
-import { ProjectDetailOverlay } from '@/components/project/project-detail-overlay';
+import { ProjectDetailDialog } from '@/components/project/project-detail-dialog';
 import type { Project } from '@/data/projects';
 
 interface ProjectRowProps {
@@ -18,7 +18,7 @@ export const ProjectRow = ({ project, index }: ProjectRowProps) => {
 
   const handleOpen = () => {
     overlay.open(({ isOpen, close, unmount }) => (
-      <ProjectDetailOverlay
+      <ProjectDetailDialog
         project={project}
         isOpen={isOpen}
         onClose={close}
@@ -28,59 +28,68 @@ export const ProjectRow = ({ project, index }: ProjectRowProps) => {
   };
 
   return (
-    <button
-      type="button"
-      onClick={handleOpen}
-      aria-haspopup="dialog"
-      aria-label={`${project.title} 상세보기`}
-      data-testid={`project-row-${project.id}`}
-      className="group relative flex min-h-80 w-full flex-col overflow-hidden rounded-3xl border border-border bg-background p-7 text-left shadow-sm transition duration-300 hover:-translate-y-1 hover:border-blue-500/50 hover:shadow-xl hover:shadow-blue-950/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-4 focus-visible:ring-offset-background sm:p-8 dark:hover:shadow-blue-950/20"
-    >
-      <span
-        aria-hidden="true"
-        className="absolute -right-16 -top-16 size-40 rounded-full bg-blue-500/0 blur-2xl transition-colors duration-300 group-hover:bg-blue-500/10"
-      />
-
-      <span className="relative mb-10 flex items-start justify-between gap-6">
-        <span className="font-mono text-xs text-muted-foreground">
-          {String(index + 1).padStart(2, '0')} / {project.company}
-        </span>
-        <span className="flex size-10 shrink-0 items-center justify-center rounded-full border border-border bg-muted/50 text-muted-foreground transition duration-300 group-hover:border-blue-500 group-hover:bg-blue-500 group-hover:text-white">
-          <ArrowUpRight
-            aria-hidden="true"
-            size={18}
-          />
-        </span>
-      </span>
-
-      <span className="relative block text-2xl font-bold tracking-[-0.03em] text-foreground">
-        {project.title}
-      </span>
-      <span className="relative mt-3 block text-sm leading-6 text-muted-foreground">
-        {project.summary}
-      </span>
-
-      <span className="relative mt-auto block pt-8">
-        <span className="mb-4 block font-mono text-xs text-muted-foreground">
-          {project.period}
-          {project.contribution ? ` · ${project.contribution}` : ''}
-        </span>
-        <span className="flex flex-wrap gap-2">
-          {visibleTech.map((tech) => (
-            <span
-              key={tech}
-              className="rounded-full border border-border bg-muted/60 px-3 py-1 text-xs font-medium text-foreground/80"
-            >
-              {tech}
+    <li className="group border-t border-border first:border-t-0">
+      <button
+        type="button"
+        onClick={handleOpen}
+        aria-haspopup="dialog"
+        aria-label={`${project.title} 상세보기`}
+        data-testid={`project-row-${project.id}`}
+        className="flex w-full flex-col gap-5 rounded-2xl py-9 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-4 focus-visible:ring-offset-background md:grid md:grid-cols-[13rem_1fr] md:gap-x-12"
+      >
+        <span className="block">
+          <span className="mb-4 flex items-center gap-3">
+            <span className="font-mono text-xs text-blue-600 dark:text-blue-400">
+              {String(index + 1).padStart(2, '0')}
             </span>
-          ))}
-          {hiddenTechCount > 0 ? (
-            <span className="px-1 py-1 font-mono text-xs text-muted-foreground">
-              +{hiddenTechCount}
+            <span className="h-px w-8 bg-blue-500/40" />
+          </span>
+          <span className="block text-sm font-semibold text-foreground">{project.company}</span>
+          <span className="mt-2 block font-mono text-xs text-muted-foreground">
+            <span className="sr-only">기간: </span>
+            {project.period}
+          </span>
+          {project.contribution ? (
+            <span className="mt-1 block font-mono text-xs text-muted-foreground">
+              {project.contribution}
             </span>
           ) : null}
         </span>
-      </span>
-    </button>
+
+        <span className="block">
+          <span className="flex items-start justify-between gap-6">
+            <span className="text-xl font-bold tracking-[-0.03em] text-foreground transition-colors duration-300 group-hover:text-blue-600 sm:text-2xl dark:group-hover:text-blue-400">
+              {project.title}
+            </span>
+            <span className="flex size-9 shrink-0 items-center justify-center rounded-full border border-border bg-muted/50 text-muted-foreground transition duration-300 group-hover:border-blue-500 group-hover:bg-blue-500 group-hover:text-white">
+              <ArrowUpRight
+                aria-hidden="true"
+                size={16}
+              />
+            </span>
+          </span>
+
+          <span className="mt-3 block text-sm leading-6 text-muted-foreground">
+            {project.summary}
+          </span>
+
+          <span className="mt-5 flex flex-wrap gap-2">
+            {visibleTech.map((tech) => (
+              <span
+                key={tech}
+                className="rounded-full border border-border bg-muted/60 px-3 py-1 text-xs font-medium text-foreground/80"
+              >
+                {tech}
+              </span>
+            ))}
+            {hiddenTechCount > 0 ? (
+              <span className="px-1 py-1 font-mono text-xs text-muted-foreground">
+                +{hiddenTechCount}
+              </span>
+            ) : null}
+          </span>
+        </span>
+      </button>
+    </li>
   );
 };
