@@ -27,11 +27,11 @@ export const GroupSelector = ({ options, active }: GroupSelectorProps) => {
             aria-current={isActive ? 'page' : undefined}
             data-test-id={`group-option-${option}`}
             className={cn(
-              'inline-flex items-center rounded-full border px-3 py-1 text-xs font-medium transition-colors',
+              'inline-flex items-center rounded-full px-3 py-1 text-xs font-medium',
               'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40',
               isActive
-                ? 'bg-primary text-primary-foreground border-primary'
-                : 'bg-muted text-muted-foreground border-transparent hover:bg-muted/80'
+                ? 'border border-primary bg-primary text-primary-foreground'
+                : 'glass glass-hover text-muted-foreground hover:text-foreground'
             )}
           >
             {GROUP_LABELS[option]}
