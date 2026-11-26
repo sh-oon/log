@@ -9,7 +9,7 @@ interface BlogPostCardProps {
 export const BlogPostCard = ({ post }: BlogPostCardProps) => (
   <Link
     href={`/blog/${post.slug}`}
-    className="group block cursor-pointer border-b border-border pb-8"
+    className="glass glass-hover glass-sheen reveal group block cursor-pointer rounded-3xl p-6 sm:p-8"
   >
     <Flex
       align="center"

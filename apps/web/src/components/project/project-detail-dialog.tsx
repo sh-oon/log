@@ -79,9 +79,9 @@ export const ProjectDetailDialog = ({
 
   const motionProps = isDesktop
     ? {
-        initial: { opacity: 0, scale: 0.96, y: 16 },
+        initial: { opacity: 0, scale: 0.94, y: 24 },
         animate: { opacity: 1, scale: 1, y: 0 },
-        exit: { opacity: 0, scale: 0.97, y: 8 },
+        exit: { opacity: 0, scale: 0.97, y: 12 },
       }
     : {
         initial: { y: '100%' },
@@ -92,25 +92,27 @@ export const ProjectDetailDialog = ({
   return (
     <AnimatePresence onExitComplete={onExit}>
       {isOpen ? (
+        // 부모에 opacity를 걸면 backdrop root가 되어 뒤 화면이 흐려지지 않으므로, 페이드는 배경막에만 건다.
         <motion.div
           key="project-dialog"
           className="fixed inset-0 z-[100] flex items-end justify-center sm:items-center sm:p-6"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
         >
-          <button
+          <motion.button
             type="button"
             aria-label="프로젝트 상세 닫기"
-            className="absolute inset-0 cursor-default bg-gray-950/60 backdrop-blur-sm"
+            className="absolute inset-0 cursor-default bg-gray-950/35 dark:bg-black/45"
             onClick={onClose}
+            initial={{ opacity: 0, backdropFilter: 'blur(0px) saturate(100%)' }}
+            animate={{ opacity: 1, backdropFilter: 'blur(14px) saturate(140%)' }}
+            exit={{ opacity: 0, backdropFilter: 'blur(0px) saturate(100%)' }}
+            transition={{ duration: 0.35, ease: [0.2, 0.8, 0.2, 1] }}
           />
 
           <motion.div
             role="dialog"
             aria-modal="true"
             aria-labelledby={titleId}
-            className="relative flex max-h-[92vh] w-full flex-col overflow-hidden rounded-t-3xl border-t border-border bg-background shadow-2xl sm:max-h-[88vh] sm:max-w-4xl sm:rounded-3xl sm:border lg:max-w-5xl"
+            className="glass-strong relative flex max-h-[92vh] w-full flex-col overflow-hidden rounded-t-3xl sm:max-h-[88vh] sm:max-w-4xl sm:rounded-3xl lg:max-w-5xl"
             drag={isDesktop ? false : 'y'}
             dragListener={false}
             dragControls={dragControls}

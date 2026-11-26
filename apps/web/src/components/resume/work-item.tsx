@@ -10,7 +10,7 @@ interface WorkItemProps {
 export const WorkItem = ({ id, index, company, role, period, points }: WorkItemProps) => (
   <article
     data-testid={`work-item-${id}`}
-    className="group grid gap-6 border-t border-border py-9 first:border-t-0 first:pt-0 md:grid-cols-[13rem_1fr] md:gap-12"
+    className="glass glass-hover reveal group grid gap-6 rounded-3xl p-7 sm:p-9 md:grid-cols-[13rem_1fr] md:gap-12"
   >
     <header>
       <div className="mb-4 flex items-center gap-3">

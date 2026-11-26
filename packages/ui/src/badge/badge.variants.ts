@@ -10,7 +10,8 @@ export const badgeVariants = cva(
         destructive: 'bg-destructive-100 text-destructive-700',
         success: 'bg-success-100 text-success-700',
         warning: 'bg-warning-100 text-warning-700',
-        outline: 'border border-gray-200 text-gray-700 bg-transparent',
+        outline:
+          'border border-gray-200 text-gray-700 bg-transparent dark:border-white/15 dark:text-gray-300',
       },
       rounded: {
         none: 'rounded-none',

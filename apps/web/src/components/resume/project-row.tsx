@@ -28,14 +28,14 @@ export const ProjectRow = ({ project, index }: ProjectRowProps) => {
   };
 
   return (
-    <li className="group border-t border-border first:border-t-0">
+    <li className="reveal group">
       <button
         type="button"
         onClick={handleOpen}
         aria-haspopup="dialog"
         aria-label={`${project.title} 상세보기`}
         data-testid={`project-row-${project.id}`}
-        className="flex w-full flex-col gap-5 rounded-2xl py-9 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-4 focus-visible:ring-offset-background md:grid md:grid-cols-[13rem_1fr] md:gap-x-12"
+        className="glass glass-hover glass-sheen flex w-full flex-col gap-5 rounded-3xl p-7 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-4 focus-visible:ring-offset-background sm:p-9 md:grid md:grid-cols-[13rem_1fr] md:gap-x-12"
       >
         <span className="block">
           <span className="mb-4 flex items-center gap-3">

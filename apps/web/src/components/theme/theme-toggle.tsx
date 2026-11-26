@@ -29,7 +29,7 @@ export const ThemeToggle = () => {
     <button
       type="button"
       onClick={() => setTheme(nextTheme[theme])}
-      className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+      className="rounded-full p-2.5 text-muted-foreground transition-colors hover:bg-foreground/[0.06] hover:text-foreground dark:hover:bg-white/[0.08]"
       aria-label={labels[theme]}
       title={labels[theme]}
     >
