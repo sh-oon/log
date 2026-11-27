@@ -33,9 +33,9 @@
       "period": "2023.05 — 2024.05",
       "points": [
         "3D 건축 설계 플랫폼과 사내 MES의 프론트엔드 개발, 빌드·배포 개선.",
-        "BuildSimply: 랜딩 페이지 SSG 적용으로 Lighthouse SEO 62점 → 91점, LCP 4.2초 → 2.0초",
-        "BuildSimply: Puppeteer PDF 생성 서버 구축으로 레이아웃 오류 접수 월 15건 → 2건",
-        "MES: 데이터 계층을 React Query와 공용 fetch 모듈로 옮겨 API 호출 28% 감소, CRA → Vite 전환으로 프로덕션 빌드 약 30초 → 5초",
+        "BuildSimply: 검색 노출이 제한적이던 CSR 랜딩 페이지를 SSG로 바꾸고, 3D 모델·이미지 때문에 느리던 첫 화면을 코드 분할과 WebP 변환으로 개선",
+        "BuildSimply: 브라우저마다 레이아웃이 깨지던 PDF 견적서를 서버에서 만들도록 Puppeteer PDF 생성 서버 구축",
+        "MES: 화면 100곳의 조회·변경을 React Query와 공용 fetch 모듈로 옮기고, CRA → Vite 전환으로 프로덕션 빌드 약 30초 → 5초",
         "주요 프로젝트: BuildSimply, MES"
       ]
     },
@@ -46,7 +46,7 @@
       "period": "2021.10 — 2023.03",
       "points": [
         "커스텀 펜던트 플랫폼과 백오피스 개발, 미아찾기 서비스의 실시간 통신 구현.",
-        "Vue 2 → Vue 3 + Vite 무중단 전환: 빌드 21분 → 7분, 개발 서버 기동 11초 → 3초",
+        "서비스를 멈추지 않고 Vue 2 레거시를 Vue 3 + Vite로 단계적으로 전환",
         "이미지 편집 도구를 Off-screen Canvas로 바꿔 편집 중 브라우저 멈춤 감소",
         "미아찾기 서비스: 서버를 거치지 않는 WebRTC P2P 영상·음성 통신과 실시간 위치 표시",
         "주요 프로젝트: 커스텀 펜던트 플랫폼, 미아찾기 서비스"
